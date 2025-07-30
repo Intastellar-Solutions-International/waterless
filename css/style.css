@@ -23,6 +23,25 @@
     width: auto;
 }
 
+.dropdown-toggle{
+    color: var(--primary-color);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.dropdown-menu{
+    position: absolute;
+    background-color: white;
+    padding: 10px;
+    width: 100%;
+    z-index: 1000;
+    left: 0;
+    margin-top: 20px;
+    display: none;
+}
+
 .language-selector{
     display: flex;
     align-items: center;

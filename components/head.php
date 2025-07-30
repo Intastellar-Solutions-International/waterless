@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/fav/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/fav/favicon-16x16.png">
 </head>
 
 <body>
@@ -18,7 +21,17 @@
             </a>
             <nav class="main-nav">
                 <!-- Navigation items can be added here -->
-                <a href="/products">Products</a>
+                <section class="dropdown">
+                    <button class="dropdown-toggle">Products</button>
+                    <section class="dropdown-menu">
+                        <ul>
+                            <li><a href="/products/urinals">Urinals</a></li>
+                            <li><a href="/products/dryers">Dryers</a></li>
+                            <li><a href="/products/changing-tables">Changing Tables</a></li>
+                            <li><a href="/products/accessories">Accessories</a></li>
+                        </ul>
+                    </section>
+                </section>
                 <a href="/instructions">Instructions</a>
                 <a href="/business">For your business</a>
                 <a href="/about">About Us</a>
