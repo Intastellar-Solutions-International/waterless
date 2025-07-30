@@ -33,3 +33,7 @@ a {
     border-radius: 5px;
     cursor: pointer;
 }
+
+.cta-button:hover{
+    background-color: color-mix(in srgb, var(--primary-color), transparent 25%);
+}

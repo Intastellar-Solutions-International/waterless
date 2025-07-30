@@ -24,6 +24,10 @@
                 <a href="/about">About Us</a>
                 <a href="/contact">Contact</a>
 
+                <!-- Language selector -->
+                <button class="language-selector">
+                    <img class="language-icon" src="/assets/icons/flag-denmark.jpg" alt="Language Icon">
+                </button>
                 <!-- CTA -->
                 <a href="/quote" class="cta-button">Get a Quote</a>
             </nav>
