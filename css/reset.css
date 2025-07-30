@@ -1,0 +1,35 @@
+:root{
+    --primary-color: #4CAF50;
+    --secondary-color: #f0f0f0;
+    --text-color: #333;
+    --font-family: Arial, sans-serif;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.cta-button{
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
