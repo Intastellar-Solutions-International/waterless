@@ -7,7 +7,7 @@ include_once 'components/head.php';
         <p>Sustainable urinal solutions for your buildings and facilities.</p>
         <a href="/products" class="cta-button">Explore Products</a>
     </div>
-    <img src="/assets/hero/Urinals1.png" alt="Hero Image" class="hero-image">
+    <img src="https://waterless.dk/userfiles/image/Nytlayout/Urinals1.png" alt="Hero Image" class="hero-image">
 </article>
 <main>
 

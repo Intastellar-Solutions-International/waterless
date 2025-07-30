@@ -1,5 +1,16 @@
 .main-header{
-    background-color: #f8f9fa;
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+}
+
+.main-header.--fixed{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--secondary-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .header-content{
@@ -61,7 +72,7 @@
 /* Hero */
 .hero{
     width: 100%;
-    height: 500px;
+    height: 600px;
     background: #dcff69;
     position: relative;
     display: grid;
