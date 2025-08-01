@@ -9,7 +9,13 @@ include_once 'components/head.php';
     </div>
     <img src="https://waterless.dk/userfiles/image/Nytlayout/Urinals1.png" alt="Hero Image" class="hero-image">
 </article>
-<main>
+<main class="main-content">
+    <!-- Main content goes here -->
+    <section class="product-overview">
+        <h2>Vores produkter</h2>
+        <p>Discover our range of waterless urinals, efficient hand dryers, and more.</p>
+        <a href="/products" class="cta-button">View All Products</a>
+    </section>
 
 </main>
 <?php
