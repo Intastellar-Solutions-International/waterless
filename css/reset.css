@@ -37,3 +37,7 @@ a {
 .cta-button:hover{
     background-color: color-mix(in srgb, var(--primary-color), transparent 25%);
 }
+
+.ppad{
+    padding-block: 160px;
+}

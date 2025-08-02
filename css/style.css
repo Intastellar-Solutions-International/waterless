@@ -94,6 +94,17 @@
     left: 0;
 }
 
+/* Main Content */
+.main-content{
+
+}
+
+.content{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 /* Footer */
 .footer{
     background-color: var(--primary-color);
