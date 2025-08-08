@@ -20,12 +20,14 @@ include_once 'components/head.php';
             <h2>Changing the water consumption industry</h2>
         </section>
     </section>
-    <section>
-        <h2>All over the world since 1997 - 72 countries & counting</h2>
+    <section class="map-container">
         <div id="map"></div>
-        <h2>Company with stable position on the market.</h2>
-        <h3>We are present on the market since 1997 and we hold 80% of the Danish market in the Waterless Urinals industry.</h3>
-        <a href="">Get to know us</a>
+        <section>
+            <h2>All over the world since 1997 - 72 countries & counting</h2>
+            <h2>Company with stable position on the market.</h2>
+            <h3>We are present on the market since 1997 and we hold 80% of the Danish market in the Waterless Urinals industry.</h3>
+            <a href="">Get to know us</a>
+        </section>
     </section>
     <section class="grid cols-2 ppad">
         <img src="/assets/hero/63f76bfa9ee8a4f89044ef031c41fa4c50977249.png">
