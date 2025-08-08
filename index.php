@@ -13,8 +13,8 @@ include_once 'components/head.php';
 </article>
 <main class="main-content">
     <!-- Main content goes here -->
-    <section class="content grid cols-2">
-        <img src="/assets/products/urinal-eco-12.png">
+    <section class="ppad content grid cols-2">
+        <img src="/assets/products/urinal-eco-12.png" alt="Waterless Urinal" class="product-image">
         <section>
             <p>What we do</p>
             <h2>Changing the water consumption industry</h2>
@@ -26,9 +26,27 @@ include_once 'components/head.php';
         <h2>Company with stable position on the market.</h2>
         <h3>We are present on the market since 1997 and we hold 80% of the Danish market in the Waterless Urinals industry.</h3>
     </section>
-    <section>
+    <section class="grid cols-2 ppad">
         <img src="/assets/hero/63f76bfa9ee8a4f89044ef031c41fa4c50977249.png">
-        <h2>Water Savings</h2>
+        <article>
+            <h2>Water Savings</h2>
+            <p>Want to know how much you can save? Simply enter your details into our calculator and watch the savings add up!</p>
+        </article>
+    </section>
+    <section class="grid cols-2 ppad">
+        <img src="" alt="">
+        <section>
+            <p>Want to know how much you can save?
+                Simply enter your details into our calculator and watch the savings add up!</p>
+            <a href="">More Info</a>
+        </section>
+    </section>
+    <section class="grid cols-2 ppad">
+        <section>
+            <p>Installing waterless urinals is a breeze - no plumbing, no hassle, no problem!</p>
+            <a href="">Ho to install?</a>
+            <img src="" alt="">
+        </section>
     </section>
 </main>
 <?php
