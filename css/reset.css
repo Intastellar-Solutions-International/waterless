@@ -25,6 +25,10 @@ a {
     color: var(--primary-color);
 }
 
+address {
+    font-style: normal;
+}
+
 .cta-button{
     background-color: var(--primary-color);
     color: white;
@@ -40,4 +44,14 @@ a {
 
 .ppad{
     padding-block: 160px;
+}
+
+/* Grid */
+.grid {
+    display: grid !important;
+    gap: 20px;
+}
+
+.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
 }
