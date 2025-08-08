@@ -77,7 +77,7 @@
                     </section>
                 </section>
                 <!-- CTA -->
-                <a href=" /quote" class="cta-button --header">Get a Quote</a>
+                <a href=" /quote" class="cta-button --header">Make an enquiry</a>
             </nav>
         </section>
     </header>
