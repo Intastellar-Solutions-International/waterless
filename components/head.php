@@ -32,7 +32,7 @@
             <nav class="main-nav">
                 <!-- Navigation items can be added here -->
                 <section class="dropdown">
-                    <button class="dropdown-toggle nav-elements">Products</button>
+                    <button class="dropdown-toggle nav-elements">Produkter</button>
                     <section class="dropdown-menu">
                         <article class="dropdown-content grid cols-4">
                             <section>
@@ -53,10 +53,10 @@
                         </article>
                     </section>
                 </section>
-                <a href="/instructions" class="nav-elements">Instructions</a>
-                <a href="/business" class="nav-elements">For your business</a>
-                <a href="/about" class="nav-elements">About Us</a>
-                <a href="/contact" class="nav-elements">Contact</a>
+                <a href="/instructions" class="nav-elements">Instruktioner</a>
+                <a href="/business" class="nav-elements">Til din virksomhed</a>
+                <a href="/about" class="nav-elements">Om os</a>
+                <a href="/contact" class="nav-elements">Kontakt</a>
 
                 <!-- Language selector -->
                 <section class="dropdown">

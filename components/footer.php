@@ -12,6 +12,15 @@
             <h2>Contact Us</h2>
             <p>Email: info@waterless.dk</p>
         </article>
+        <article>
+            <h2>Business</h2>
+            <nav>
+                <a href="">About us</a>
+                <a href="">Careers</a>
+                <a href="">Partners</a>
+                <a href="">Privacy Policy</a>
+            </nav>
+        </article>
     </section>
     <div class="footer-content copy">
         <p>&copy; <?php echo date("Y"); ?> Waterless Scandinavia ApS. All rights reserved. Udviklet af <a href="https://www.intastellarsolutions.com" target="_blank" rel="noopener">Intastellar Solutions, International</a></p>
