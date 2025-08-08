@@ -9,7 +9,7 @@ include_once 'components/head.php';
             <a href="/products" class="cta-button">Explore Products</a>
         </section>
     </section>
-    <img src="https://waterless.dk/userfiles/image/Nytlayout/Urinals1.png" alt="Hero Image" class="hero-image">
+    <img src="/assets/hero/Dandryerforside.jpg" alt="Hero Image" class="hero-image">
 </article>
 <main class="main-content ppad">
     <!-- Main content goes here -->

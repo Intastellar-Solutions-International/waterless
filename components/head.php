@@ -26,12 +26,23 @@
                 <section class="dropdown">
                     <button class="dropdown-toggle nav-elements">Products</button>
                     <section class="dropdown-menu">
-                        <ul>
-                            <li><a href="/products/urinals">Urinals</a></li>
-                            <li><a href="/products/dryers">Dryers</a></li>
-                            <li><a href="/products/changing-tables">Changing Tables</a></li>
-                            <li><a href="/products/accessories">Accessories</a></li>
-                        </ul>
+                        <article class="dropdown-content grid cols-4">
+                            <section>
+                                <p>Desinfektion Dispenser & tilbehør</p>
+                            </section>
+                            <section>
+                                <p>Waterless Urinaler & tilbehør</p>
+                            </section>
+                            <section>
+                                <p>Rengøringsartikler til urinaler m.m.</p>
+                            </section>
+                            <section>
+                                <p>DanDryer komplette hygiejneløsninger</p>
+                            </section>
+                            <section>
+
+                            </section>
+                        </article>
                     </section>
                 </section>
                 <a href="/instructions" class="nav-elements">Instructions</a>
@@ -40,11 +51,25 @@
                 <a href="/contact" class="nav-elements">Contact</a>
 
                 <!-- Language selector -->
-                <button class="language-selector">
-                    <img class="language-icon" src="/assets/icons/flag-denmark.jpg" alt="Language Icon">
-                </button>
+                <section class="dropdown">
+                    <button class="language-selector dropdown-toggle">
+                        <img class="language-icon" src="/assets/icons/flag-denmark.jpg" alt="Language Icon">
+                    </button>
+                    <section class="dropdown-menu">
+                        <article class="dropdown-content languages">
+                            <a href="/en" class="language-option">
+                                <img src="/assets/icons/uk.webp" alt="English Flag" class="language-icon">
+                                English
+                            </a>
+                            <a href="/de" class="language-option">
+                                <img src="/assets/icons/flag-germany.jpg" alt="German Flag" class="language-icon">
+                                Deutsch
+                            </a>
+                        </article>
+                    </section>
+                </section>
                 <!-- CTA -->
-                <a href="/quote" class="cta-button">Get a Quote</a>
+                <a href=" /quote" class="cta-button --header">Get a Quote</a>
             </nav>
         </section>
     </header>
