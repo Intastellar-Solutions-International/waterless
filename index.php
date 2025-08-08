@@ -25,6 +25,7 @@ include_once 'components/head.php';
         <div id="map"></div>
         <h2>Company with stable position on the market.</h2>
         <h3>We are present on the market since 1997 and we hold 80% of the Danish market in the Waterless Urinals industry.</h3>
+        <a href="">Get to know us</a>
     </section>
     <section class="grid cols-2 ppad">
         <img src="/assets/hero/63f76bfa9ee8a4f89044ef031c41fa4c50977249.png">
