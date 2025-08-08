@@ -24,7 +24,7 @@
             <nav class="main-nav">
                 <!-- Navigation items can be added here -->
                 <section class="dropdown">
-                    <button class="dropdown-toggle">Products</button>
+                    <button class="dropdown-toggle nav-elements">Products</button>
                     <section class="dropdown-menu">
                         <ul>
                             <li><a href="/products/urinals">Urinals</a></li>
@@ -34,10 +34,10 @@
                         </ul>
                     </section>
                 </section>
-                <a href="/instructions">Instructions</a>
-                <a href="/business">For your business</a>
-                <a href="/about">About Us</a>
-                <a href="/contact">Contact</a>
+                <a href="/instructions" class="nav-elements">Instructions</a>
+                <a href="/business" class="nav-elements">For your business</a>
+                <a href="/about" class="nav-elements">About Us</a>
+                <a href="/contact" class="nav-elements">Contact</a>
 
                 <!-- Language selector -->
                 <button class="language-selector">
