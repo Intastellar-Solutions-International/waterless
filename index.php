@@ -13,10 +13,17 @@ include_once 'components/head.php';
 </article>
 <main class="main-content">
     <!-- Main content goes here -->
+    <section class="content grid cols-2">
+        <img src="/assets/products/urinal-eco-12.png">
+        <section>
+            <p>What we do</p>
+            <h2>Changing the water consumption industry</h2>
+        </section>
+    </section>
     <section>
         <h2>All over the world since 1997 - 72 countries & counting</h2>
         <div id="map"></div>
-        <h2>Comapny with stable position on the market.</h2>
+        <h2>Company with stable position on the market.</h2>
         <h3>We are present on the market since 1997 and we hold 80% of the Danish market in the Waterless Urinals industry.</h3>
     </section>
     <section>

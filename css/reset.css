@@ -36,6 +36,10 @@ address {
     font-style: normal;
 }
 
+img{
+    max-width: 100%;
+}
+
 .cta-button{
     background-color: var(--primary-color);
     color: white;
@@ -63,6 +67,10 @@ address {
 .grid {
     display: grid !important;
     gap: 20px;
+}
+
+.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .cols-3 {
