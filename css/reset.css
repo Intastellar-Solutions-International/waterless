@@ -2,7 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Nata+Sans:wght@100..900&display=swap');
 
 :root{
-    --primary-color: #4CAF50;
+    /* CSS HEX */
+    --lapis-lazuli: #005391ff;
+    --white: #FFFFFFff;
+    --pistachio: #A0C162ff;
+    --indigo-dye: #064B7Aff;
+    --lapis-lazuli-2: #235A80ff;
+
+    /* CSS HSL */
+    --lapis-lazuli: hsla(206, 100%, 28%, 1);
+    --white: hsla(0, 0%, 100%, 1);
+    --pistachio: hsla(81, 43%, 57%, 1);
+    --indigo-dye: hsla(204, 91%, 25%, 1);
+    --lapis-lazuli-2: hsla(205, 57%, 32%, 1);
+
+    --primary-color: var(--pistachio);
     --secondary-color: #f0f0f0;
     --text-color: #333;
     --font-family: Arial, sans-serif;
@@ -29,7 +43,7 @@ body {
 
 a {
     text-decoration: none;
-    color: var(--primary-color);
+    color: var(--pistachio);
 }
 
 address {
