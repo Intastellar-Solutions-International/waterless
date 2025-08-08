@@ -14,6 +14,7 @@ include_once 'components/head.php';
 <main class="main-content">
     <!-- Main content goes here -->
     <section>
+        <h2>All over the world since 1997 - 72 countries & counting</h2>
         <div id="map"></div>
         <h2>Comapny with stable position on the market.</h2>
         <h3>We are present on the market since 1997 and we hold 80% of the Danish market in the Waterless Urinals industry.</h3>
