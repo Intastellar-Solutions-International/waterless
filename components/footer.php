@@ -14,7 +14,7 @@
         </article>
     </section>
     <div class="footer-content copy">
-        <p>&copy; <?php echo date("Y"); ?> Waterless Scandinavia ApS. All rights reserved.</p>
+        <p>&copy; <?php echo date("Y"); ?> Waterless Scandinavia ApS. All rights reserved. Udviklet af <a href="https://www.intastellarsolutions.com" target="_blank" rel="noopener">Intastellar Solutions, International</a></p>
     </div>
 </footer>
 </body>

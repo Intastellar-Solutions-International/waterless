@@ -189,11 +189,11 @@
     margin-top: 10px;
 }
 
-.footer-nav a{
-    color: inherit;
+.footer-content a{
+    color: #fff;
     text-decoration: none;
 }
 
-.footer-nav a:hover{
+.footer-content a:hover{
     text-decoration: underline;
 }
