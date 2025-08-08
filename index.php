@@ -46,8 +46,8 @@ include_once 'components/head.php';
         <section>
             <p>Installing waterless urinals is a breeze - no plumbing, no hassle, no problem!</p>
             <a href="">Ho to install?</a>
-            <img src="" alt="">
         </section>
+        <img src="/assets/Projekt bez nazwy (25) 1.jpg" alt="">
     </section>
 </main>
 <?php

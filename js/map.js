@@ -98,7 +98,7 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', eve
     // Update the map layer
     map.eachLayer(layer => {
         if (layer instanceof L.TileLayer) {
-            layer.setUrl('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}');
+            layer.setUrl('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}');
         }
     });
 });
@@ -145,7 +145,7 @@ map.fitBounds(bounds, {
 });
 
 // Load OpenStreetMap tiles
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
     zoomControl: true
 }).addTo(map);
 
