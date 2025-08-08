@@ -51,6 +51,10 @@ include_once 'components/head.php';
         </section>
         <img src="/assets/Projekt bez nazwy (25) 1.jpg" alt="">
     </section>
+    <section class="grid cols-2 ppad">
+        <img src="https://waterless.dk/userfiles/image/Nytlayout/Outside_urinal.png" alt="">
+        <p>We´ve successfully installed countless urinals in various locations - delivering a 100% odor - free experience, guaranteed!</p>
+    </section>
 </main>
 <?php
 include_once 'components/footer.php';
