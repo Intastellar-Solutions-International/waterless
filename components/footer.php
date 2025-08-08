@@ -7,10 +7,11 @@
                 6310 Broager<br>
                 Denmark
             </address>
-        </article>
-        <article>
-            <h2>Contact Us</h2>
-            <p>Email: info@waterless.dk</p>
+            <p>
+                Tel: +45 74 44 11 81
+                <br>
+                Email: info@waterless.dk
+            </p>
         </article>
         <article>
             <h2>Business</h2>
