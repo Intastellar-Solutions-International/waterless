@@ -160,6 +160,12 @@
     left: 0;
 }
 
+#map {
+    width: 100%;
+    z-index: 0;
+    height: 600px;
+}
+
 /* Main Content */
 
 .content{
