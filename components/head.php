@@ -11,8 +11,16 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/fav/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/fav/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/fav/favicon-16x16.png">
-
+    <link rel="stylesheet" href="/css/leaflet/leaflet.css"
+        crossorigin="" />
+    <link href="
+    /css/lenis/lenis.min.css
+    " rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        crossorigin=""></script>
     <script src="/js/nav.js" defer></script>
+    <script src="/js/map.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.1/dist/lenis.min.js"></script>
 </head>
 
 <body>

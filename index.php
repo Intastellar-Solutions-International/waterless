@@ -11,18 +11,16 @@ include_once 'components/head.php';
     </section>
     <img src="/assets/hero/Dandryerforside.jpg" alt="Hero Image" class="hero-image">
 </article>
-<main class="main-content ppad">
+<main class="main-content">
     <!-- Main content goes here -->
-    <section class="content product-overview">
+    <section>
+        <div id="map"></div>
+        <h2>Comapny with stable position on the market.</h2>
+    </section>
+    <section>
+        <img src="/assets/hero/63f76bfa9ee8a4f89044ef031c41fa4c50977249.png">
         <h2>Water Savings</h2>
     </section>
-    <section class="content product-overview">
-        <h2>Company with stable position on the market</h2>
-    </section>
-    <section class="content grid cols-2">
-        <h2>Company with stable position on the market</h2>
-    </section>
-
 </main>
 <?php
 include_once 'components/footer.php';
