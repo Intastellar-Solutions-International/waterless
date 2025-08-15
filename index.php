@@ -7,15 +7,15 @@ include_once 'components/head.php';
         <section class="hero-text">
             <h1 class="hero-title">Changing the water consumption industry</h1>
             <p>Sustainable urinal solutions for your buildings and facilities.</p>
-            <a href="/products" class="cta-button">Explore Products</a>
+            <a href="products" class="cta-button">Explore Products</a>
         </section>
     </section>
-    <img src="/assets/hero/Urinals1.png" alt="Hero Image" class="hero-image">
+    <img src="assets/hero/Urinals1.png" alt="Hero Image" class="hero-image">
 </article>
 <main class="main-content">
     <!-- Main content goes here -->
     <section class="ppad content grid cols-2 content-center">
-        <img src="/assets/products/urinal-eco-12.png" alt="Waterless Urinal" class="product-image">
+        <img src="assets/products/urinal-eco-12.png" alt="Waterless Urinal" class="product-image">
         <section>
             <p>What we do</p>
             <h2>Changing the water consumption industry</h2>
@@ -31,7 +31,7 @@ include_once 'components/head.php';
         </section>
     </section>
     <section class="full-width-container">
-        <img class="full-width-image" src="/assets/hero/63f76bfa9ee8a4f89044ef031c41fa4c50977249.png">
+        <img class="full-width-image" src="assets/hero/63f76bfa9ee8a4f89044ef031c41fa4c50977249.png">
         <article class="full-width-article">
             <p class="">Customized case for you</p>
             <h2 class="">Water Savings</h2>
@@ -44,7 +44,7 @@ include_once 'components/head.php';
             <h2>Installing waterless urinals is a breeze - no plumbing, no hassle, no problem!</h2>
             <a href="">Ho to install?</a>
         </section>
-        <img src="/assets/Projekt bez nazwy (25) 1.jpg" alt="">
+        <img src="assets/Projekt bez nazwy (25) 1.jpg" alt="">
     </section>
     <section class="content grid cols-2 ppad content-center">
         <img src="https://waterless.dk/userfiles/image/Nytlayout/Outside_urinal.png" alt="">

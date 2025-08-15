@@ -1,7 +1,7 @@
 <footer class="footer">
     <section class="grid cols-2 footer-content ppad">
         <article>
-            <img src="/assets/logos/waterless-logo-2.jpg" alt="Waterless Scandinavia Logo" class="footer-logo">
+            <img src="assets/logos/waterless-logo-2.jpg" alt="Waterless Scandinavia Logo" class="footer-logo">
             <p>Upgrade to sustainability — save water, <br> cut costs, and stay ahead!</p>
         </article>
         <section class="grid cols-2">
@@ -22,7 +22,7 @@
             <article>
                 <h2>Business</h2>
                 <nav class="footer-nav">
-                    <a href="">About us</a>
+                    <a href="about">About us</a>
                     <a href="">Careers</a>
                     <a href="">Partners</a>
                     <a href="">Privacy Policy</a>

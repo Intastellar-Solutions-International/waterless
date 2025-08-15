@@ -131,16 +131,16 @@ const markersData = [
 ];
 
 let mapStyle = 'light_all'; // Default map style
-let marker = '/assets/map/icon.png';
+let marker = 'assets/map/icon.png';
 // Check if the user has a preference for dark mode
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     mapStyle = 'dark_all'; // Set to dark mode if preferred
-    marker = '/assets/map/icon.png';
+    marker = 'assets/map/icon.png';
 }
 // Check if the user has a preference for light mode
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
     mapStyle = 'light_all'; // Set to light mode if preferred
-    marker = '/assets/map/icon.png';
+    marker = 'assets/map/icon.png';
 }
 
 let customIcon = L.icon({
@@ -154,10 +154,10 @@ let customIcon = L.icon({
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
     if (event.matches) {
         mapStyle = 'dark_all'; // Set to dark mode if preferred
-        marker = '/assets/map/icon.png';
+        marker = 'assets/map/icon.png';
     } else {
         mapStyle = 'light_all'; // Set to light mode if preferred
-        marker = '/assets/map/icon.png';
+        marker = 'assets/map/icon.png';
     }
     // Update the map layer
     map.eachLayer(layer => {

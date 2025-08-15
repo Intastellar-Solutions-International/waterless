@@ -3,10 +3,10 @@
 $host = $_SERVER['HTTP_HOST'];
 
 // Check if $host contains 'localhost'
-if (str_contains($host, 'localhost') || str_contains($host, '127.0.0.1') || str_contains($host, '0.0.0.0')) {
+if (strpos($host, 'localhost') > -1 || strpos($host, '127.0.0.1') > -1 || strpos($host, '0.0.0.0') > -1) {
     $baseUrl = '/';
 } else {
-    $baseUrl = '/waterless/';
+    $baseUrl = 'https://inta.dev/waterless/';
 }
 ?>
 
@@ -40,8 +40,8 @@ if (str_contains($host, 'localhost') || str_contains($host, '127.0.0.1') || str_
     " rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         crossorigin=""></script>
-    <script src="/js/nav.js" defer></script>
-    <script src="/js/map.js" defer></script>
+    <script src="js/nav.js" defer></script>
+    <script src="js/map.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.1/dist/lenis.min.js"></script>
 </head>
 
