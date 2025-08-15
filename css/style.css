@@ -185,6 +185,20 @@
     width: 150px;
 }
 
+.product-page .product-image{
+    width: 100%;
+    height: 800px;
+    object-fit: contain;
+    object-position: center;
+    margin-inline: auto;
+    padding: 15px;
+    margin-bottom: 30px;
+}
+
+.product-page .cta{
+    margin-inline: auto;
+}
+
 .map-container{
     position: relative;
 }
