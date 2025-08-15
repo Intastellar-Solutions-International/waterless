@@ -13,7 +13,7 @@ include_once 'components/head.php';
 </article>
 <main class="main-content">
     <!-- Main content goes here -->
-    <section class="ppad content grid cols-2">
+    <section class="ppad content grid cols-2 content-center">
         <img src="/assets/products/urinal-eco-12.png" alt="Waterless Urinal" class="product-image">
         <section>
             <p>What we do</p>
@@ -38,16 +38,16 @@ include_once 'components/head.php';
             <p>Simply enter your details into our calculator <br>and watch the savings add up!</p>
         </article>
     </section>
-    <section class="content grid cols-2 ppad">
+    <section class="content grid cols-2 ppad content-center">
         <section>
-            <p>Installing waterless urinals is a breeze - no plumbing, no hassle, no problem!</p>
+            <h2>Installing waterless urinals is a breeze - no plumbing, no hassle, no problem!</h2>
             <a href="">Ho to install?</a>
         </section>
         <img src="/assets/Projekt bez nazwy (25) 1.jpg" alt="">
     </section>
-    <section class="content grid cols-2 ppad">
+    <section class="content grid cols-2 ppad content-center">
         <img src="https://waterless.dk/userfiles/image/Nytlayout/Outside_urinal.png" alt="">
-        <p>We´ve successfully installed countless urinals in various locations - delivering a 100% odor - free experience, guaranteed!</p>
+        <h2>We´ve successfully installed countless urinals in various locations - delivering a 100% odor - free experience, guaranteed!</h2>
     </section>
 </main>
 <?php
