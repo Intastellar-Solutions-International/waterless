@@ -9,11 +9,13 @@ include_once 'components/head.php';
             <img class="compatible-items" src="assets/products/housing-h3.png" alt="Housing H3">
         </section>
         <section>
-            <h1>Waterless urinal Eco 100% recycled plastic</h1>
             <img class="product-image" src="assets/products/urinal-eco-12.png" alt="Waterless urinal Eco 100% recycled plastic">
-            <a class="cta" href="#">How o use?</a>
         </section>
         <section class="grid cols-2">
+            <article class="--stretched">
+                <h1>Waterless urinal Eco 100% recycled plastic</h1>
+                <a class="cta" href="#">How to use?</a>
+            </article>
             <article>
                 <h3>Dimensions</h3>
                 <ul>
