@@ -85,6 +85,7 @@ img{
     border-radius: 25px;
     cursor: pointer;
     width: max-content;
+    text-align: center;
 }
 
 .cta-button.--header{
@@ -104,6 +105,7 @@ img{
     cursor: pointer;
     width: max-content;
     display: inline-block;
+    text-align: center;
 }
 
 .ppad{
