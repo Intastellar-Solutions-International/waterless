@@ -14,10 +14,10 @@ include_once 'components/head.php';
                 <h2>Curious to learn more about what we offer?</h2>
                 <p>Explore our website or give us a call — we’re happy to provide a no-obligation quote for your project.</p>
             </div>
-            <img src="path/to/image.jpg" alt="Waterless Scandinavia" />
+            <img src="assets/founders/jim.jpg" alt="Waterless Scandinavia" />
         </section>
         <section class="grid cols-2 ppad">
-            <img src="path/to/image.jpg" alt="Waterless Scandinavia" />
+            <img src="assets/founders/team.jpg" alt="Waterless Scandinavia" />
             <div>
                 <h2>Trust: Key to Waterless and Danish Society</h2>
                 <p>At Waterless, trust is the foundation of our success. It allows our team to work seamlessly, innovate, and deliver sustainable water-saving solutions. We rely on transparency, reliability, and mutual respect to ensure the best outcomes for our clients and the environment.</p>
