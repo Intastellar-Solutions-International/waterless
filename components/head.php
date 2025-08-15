@@ -35,7 +35,7 @@
                     <section class="dropdown">
                         <button class="dropdown-toggle nav-elements">Produkter</button>
                         <section class="dropdown-menu">
-                            <article class="dropdown-content grid cols-4">
+                            <article class="dropdown-content grid cols-3">
                                 <section>
                                     <p>Desinfektion Dispenser & tilbehør</p>
                                 </section>
@@ -44,12 +44,6 @@
                                 </section>
                                 <section>
                                     <p>Rengøringsartikler til urinaler m.m.</p>
-                                </section>
-                                <section>
-                                    <p>DanDryer komplette hygiejneløsninger</p>
-                                </section>
-                                <section>
-
                                 </section>
                             </article>
                         </section>
