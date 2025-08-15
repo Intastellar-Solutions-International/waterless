@@ -36,13 +36,13 @@
                         <button class="dropdown-toggle nav-elements">Produkter</button>
                         <section class="dropdown-menu">
                             <article class="dropdown-content grid cols-3">
-                                <section>
+                                <section class="dropdown-content-item">
                                     <p>Desinfektion Dispenser & tilbehør</p>
                                 </section>
-                                <section>
+                                <section class="dropdown-content-item">
                                     <p>Waterless Urinaler & tilbehør</p>
                                 </section>
-                                <section>
+                                <section class="dropdown-content-item">
                                     <p>Rengøringsartikler til urinaler m.m.</p>
                                 </section>
                             </article>
