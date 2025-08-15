@@ -102,7 +102,7 @@ img{
     border-radius: 25px;
     cursor: pointer;
     width: max-content;
-    display: block;
+    display: inline-block;
 }
 
 .ppad{
