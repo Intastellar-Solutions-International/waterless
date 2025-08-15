@@ -332,6 +332,14 @@
     color: white;
 }
 
+/* Teams */
+.team-member{
+    text-align: center;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+}
+
 /* Footer */
 .footer{
     background-color: var(--pistachio);

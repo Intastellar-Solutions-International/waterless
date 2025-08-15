@@ -25,6 +25,24 @@ include_once 'components/head.php';
             </div>
         </section>
         <h2>Meet our team members!</h2>
+        <section class="grid cols-2">
+            <article class="team-member">
+                <h3>Jim Skov</h3>
+                <img src="assets/founders/jim-skov.jpg" alt="Jim Skov">
+                <p>Funen, Zealand, Norway, and Sweden</p>
+                <p>Mail: js@waterless.dk</p>
+                <p>Phone: +45 30 95 05 59</p>
+                <a class="cta-button" href="https://meetings-eu1.hubspot.com/jim-skov" target="_blank" rel="noopener noreferrer">Book a meeting</a>
+            </article>
+            <article class="team-member">
+                <h3>Paúl Knudsen</h3>
+                <img src="assets/founders/paul-knudsen.jpg" alt="Paúl Knudsen">
+                <p>Jutland & Northern Germany</p>
+                <p>Mail: pk@waterless.dk</p>
+                <p>Phone: +45 20 14 50 84</p>
+                <a class="cta-button" href="https://meetings-eu1.hubspot.com/paul-yde" target="_blank" rel="noopener noreferrer">Book a meeting</a>
+            </article>
+        </section>
     </article>
 </main>
 <?php
