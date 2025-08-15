@@ -48,7 +48,7 @@ if (strpos($host, 'localhost') > -1 || strpos($host, '127.0.0.1') > -1 || strpos
 <body>
     <header class="main-header">
         <section class="header-content">
-            <a href="/" class="logo-container">
+            <a href="<?php echo $baseUrl; ?>" class="logo-container">
                 <img class="logo" src="assets/logos/waterless-logo-2.jpg" alt="Waterless Logo">
             </a>
             <nav class="main-nav">
