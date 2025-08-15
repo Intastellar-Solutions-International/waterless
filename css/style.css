@@ -209,6 +209,7 @@
     width: 100%;
     overflow: hidden;
     isolation: isolate;
+    color: #fff;
 }
 
 .full-width-container .full-width-article{
@@ -222,10 +223,11 @@
 }
 
 .full-width-article h2{
-    font-size: 44px;
+    font-size: 64px;
     text-transform: uppercase;
     margin-top: 0;
     margin-bottom: 0;
+    font-weight: 400;
 }
 
 /* Footer */

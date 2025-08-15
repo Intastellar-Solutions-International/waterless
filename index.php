@@ -35,17 +35,17 @@ include_once 'components/head.php';
             <p class="">Customized case for you</p>
             <h2 class="">Water Savings</h2>
             <p>Want to know how much you can save?</p>
-            <p>Simply enter your details into our calculator and watch the savings add up!</p>
+            <p>Simply enter your details into our calculator <br>and watch the savings add up!</p>
         </article>
     </section>
-    <section class="grid cols-2 ppad">
+    <section class="content grid cols-2 ppad">
         <section>
             <p>Installing waterless urinals is a breeze - no plumbing, no hassle, no problem!</p>
             <a href="">Ho to install?</a>
         </section>
         <img src="/assets/Projekt bez nazwy (25) 1.jpg" alt="">
     </section>
-    <section class="grid cols-2 ppad">
+    <section class="content grid cols-2 ppad">
         <img src="https://waterless.dk/userfiles/image/Nytlayout/Outside_urinal.png" alt="">
         <p>We´ve successfully installed countless urinals in various locations - delivering a 100% odor - free experience, guaranteed!</p>
     </section>
