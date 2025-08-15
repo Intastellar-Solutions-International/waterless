@@ -123,6 +123,10 @@ img{
     grid-template-columns: repeat(3, 1fr);
 }
 
+.--left-small {
+    grid-template-columns: .65fr repeat(2, 1fr);
+}
+
 .cols-4 {
     grid-template-columns: repeat(4, 1fr);
 }
