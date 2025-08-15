@@ -24,6 +24,7 @@ include_once 'components/head.php';
                 <p>In Denmark, trust is central to society. It fosters collaboration, accountability, and stability, making it easier for people to work together toward common goals. This trust - in both our team and our society - is what drives progress, innovation, and a sustainable future</p>
             </div>
         </section>
+        <h2>Meet our team members!</h2>
     </article>
 </main>
 <?php
