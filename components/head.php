@@ -1,3 +1,15 @@
+<?php
+
+$host = $_SERVER['HTTP_HOST'];
+
+// Check if $host contains 'localhost'
+if (str_contains($host, 'localhost') || str_contains($host, '127.0.0.1') || str_contains($host, '0.0.0.0')) {
+    $baseUrl = '/';
+} else {
+    $baseUrl = '/waterless/';
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Waterless Scandinavia ApS - Sustainable urinal solutions for your buildings and facilities.">
     <meta name="keywords" content="Waterless, Scandinavia, ApS, Sustainable, Urinal, Solutions">
-    <base href="/">
+    <base href="<?php echo $baseUrl; ?>">
     <meta name="og:image" content="https://waterless.dk/assets/images/og-image.jpg">
     <meta name="og:title" content="<?php echo $pageTitle; ?> | Waterless Scandinavia ApS">
     <meta name="og:description" content="Waterless Scandinavia ApS - Sustainable urinal solutions for your buildings and facilities.">
