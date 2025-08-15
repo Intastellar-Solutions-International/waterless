@@ -29,11 +29,13 @@ include_once 'components/head.php';
             <a href="">Get to know us</a>
         </section>
     </section>
-    <section class="grid cols-2 ppad">
-        <img src="/assets/hero/63f76bfa9ee8a4f89044ef031c41fa4c50977249.png">
-        <article>
-            <h2>Water Savings</h2>
-            <p>Want to know how much you can save? Simply enter your details into our calculator and watch the savings add up!</p>
+    <section class="full-width-container">
+        <img class="full-width-image" src="/assets/hero/63f76bfa9ee8a4f89044ef031c41fa4c50977249.png">
+        <article class="full-width-article">
+            <p class="">Customized case for you</p>
+            <h2 class="">Water Savings</h2>
+            <p>Want to know how much you can save?</p>
+            <p>Simply enter your details into our calculator and watch the savings add up!</p>
         </article>
     </section>
     <section class="grid cols-2 ppad">

@@ -171,7 +171,7 @@
 #map {
     width: 100%;
     z-index: 0;
-    height: 600px;
+    height: 800px;
 }
 
 /* Main Content */
@@ -195,6 +195,36 @@
     bottom: 0;
     padding: 16px;
     background-color: rgba(255, 255, 255, 0.8);
+}
+
+.full-width-image{
+    width: 100%;
+    height: 1200px;
+    object-fit: cover;
+}
+
+.full-width-container{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.full-width-container .full-width-article{
+    position: absolute;
+    right: 50px;
+    top: 50px;
+}
+
+.full-width-article{
+    text-align: center;
+}
+
+.full-width-article h2{
+    font-size: 44px;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 /* Footer */
