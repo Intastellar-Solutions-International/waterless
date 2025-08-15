@@ -4,6 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Waterless Scandinavia ApS - Sustainable urinal solutions for your buildings and facilities.">
+    <meta name="keywords" content="Waterless, Scandinavia, ApS, Sustainable, Urinal, Solutions">
+    <base href="/">
+    <meta name="og:image" content="https://waterless.dk/assets/images/og-image.jpg">
+    <meta name="og:title" content="<?php echo $pageTitle; ?> | Waterless Scandinavia ApS">
+    <meta name="og:description" content="Waterless Scandinavia ApS - Sustainable urinal solutions for your buildings and facilities.">
+    <meta name="og:url" content="<?php echo $pageUrl; ?>">
+    <meta name="og:type" content="website">
+    <meta name="og:site_name" content="Waterless Scandinavia ApS">
+    <meta name="og:locale" content="da_DK">
     <title><?php echo $pageTitle; ?> | Waterless Scandinavia ApS</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
