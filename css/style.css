@@ -199,8 +199,9 @@
 
 .full-width-image{
     width: 100%;
-    height: 1200px;
+    height: 900px;
     object-fit: cover;
+    object-position: top;
 }
 
 .full-width-container{

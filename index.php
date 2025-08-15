@@ -39,14 +39,6 @@ include_once 'components/head.php';
         </article>
     </section>
     <section class="grid cols-2 ppad">
-        <img src="" alt="">
-        <section>
-            <p>Want to know how much you can save?
-                Simply enter your details into our calculator and watch the savings add up!</p>
-            <a href="">More Info</a>
-        </section>
-    </section>
-    <section class="grid cols-2 ppad">
         <section>
             <p>Installing waterless urinals is a breeze - no plumbing, no hassle, no problem!</p>
             <a href="">Ho to install?</a>
