@@ -19,11 +19,19 @@
         background-color: #fff;
     }
 
+    #map{
+        height: 600px;
+    }
+
     .menu.--active{
         left: 0;
     }
 
     .nav-elements{
+        padding: 15px;
+    }
+
+    .content{
         padding: 15px;
     }
 
@@ -37,5 +45,9 @@
 
     .footer-content{
         padding-inline: 15px;
+    }
+
+    .copy{
+        flex-direction: column;
     }
 }

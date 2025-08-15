@@ -205,7 +205,7 @@ const map = L.map('map', {
 });
 
 map.fitBounds(bounds, {
-    padding: isMobile ? [20, 20] : [100, 100],
+    padding: isMobile ? [15, 15] : [100, 100],
 });
 
 // Load OpenStreetMap tiles
