@@ -332,6 +332,17 @@
     color: white;
 }
 
+/* Contact Form */
+.contact-form{
+    padding: 15px;
+    width: 580px;
+    height: 594px;
+    background-color: #fff;
+    /* Cut of right side diagonal */
+    clip-path: polygon(81% 0, 100% 18%, 100% 100%, 0 100%, 0 0);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+}
 /* Teams */
 .team-member{
     text-align: center;
