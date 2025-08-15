@@ -70,10 +70,10 @@ if (strpos($host, 'localhost') > -1 || strpos($host, '127.0.0.1') > -1 || strpos
                             </article>
                         </section>
                     </section>
-                    <a href="/instructions" class="nav-elements">Instruktioner</a>
-                    <a href="/business" class="nav-elements">Til din virksomhed</a>
-                    <a href="/about" class="nav-elements">Om os</a>
-                    <a href="/contact" class="nav-elements">Kontakt</a>
+                    <a href="instructions" class="nav-elements">Instruktioner</a>
+                    <a href="business" class="nav-elements">Til din virksomhed</a>
+                    <a href="about" class="nav-elements">Om os</a>
+                    <a href="contact" class="nav-elements">Kontakt</a>
                 </section>
 
                 <!-- Language selector -->
@@ -83,11 +83,11 @@ if (strpos($host, 'localhost') > -1 || strpos($host, '127.0.0.1') > -1 || strpos
                     </button>
                     <section class="dropdown-menu">
                         <article class="dropdown-content languages">
-                            <a href="/en" class="language-option">
+                            <a href="en" class="language-option">
                                 <img src="assets/icons/uk.webp" alt="English Flag" class="language-icon">
                                 English
                             </a>
-                            <a href="/de" class="language-option">
+                            <a href="de" class="language-option">
                                 <img src="assets/icons/flag-germany.jpg" alt="German Flag" class="language-icon">
                                 Deutsch
                             </a>
@@ -95,7 +95,7 @@ if (strpos($host, 'localhost') > -1 || strpos($host, '127.0.0.1') > -1 || strpos
                     </section>
                 </section>
                 <!-- CTA -->
-                <a href="/quote" class="cta-button --header">Make an enquiry</a>
+                <a href="quote" class="cta-button --header">Make an enquiry</a>
             </nav>
         </section>
     </header>
