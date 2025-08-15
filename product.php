@@ -1,8 +1,9 @@
 <?php
+$pageTitle = "Waterless urinal Eco 100% recycled plastic";
 include_once 'components/head.php';
 ?>
-<main class="main-content ppad product-page">
-    <section class="content grid cols-3 --left-small">
+<main class="main-content product-page">
+    <section class="content ppad grid cols-3 --left-small">
         <section>
             <h2>Compatible housing</h2>
             <img class="compatible-items" src="assets/products/housing-h1.png" alt="Housing H1">
@@ -47,6 +48,7 @@ include_once 'components/head.php';
             </article>
         </section>
     </section>
+    <img class="product-image-full" src="assets/c37749ac7c92128d32ce986adce32edb663d0e68.jpg" alt="Waterless urinal Eco 100% recycled plastic">
 </main>
 <script>
     magnify("product-image", 3);

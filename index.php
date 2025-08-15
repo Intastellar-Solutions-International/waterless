@@ -1,4 +1,5 @@
 <?php
+$pageTitle = "Vandfri Urinaler sureseal dandryer dyson falcon håndtørrer puslebord";
 include_once 'components/head.php';
 ?>
 <article class="hero">

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vandfri Urinaler sureseal dandryer dyson falcon håndtørrer puslebord | Waterless</title>
+    <title><?php echo $pageTitle; ?> | Waterless Scandinavia ApS</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">

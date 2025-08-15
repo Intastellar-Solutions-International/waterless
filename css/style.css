@@ -212,6 +212,13 @@
     margin-inline: auto;
 }
 
+.product-image-full{
+    width: 100%;
+    height: 900px;
+    object-fit: cover;
+    object-position: center;
+}
+
 .map-container{
     position: relative;
 }
