@@ -73,6 +73,16 @@ img{
     background-color: color-mix(in srgb, var(--primary-color), transparent 25%);
 }
 
+.cta{
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: max-content;
+}
+
 .ppad{
     padding-block: 160px;
 }
