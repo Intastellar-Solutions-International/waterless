@@ -35,8 +35,7 @@ if (strpos($host, 'localhost') > -1 || strpos($host, '127.0.0.1') > -1 || strpos
     <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/fav/favicon-16x16.png">
     <link rel="stylesheet" href="css/leaflet/leaflet.css"
         crossorigin="" />
-    <link href="
-    /css/lenis/lenis.min.css
+    <link href="css/lenis/lenis.min.css
     " rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         crossorigin=""></script>
