@@ -38,6 +38,9 @@ include_once 'components/head.php';
             </article>
             <article class="--stretched">
                 <h3>Technical data</h3>
+                <a class="tech-links">CAD file download</a>
+                <a class="tech-links">Zip file download</a>
+                <a class="tech-links">Technical drawing download</a>
             </article>
         </section>
     </section>

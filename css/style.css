@@ -272,6 +272,19 @@
     padding: 25px;
 }
 
+.tech-links{
+    display: block;
+    color: var(--lapis-lazuli);
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+    border-radius: 5px;
+}
+
+.tech-links:hover{
+    background-color: var(--lapis-lazuli);
+    color: white;
+}
+
 /* Footer */
 .footer{
     background-color: var(--pistachio);
