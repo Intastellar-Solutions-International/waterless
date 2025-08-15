@@ -54,6 +54,28 @@ img{
     max-width: 100%;
 }
 
+::scroll-marker {
+    background-color: var(--lapis-lazuli);
+    color: var(--white);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    display: none;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--lapis-lazuli);
+    border-radius: 5px;
+}
+
 .cta-button{
     background-color: var(--primary-color);
     color: white;

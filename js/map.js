@@ -15,7 +15,9 @@ const markersData = [
         lat: 51.49936794976044,
         lng: -0.20351797866790156,
         popup: `<h2>UK</h2>
-            <p>Heathrow Airport</p>
+            <ul>
+                <li>Heathrow Airport</li>
+            </ul>
         `,
     },
     {
@@ -145,7 +147,7 @@ let customIcon = L.icon({
     iconUrl: marker, // update this with your icon file path
     iconSize: [38, 50], // Width and height of the icon in pixels
     iconAnchor: [11, 25], // Pixel coordinates where the icon points (typically its bottom center)
-    popupAnchor: [0, -50] // Coordinates relative to icon to position the popup
+    popupAnchor: [11, -15] // Coordinates relative to icon to position the popup
 });
 
 // Listen for changes in the user's preference
@@ -228,16 +230,16 @@ markersData.forEach(marker => {
             icon: iconUsed
         }).addTo(map)
             .bindPopup(marker.popup, popupOptions)
-            .on('popupopen', function (e) {
-                const popupEl = e.popup.getElement();
-                // Remove inline properties that Leaflet applies
-                popupEl.style.left = '';
-                popupEl.style.removeProperty('margin-left');
-                popupEl.style.transform = 'translate3d(0,0,0)';
-                // Optionally adjust a fixed offset if needed:
-                popupEl.style.top = '0';
-                popupEl.style.right = '0';
-            })
+        /* .on('popupopen', function (e) {
+            const popupEl = e.popup.getElement();
+            // Remove inline properties that Leaflet applies
+            popupEl.style.left = '';
+            popupEl.style.removeProperty('margin-left');
+            popupEl.style.transform = 'translate3d(0,0,0)';
+            // Optionally adjust a fixed offset if needed:
+            popupEl.style.top = '0';
+            popupEl.style.right = '0';
+        }) */
     } else {
         L.marker([marker.lat, marker.lng], {
             icon: iconUsed
