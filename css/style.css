@@ -255,6 +255,13 @@
     margin-top: 30px;
 }
 
+.product-title{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 12px 0;
+    text-align: center;
+}
+
 /* Footer */
 .footer{
     background-color: var(--pistachio);
