@@ -134,3 +134,7 @@ img{
 .content-center{
     place-items: center;
 }
+
+.--stretched{
+    grid-column: 1/-1;
+}
