@@ -1,6 +1,7 @@
 <?php
 
 $host = $_SERVER['HTTP_HOST'];
+$protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
 
 // Check if $host contains 'localhost'
 if (strpos($host, 'localhost') > -1 || strpos($host, '127.0.0.1') > -1 || strpos($host, '0.0.0.0') > -1) {
@@ -8,6 +9,8 @@ if (strpos($host, 'localhost') > -1 || strpos($host, '127.0.0.1') > -1 || strpos
 } else {
     $baseUrl = 'https://inta.dev/waterless/';
 }
+
+$pageUrl =  $protocol . $host . $_SERVER['REQUEST_URI'];
 ?>
 
 <!DOCTYPE html>

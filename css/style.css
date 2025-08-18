@@ -334,7 +334,6 @@
 
 /* Contact Form */
 .contact-form{
-    padding: 15px;
     width: 580px;
     height: 594px;
     background-color: #fff;
@@ -343,6 +342,44 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 
 }
+
+.form-groups{
+    padding: 40px;
+    padding-top: 60px;
+    height: calc(100% - 40px);
+}
+
+.form-group{
+    border: none;
+}
+
+.form-group input, textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 3px;
+    display: block;
+}
+
+textarea{
+    width: 100%;
+    padding: 15px;
+    resize: none;
+}
+
+.form-btn{
+    width: 100%;
+    padding: 12px 16px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
 /* Teams */
 .team-member{
     text-align: center;
