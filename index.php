@@ -22,6 +22,7 @@ include_once 'components/head.php';
         </section>
     </section>
     <section class="map-container">
+        <img class="sigal" src="assets/smvgrøn.png" alt="SMV Green Project">
         <div id="map"></div>
         <section>
             <h2>All over the world since 1997 - 72 countries & counting</h2>
