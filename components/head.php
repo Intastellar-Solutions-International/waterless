@@ -62,12 +62,15 @@ $pageUrl =  $protocol . $host . $_SERVER['REQUEST_URI'];
                             <article class="dropdown-content grid cols-3">
                                 <section class="dropdown-content-item">
                                     <p>Desinfektion Dispenser & tilbehør</p>
+                                    <a href="products" class="dropdown-link">Se produkter</a>
                                 </section>
                                 <section class="dropdown-content-item">
                                     <p>Waterless Urinaler & tilbehør</p>
+                                    <a href="products" class="dropdown-link">Se produkter</a>
                                 </section>
                                 <section class="dropdown-content-item">
                                     <p>Rengøringsartikler til urinaler m.m.</p>
+                                    <a href="products" class="dropdown-link">Se produkter</a>
                                 </section>
                             </article>
                         </section>
