@@ -5,7 +5,7 @@ include_once 'components/head.php';
 <main class="main-content ppad">
     <!-- Main content goes here -->
     <section class="content">
-        <a href="instructions.php">Tilbage</a>
+        <a href="instructions">Tilbage</a>
     </section>
     <section class="content">
         <h1>SureSeal Udskiftning</h1>
