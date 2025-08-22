@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Vandfri Urinaler sureseal dandryer dyson falcon håndtørrer puslebord";
+$pageTitle = "Instruktioner";
 include_once 'components/head.php';
 ?>
 <main class="main-content ppad">
