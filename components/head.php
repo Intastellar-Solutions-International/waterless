@@ -65,6 +65,7 @@ $pageUrl =  $protocol . $host . $_SERVER['REQUEST_URI'];
                                     <a href="products" class="dropdown-link">Se produkter</a>
                                 </section>
                                 <section class="dropdown-content-item">
+                                    <img class="product-image" src="/assets/products/urinal-eco-12.png">
                                     <p>Waterless Urinaler & tilbehør</p>
                                     <a href="products" class="dropdown-link">Se produkter</a>
                                 </section>

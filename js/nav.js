@@ -13,6 +13,7 @@ hamburgerMenu.addEventListener('click', () => {
 dropdownToggles.forEach(toggle => {
     toggle.addEventListener('click', (e) => {
         e.preventDefault();
+        e.currentTarget.classList.toggle('active');
         const menu = e.currentTarget.nextElementSibling;
         if (menu.classList.contains('show')) {
             menu.classList.remove('show');
