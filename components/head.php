@@ -80,7 +80,7 @@ $pageUrl =  $protocol . $host . $_SERVER['REQUEST_URI'];
                     <a href="about" class="nav-elements">Om os</a>
                     <a href="contact" class="nav-elements">Kontakt</a>
                 </section>
-
+                <button class="hamburger-menu" id="hamburger-menu"></button>
                 <!-- Language selector -->
                 <section class="dropdown">
                     <button class="language-selector dropdown-toggle">

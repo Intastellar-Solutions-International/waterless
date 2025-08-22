@@ -135,6 +135,47 @@
     color: var(--primary-color);
 }
 
+/* Hamburger Menu */
+.hamburger-menu {
+    display: none;
+}
+
+@media screen and (max-width: 900px) {
+    .hamburger-menu {
+        display: block;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        text-indent: -9999px; /* Hide text */
+    }
+
+        .hamburger-menu::before,
+        .hamburger-menu::after {
+            content: "";
+            display: block;
+            width: 30px;
+            height: 2px;
+            margin-left: 0;
+            /* border-bottom: 2px solid #3f3f3f; */
+            transition: all 0.3s ease;
+            text-indent: -9999px;
+            background-color: #000;
+            margin-block: 5px;
+        }
+
+    /* .hamburger-menu::before {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: #333;
+        margin: 6px 0;
+        transition: all 0.3s ease;
+    } */
+
+}
+
 /* Hero */
 .hero{
     width: 100%;
