@@ -130,123 +130,121 @@ const markersData = [
     }
 ];
 
-if (document.querySelector("#map") == null) {
-    return;
-}
-
-let mapStyle = 'light_all'; // Default map style
-let marker = 'assets/map/icon.png';
-// Check if the user has a preference for dark mode
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    mapStyle = 'dark_all'; // Set to dark mode if preferred
-    marker = 'assets/map/icon.png';
-}
-// Check if the user has a preference for light mode
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-    mapStyle = 'light_all'; // Set to light mode if preferred
-    marker = 'assets/map/icon.png';
-}
-
-let customIcon = L.icon({
-    iconUrl: marker, // update this with your icon file path
-    iconSize: [38, 50], // Width and height of the icon in pixels
-    iconAnchor: [11, 25], // Pixel coordinates where the icon points (typically its bottom center)
-    popupAnchor: [11, -15] // Coordinates relative to icon to position the popup
-});
-
-// Listen for changes in the user's preference
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-    if (event.matches) {
+if (document.querySelector("#map") != null) {
+    let mapStyle = 'light_all'; // Default map style
+    let marker = 'assets/map/icon.png';
+    // Check if the user has a preference for dark mode
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         mapStyle = 'dark_all'; // Set to dark mode if preferred
         marker = 'assets/map/icon.png';
-    } else {
+    }
+    // Check if the user has a preference for light mode
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
         mapStyle = 'light_all'; // Set to light mode if preferred
         marker = 'assets/map/icon.png';
     }
-    // Update the map layer
-    map.eachLayer(layer => {
-        if (layer instanceof L.TileLayer) {
-            layer.setUrl('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}');
+
+    let customIcon = L.icon({
+        iconUrl: marker, // update this with your icon file path
+        iconSize: [38, 50], // Width and height of the icon in pixels
+        iconAnchor: [11, 25], // Pixel coordinates where the icon points (typically its bottom center)
+        popupAnchor: [11, -15] // Coordinates relative to icon to position the popup
+    });
+
+    // Listen for changes in the user's preference
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        if (event.matches) {
+            mapStyle = 'dark_all'; // Set to dark mode if preferred
+            marker = 'assets/map/icon.png';
+        } else {
+            mapStyle = 'light_all'; // Set to light mode if preferred
+            marker = 'assets/map/icon.png';
+        }
+        // Update the map layer
+        map.eachLayer(layer => {
+            if (layer instanceof L.TileLayer) {
+                layer.setUrl('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}');
+            }
+        });
+    });
+
+    const popupOptions = {
+        /* className: 'full-width-right-popup', */
+        autoPan: true,
+    };
+    let activeMarker = null;
+
+    /* 
+        Level 5 = Europe
+        Level 7 = Country
+        Level 12 = Kommune
+        Level 3 = World
+        Level 20 = Building
+    */
+
+    const markerLatLngs = markersData.map(m => [m.lat, m.lng]);
+    const bounds = L.latLngBounds(markerLatLngs);
+
+    const isMobile = window.innerWidth < 600;
+
+    const defaultZoom = 10; // Default zoom level for the map
+    // Create the map and set the view to the first marker's coordinates
+    const map = L.map('map', {
+        dragging: true,
+        zoomControl: true,
+        zoomSnap: 0,
+        zoomDelta: 1,
+        zoomAnimation: true,
+        touchZoom: false,
+        doubleClickZoom: false,
+        scrollWheelZoom: true,
+        boxZoom: false,
+        keyboard: false,
+        tap: false,
+        attributionControl: false,
+        preferCanvas: true
+    });
+
+    map.fitBounds(bounds, {
+        padding: isMobile ? [15, 15] : [100, 100],
+    });
+
+    // Load OpenStreetMap tiles
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        zoomControl: true
+    }).addTo(map);
+
+    // Disable scroll for zoom
+    map.scrollWheelZoom.disable();
+
+    // Iterate over the markers array and add each marker to the map
+    markersData.forEach(marker => {
+        const iconUsed = marker.iconUrl ? L.icon({
+            iconUrl: marker.iconUrl,
+            iconSize: [38, 50],
+            iconAnchor: [19, 40],
+            popupAnchor: [0, -50]
+        }) : customIcon;
+
+        if (marker.popup) {
+            L.marker([marker.lat, marker.lng], {
+                icon: iconUsed
+            }).addTo(map)
+                .bindPopup(marker.popup, popupOptions)
+            /* .on('popupopen', function (e) {
+                const popupEl = e.popup.getElement();
+                // Remove inline properties that Leaflet applies
+                popupEl.style.left = '';
+                popupEl.style.removeProperty('margin-left');
+                popupEl.style.transform = 'translate3d(0,0,0)';
+                // Optionally adjust a fixed offset if needed:
+                popupEl.style.top = '0';
+                popupEl.style.right = '0';
+            }) */
+        } else {
+            L.marker([marker.lat, marker.lng], {
+                icon: iconUsed
+            }).addTo(map);
         }
     });
-});
-
-const popupOptions = {
-    /* className: 'full-width-right-popup', */
-    autoPan: true,
-};
-let activeMarker = null;
-
-/* 
-    Level 5 = Europe
-    Level 7 = Country
-    Level 12 = Kommune
-    Level 3 = World
-    Level 20 = Building
-*/
-
-const markerLatLngs = markersData.map(m => [m.lat, m.lng]);
-const bounds = L.latLngBounds(markerLatLngs);
-
-const isMobile = window.innerWidth < 600;
-
-const defaultZoom = 10; // Default zoom level for the map
-// Create the map and set the view to the first marker's coordinates
-const map = L.map('map', {
-    dragging: true,
-    zoomControl: true,
-    zoomSnap: 0,
-    zoomDelta: 1,
-    zoomAnimation: true,
-    touchZoom: false,
-    doubleClickZoom: false,
-    scrollWheelZoom: true,
-    boxZoom: false,
-    keyboard: false,
-    tap: false,
-    attributionControl: false,
-    preferCanvas: true
-});
-
-map.fitBounds(bounds, {
-    padding: isMobile ? [15, 15] : [100, 100],
-});
-
-// Load OpenStreetMap tiles
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-    zoomControl: true
-}).addTo(map);
-
-// Disable scroll for zoom
-map.scrollWheelZoom.disable();
-
-// Iterate over the markers array and add each marker to the map
-markersData.forEach(marker => {
-    const iconUsed = marker.iconUrl ? L.icon({
-        iconUrl: marker.iconUrl,
-        iconSize: [38, 50],
-        iconAnchor: [19, 40],
-        popupAnchor: [0, -50]
-    }) : customIcon;
-
-    if (marker.popup) {
-        L.marker([marker.lat, marker.lng], {
-            icon: iconUsed
-        }).addTo(map)
-            .bindPopup(marker.popup, popupOptions)
-        /* .on('popupopen', function (e) {
-            const popupEl = e.popup.getElement();
-            // Remove inline properties that Leaflet applies
-            popupEl.style.left = '';
-            popupEl.style.removeProperty('margin-left');
-            popupEl.style.transform = 'translate3d(0,0,0)';
-            // Optionally adjust a fixed offset if needed:
-            popupEl.style.top = '0';
-            popupEl.style.right = '0';
-        }) */
-    } else {
-        L.marker([marker.lat, marker.lng], {
-            icon: iconUsed
-        }).addTo(map);
-    }
-});
+}
