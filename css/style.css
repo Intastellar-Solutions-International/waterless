@@ -387,6 +387,22 @@
     color: white;
 }
 
+/* Paint */
+.paint-bg {
+    background-image: url('../assets/paint.png');
+    background-size: 100% 140%;
+    background-position: center -75px;
+}
+
+.info-container{
+    position: absolute;
+    z-index: 1;
+    width: 461px;
+    top: 150px;
+    left: 150px;
+    padding: 78px;
+}
+
 /* Contact Form */
 .contact-form{
     width: 580px;

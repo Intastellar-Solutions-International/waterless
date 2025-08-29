@@ -145,3 +145,7 @@ img{
 .--stretched{
     grid-column: 1/-1;
 }
+
+.relative{
+    position: relative;
+}
