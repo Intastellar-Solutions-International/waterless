@@ -83,11 +83,11 @@ $pageUrl =  $protocol . $host . $_SERVER['REQUEST_URI'];
                 </section>
                 <button class="hamburger-menu" id="hamburger-menu"></button>
                 <!-- Language selector -->
-                <section class="dropdown">
+                <section class="dropdown language-select-container">
                     <button class="language-selector dropdown-toggle">
                         <img class="language-icon" src="assets/icons/flag-denmark.jpg" alt="Language Icon">
                     </button>
-                    <section class="dropdown-menu">
+                    <section class="dropdown-menu language">
                         <article class="dropdown-content languages">
                             <a href="en" class="language-option">
                                 <img src="assets/icons/uk.webp" alt="English Flag" class="language-icon">
