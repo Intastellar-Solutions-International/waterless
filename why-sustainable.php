@@ -15,7 +15,11 @@ include_once 'components/head.php';
             <h2>Conserving Water, Protecting the Future</h2>
             <p>Water is a critical resource, yet millions of liters are flushed away every year in conventional urinals. Our innovative Waterless technology redefines this practice, conserving water with every use. By adopting Waterless solutions, businesses and public facilities can significantly reduce their water consumption, directly contributing to global water preservation efforts.</p>
         </section>
-        <img src="assets/hero/sustainable.png">
+        <section class="paint-bg info-container right-aligned">
+            <h2>Eco-Friendly and Cost-Effective</h2>
+            <p>Our waterless urinals not only reduce environmental impact but also offer financial savings. With no need for plumbing connections or constant flushing, maintenance costs are minimized. This efficient design means fewer repairs, lower water bills, and a reduced carbon footprint—benefits that extend far beyond the restroom.</p>
+        </section>
+        <img src="assets/hero/sustainable-water.png">
     </article>
 </main>
 <?php

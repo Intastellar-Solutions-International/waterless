@@ -403,6 +403,11 @@
     padding: 78px;
 }
 
+.info-container.right-aligned {
+    right: 150px;
+    left: auto;
+}
+
 /* Contact Form */
 .contact-form{
     width: 580px;
