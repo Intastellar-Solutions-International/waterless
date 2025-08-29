@@ -109,7 +109,6 @@
 .language-selector{
     display: flex;
     align-items: center;
-    gap: 10px;
     border: none;
     background-color: transparent;
     cursor: pointer;
