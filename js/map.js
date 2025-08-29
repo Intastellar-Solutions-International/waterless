@@ -130,6 +130,10 @@ const markersData = [
     }
 ];
 
+if (document.querySelector("#map") == null) {
+    return;
+}
+
 let mapStyle = 'light_all'; // Default map style
 let marker = 'assets/map/icon.png';
 // Check if the user has a preference for dark mode
