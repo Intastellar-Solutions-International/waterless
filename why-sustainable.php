@@ -21,6 +21,14 @@ include_once 'components/head.php';
         </section>
         <img src="assets/hero/sustainable-water.png">
     </article>
+    <article class="relative">
+        <section class="paint-bg info-container right-aligned">
+            <h2>A Smarter Choice for Sustainable Spaces</h2>
+            <p>Sustainability is more than a trend; it’s a responsibility. By choosing Waterless Scandinavia, you are committing to innovative technology that supports sustainable development goals and preserves natural resources for future generations.
+                Discover how our Waterless urinals can transform your facilities into models of environmental efficiency. Together, let's make every drop count.</p>
+        </section>
+        <img src="assets/hero/sustainable-stream.png">
+    </article>
 </main>
 <?php
 include_once 'components/footer.php';
