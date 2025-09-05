@@ -11,22 +11,22 @@ include_once 'components/head.php';
         <article class="product-item">
             <h2 class="product-title">Urinals Installation</h2>
             <img src="assets/products/urinal-eco-12.png" alt="Waterless urinal Eco 100% recycled plastic">
-            <a href="instruction" class="cta">See more</a>
+            <a href="instruction" class="cta">Læs mere</a>
         </article>
         <article class="product-item">
             <h2 class="product-title">Siphon Change</h2>
             <img src="assets/products/porcelain-urinal.png" alt="Porcelain urinal">
-            <a href="instruction" class="cta">See more</a>
+            <a href="instruction" class="cta">Læs mere</a>
         </article>
         <article class="product-item">
-            <h2 class="product-title">Strength Test</h2>
+            <h2 class="product-title">Styrke Test</h2>
             <img src="assets/products/housing-h1.png" alt="Housing H1">
-            <a href="instruction" class="cta">See more</a>
+            <a href="instruction" class="cta">Læs mere</a>
         </article>
         <article class="product-item">
             <h2 class="product-title">SureSeal Installation</h2>
             <img src="assets/products/housing-h3.png" alt="Housing H3">
-            <a href="instruction" class="cta">See more</a>
+            <a href="instruction" class="cta">Læs mere</a>
         </article>
     </section>
 </main>

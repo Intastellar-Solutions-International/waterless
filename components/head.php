@@ -59,11 +59,7 @@ $pageUrl =  $protocol . $host . $_SERVER['REQUEST_URI'];
                     <section class="dropdown">
                         <button class="dropdown-toggle nav-elements">Produkter</button>
                         <section class="dropdown-menu">
-                            <article class="dropdown-content grid cols-3">
-                                <section class="dropdown-content-item">
-                                    <p>Desinfektion Dispenser & tilbehør</p>
-                                    <a href="products" class="dropdown-link">Se produkter</a>
-                                </section>
+                            <article class="dropdown-content grid cols-2">
                                 <section class="dropdown-content-item">
                                     <img class="product-image" src="/assets/products/urinal-eco-12.png">
                                     <p>Waterless Urinaler & tilbehør</p>
