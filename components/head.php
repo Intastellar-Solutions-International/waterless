@@ -97,7 +97,7 @@ $pageUrl =  $protocol . $host . $_SERVER['REQUEST_URI'];
                     </section>
                 </section>
                 <!-- CTA -->
-                <a href="quote" class="cta-button --header">Make an enquiry</a>
+                <a href="quote" class="cta-button --header">Få et tilbud</a>
             </nav>
         </section>
     </header>
