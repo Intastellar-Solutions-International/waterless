@@ -5,9 +5,9 @@ include_once 'components/head.php';
 <article class="hero">
     <section class="hero-content">
         <section class="hero-text">
-            <h1 class="hero-title">Changing the water consumption industry</h1>
-            <p>Sustainable urinal solutions for your buildings and facilities.</p>
-            <a href="products" class="cta-button">Explore Products</a>
+            <h1 class="hero-title">Ændring af vandforbrugsindustrien</h1>
+            <p>Bæredygtige urinal-løsninger til dine bygninger og faciliteter.</p>
+            <a href="products" class="cta-button">Udforsk produkter</a>
         </section>
     </section>
     <img src="assets/hero/Urinals1.png" alt="Hero Image" class="hero-image">
@@ -17,39 +17,39 @@ include_once 'components/head.php';
     <section class="ppad content grid cols-2 content-center">
         <img src="assets/products/urinal-eco-12.png" alt="Waterless Urinal" class="product-image">
         <section>
-            <p>What we do</p>
-            <h2>Changing the water consumption industry</h2>
+            <p>Hvad vi laver</p>
+            <h2>Vandfri urinaler og bæredygtige løsninger</h2>
         </section>
     </section>
     <section class="map-container">
         <img class="sigal" src="assets/smvgrøn.png" alt="SMV Green Project">
         <div id="map"></div>
         <section>
-            <h2>All over the world since 1997 - 72 countries & counting</h2>
-            <h2>Company with stable position on the market.</h2>
-            <p>We are present on the market since 1997 and we hold 80% of the Danish market in the Waterless Urinals industry.</p>
-            <a href="">Get to know us</a>
+            <h2>Verden rundt siden 1997 - 72 lande og tæller</h2>
+            <h2>Virksomhed med stabil position på markedet</h2>
+            <p>Vi er til stede på markedet siden 1997, og vi har 80% af det danske marked inden for vandfri urinaler.</p>
+            <a href="/about.php">Lær os at kende</a>
         </section>
     </section>
     <section class="full-width-container">
         <img class="full-width-image" src="assets/hero/63f76bfa9ee8a4f89044ef031c41fa4c50977249.png">
         <article class="full-width-article">
-            <p class="">Customized case for you</p>
-            <h2 class="">Water Savings</h2>
-            <p>Want to know how much you can save?</p>
-            <p>Simply enter your details into our calculator <br>and watch the savings add up!</p>
+            <p class="">Tilpasset løsning til dig</p>
+            <h2 class="">Vandbesparelser</h2>
+            <p>Vil du vide, hvor meget du kan spare?</p>
+            <p>Indtast blot dine oplysninger i vores beregner <br>og se besparelserne vokse!</p>
         </article>
     </section>
     <section class="content grid cols-2 ppad content-center">
         <section>
-            <h2>Installing waterless urinals is a breeze - no plumbing, no hassle, no problem!</h2>
-            <a href="">Ho to install?</a>
+            <h2>Installation af vandfri urinaler</h2>
+            <a href="">Hvordan installeres?</a>
         </section>
         <img src="assets/Projekt bez nazwy (25) 1.jpg" alt="">
     </section>
     <section class="content grid cols-2 ppad content-center">
         <img src="https://waterless.dk/userfiles/image/Nytlayout/Outside_urinal.png" alt="">
-        <h2>We´ve successfully installed countless urinals in various locations - delivering a 100% odor - free experience, guaranteed!</h2>
+        <h2>Vi har med succes installeret utallige urinaler på forskellige steder - og leverer en 100% lugtfri oplevelse, garanteret!</h2>
     </section>
 </main>
 <?php
