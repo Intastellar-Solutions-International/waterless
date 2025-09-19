@@ -48,23 +48,114 @@ register_nav_menus([
     'primary' => 'Main Menu',
 ]);
 
-
 function waterless_register_products()
 {
-    register_post_type('product', [
-        'labels' => [
-            'name'          => 'Products',
-            'singular_name' => 'Product',
-        ],
-        'public'      => true,
-        'has_archive' => true,
-        'supports'    => ['title', 'editor', 'thumbnail'],
-        'menu_icon'   => 'dashicons-cart',
-    ]);
+    $labels = [
+        'name'                  => _x('Products', 'Post type general name', 'waterless'),
+        'singular_name'         => _x('Product', 'Post type singular name', 'waterless'),
+        'menu_name'             => _x('Products', 'Admin Menu text', 'waterless'),
+        'name_admin_bar'        => _x('Product', 'Add New on Toolbar', 'waterless'),
+        'add_new'               => __('Add Product', 'waterless'),
+        'add_new_item'          => __('Add New Product', 'waterless'),
+        'new_item'              => __('New Product', 'waterless'),
+        'edit_item'             => __('Edit Product', 'waterless'),
+        'view_item'             => __('View Product', 'waterless'),
+        'all_items'             => __('All Products', 'waterless'),
+        'search_items'          => __('Search Products', 'waterless'),
+        'parent_item_colon'     => __('Parent Products:', 'waterless'),
+        'not_found'             => __('No products found.', 'waterless'),
+        'not_found_in_trash'    => __('No products found in Trash.', 'waterless'),
+        'featured_image'        => _x('Product Image', 'Overrides the “Featured Image” phrase', 'waterless'),
+        'set_featured_image'    => _x('Set product image', 'waterless'),
+        'remove_featured_image' => _x('Remove product image', 'waterless'),
+        'use_featured_image'    => _x('Use as product image', 'waterless'),
+        'archives'              => _x('Product archives', 'waterless'),
+        'insert_into_item'      => _x('Insert into product', 'waterless'),
+        'uploaded_to_this_item' => _x('Uploaded to this product', 'waterless'),
+        'filter_items_list'     => _x('Filter products list', 'waterless'),
+        'items_list_navigation' => _x('Products list navigation', 'waterless'),
+        'items_list'            => _x('Products list', 'waterless'),
+    ];
 
-    
+    $args = [
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => ['slug' => 'product'],
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => 20,
+        'menu_icon'          => 'dashicons-cart',
+        'supports'           => ['title', 'editor', 'thumbnail', 'excerpt'],
+        'show_in_rest'       => true,
+    ];
+
+    register_post_type('product', $args);
+
+    // ✅ Product Categories (hierarchical, like blog categories)
+    $taxonomy_labels = [
+        'name'              => _x('Product Categories', 'taxonomy general name', 'waterless'),
+        'singular_name'     => _x('Product Category', 'taxonomy singular name', 'waterless'),
+        'search_items'      => __('Search Product Categories', 'waterless'),
+        'all_items'         => __('All Product Categories', 'waterless'),
+        'parent_item'       => __('Parent Category', 'waterless'),
+        'parent_item_colon' => __('Parent Category:', 'waterless'),
+        'edit_item'         => __('Edit Category', 'waterless'),
+        'update_item'       => __('Update Category', 'waterless'),
+        'add_new_item'      => __('Add New Category', 'waterless'),
+        'new_item_name'     => __('New Category Name', 'waterless'),
+        'menu_name'         => __('Categories', 'waterless'),
+    ];
+
+    $taxonomy_args = [
+        'hierarchical'      => true,
+        'labels'            => $taxonomy_labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => ['slug' => 'product-category'],
+        'show_in_rest'      => true,
+    ];
+
+    register_taxonomy('product_category', ['product'], $taxonomy_args);
+
+    // ✅ Product Tags (non-hierarchical, like blog tags)
+    $tag_labels = [
+        'name'                       => _x('Product Tags', 'taxonomy general name', 'waterless'),
+        'singular_name'              => _x('Product Tag', 'taxonomy singular name', 'waterless'),
+        'search_items'               => __('Search Product Tags', 'waterless'),
+        'popular_items'              => __('Popular Tags', 'waterless'),
+        'all_items'                  => __('All Product Tags', 'waterless'),
+        'edit_item'                  => __('Edit Tag', 'waterless'),
+        'update_item'                => __('Update Tag', 'waterless'),
+        'add_new_item'               => __('Add New Tag', 'waterless'),
+        'new_item_name'              => __('New Tag Name', 'waterless'),
+        'separate_items_with_commas' => __('Separate tags with commas', 'waterless'),
+        'add_or_remove_items'        => __('Add or remove tags', 'waterless'),
+        'choose_from_most_used'      => __('Choose from the most used tags', 'waterless'),
+        'not_found'                  => __('No tags found.', 'waterless'),
+        'menu_name'                  => __('Tags', 'waterless'),
+    ];
+
+    $tag_args = [
+        'hierarchical'          => false,
+        'labels'                => $tag_labels,
+        'show_ui'               => true,
+        'show_admin_column'     => true,
+        'update_count_callback' => '_update_post_term_count',
+        'query_var'             => true,
+        'rewrite'               => ['slug' => 'product-tag'],
+        'show_in_rest'          => true,
+    ];
+
+    register_taxonomy('product_tag', ['product'], $tag_args);
 }
 add_action('init', 'waterless_register_products');
+
 
 // Register waterless product meta fields
 function waterless_register_product_meta()
