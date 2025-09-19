@@ -20,7 +20,7 @@ include_once 'components/head.php';
             <img src="assets/founders/team.jpg" alt="Waterless Scandinavia" />
             <div>
                 <h2>Tillid: Nøglen til Waterless og det danske samfund</h2>
-                <p>At Waterless er tillid fundamentet for vores succes. Det gør det muligt for vores team at arbejde problemfrit, innovere og levere bæredygtige vandbesparende løsninger. Vi stoler på gennemsigtighed, pålidelighed og gensidig respekt for at sikre de bedste resultater for vores kunder og miljøet.</p>
+                <p>Hos Waterless er tillid fundamentet for vores succes. Det gør det muligt for vores team at arbejde problemfrit, innovere og levere bæredygtige vandbesparende løsninger. Vi stoler på gennemsigtighed, pålidelighed og gensidig respekt for at sikre de bedste resultater for vores kunder og miljøet.</p>
                 <p>I Danmark er tillid centralt for samfundet. Det fremmer samarbejde, ansvarlighed og stabilitet, hvilket gør det lettere for folk at arbejde sammen mod fælles mål. Denne tillid - både i vores team og i vores samfund - er det, der driver fremskridt, innovation og en bæredygtig fremtid</p>
             </div>
         </section>
