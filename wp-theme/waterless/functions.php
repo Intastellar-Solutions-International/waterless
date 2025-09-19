@@ -61,6 +61,8 @@ function waterless_register_products()
         'supports'    => ['title', 'editor', 'thumbnail'],
         'menu_icon'   => 'dashicons-cart',
     ]);
+
+    
 }
 add_action('init', 'waterless_register_products');
 
@@ -421,15 +423,19 @@ function waterless_theme_setup()
     // Add support for wide/full width blocks
     add_theme_support('align-wide');
 
-    // Add support for editor styles
-    add_theme_support('editor-styles');
-    add_editor_style('css/editor.css'); // optional custom styles for the editor
-
     // Add support for featured images, title tags, etc.
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
 }
 add_action('after_setup_theme', 'waterless_theme_setup');
+
+function waterless_editor_styles()
+{
+    add_theme_support('editor-styles');
+    add_editor_style('css/editor.css');
+}
+add_action('after_setup_theme', 'waterless_editor_styles');
+
 
 // Register footer menu
 function waterless_register_menus()

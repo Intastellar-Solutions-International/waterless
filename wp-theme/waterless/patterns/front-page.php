@@ -20,11 +20,14 @@
 
         <!-- wp:buttons -->
         <div class="wp-block-buttons">
-            <!-- wp:button {"className":"cta-button"} -->
-            <a class="wp-block-button cta-button" href="/products">Udforsk produkter</a>
+            <!-- wp:button {"className":"cta-button is-style-outline"} -->
+            <div class="wp-block-button cta-button">
+                <a class="wp-block-button__link wp-element-button" href="/products">Udforsk produkter</a>
+            </div>
             <!-- /wp:button -->
         </div>
         <!-- /wp:buttons -->
+
     </div>
 </div>
 <!-- /wp:cover -->

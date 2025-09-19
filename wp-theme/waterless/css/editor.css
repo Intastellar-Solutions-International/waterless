@@ -1,17 +1,29 @@
-/* Make editor content match theme */
-.editor-styles-wrapper {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
+/* 🔥 Strip all default Gutenberg button styles */
+.wp-block-button__link,
+.wp-block-file__button,
+.wp-element-button {
+    all: unset;
+    cursor: pointer;
+    display: inline-block;
+    box-sizing: border-box;
 }
 
-.editor-styles-wrapper h1,
-.editor-styles-wrapper h2 {
-    font-weight: bold;
-}
-
-.editor-styles-wrapper .wp-block-button__link {
+/* Apply your custom theme button styling */
+.wp-block-button__link,
+.wp-block-file__button,
+.wp-element-button {
     background: #0099cc;
     color: #fff;
-    padding: 12px 20px;
+    padding: 12px 24px;
     border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.wp-block-button__link:hover,
+.wp-block-file__button:hover,
+.wp-element-button:hover {
+    background: #0077aa;
+    color: #fff;
 }
