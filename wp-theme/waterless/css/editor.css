@@ -1,0 +1,17 @@
+/* Make editor content match theme */
+.editor-styles-wrapper {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2 {
+    font-weight: bold;
+}
+
+.editor-styles-wrapper .wp-block-button__link {
+    background: #0099cc;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+}

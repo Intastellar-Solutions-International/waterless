@@ -2,21 +2,47 @@
 
 function waterless_enqueue_scripts()
 {
-    wp_register_style("waterless-style", get_template_directory_uri() . '/css/reset.css');
-    wp_register_style("waterless-style", get_template_directory_uri() . '/css/style.css');
-    wp_register_style("waterless-style", get_template_directory_uri() . '/css/responsive.css');
+    // Styles
+    wp_enqueue_style(
+        'waterless-reset',
+        get_template_directory_uri() . '/css/reset.css',
+        [],
+        filemtime(get_template_directory() . '/css/reset.css')
+    );
 
-    wp_register_script("waterless-js", get_template_directory_uri() . '/js/map.js');
-    wp_register_script("waterless-js", get_template_directory_uri() . '/js/nav.js');
+    wp_enqueue_style(
+        'waterless-main',
+        get_template_directory_uri() . '/css/style.css',
+        ['waterless-reset'],
+        filemtime(get_template_directory() . '/css/style.css')
+    );
 
-    wp_enqueue_style('waterless-style', get_stylesheet_uri());
-    wp_enqueue_style('waterless-style', get_template_directory_uri() . '/css/reset.css');
-    wp_enqueue_style('waterless-style', get_template_directory_uri() . '/css/style.css');
-    wp_enqueue_style('waterless-style', get_template_directory_uri() . '/css/responsive.css');
-    wp_enqueue_script('waterless-js', get_template_directory_uri() . '/js/map.js', [], false, true);
-    wp_enqueue_script('waterless-js', get_template_directory_uri() . '/js/nav.js', [], false, true);
+    wp_enqueue_style(
+        'waterless-responsive',
+        get_template_directory_uri() . '/css/responsive.css',
+        ['waterless-main'],
+        filemtime(get_template_directory() . '/css/responsive.css')
+    );
+
+    // Scripts
+    wp_enqueue_script(
+        'waterless-map',
+        get_template_directory_uri() . '/js/map.js',
+        [],
+        filemtime(get_template_directory() . '/js/map.js'),
+        true
+    );
+
+    wp_enqueue_script(
+        'waterless-nav',
+        get_template_directory_uri() . '/js/nav.js',
+        [],
+        filemtime(get_template_directory() . '/js/nav.js'),
+        true
+    );
 }
 add_action('wp_enqueue_scripts', 'waterless_enqueue_scripts');
+
 
 register_nav_menus([
     'primary' => 'Main Menu',
@@ -380,3 +406,83 @@ function waterless_save_instruction_videos_meta($post_id)
     }
 }
 add_action('save_post_page', 'waterless_save_instruction_videos_meta');
+
+function waterless_theme_setup()
+{
+    // Enable support for Custom Logo
+    add_theme_support('custom-logo', [
+        'height'      => 80,   // Recommended logo height
+        'width'       => 200,  // Recommended logo width
+        'flex-height' => true,
+        'flex-width'  => true,
+        'header-text' => ['site-title', 'site-description'], // Optional
+    ]);
+
+    // Add support for wide/full width blocks
+    add_theme_support('align-wide');
+
+    // Add support for editor styles
+    add_theme_support('editor-styles');
+    add_editor_style('css/editor.css'); // optional custom styles for the editor
+
+    // Add support for featured images, title tags, etc.
+    add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+}
+add_action('after_setup_theme', 'waterless_theme_setup');
+
+// Register footer menu
+function waterless_register_menus()
+{
+    register_nav_menus([
+        'footer_menu' => __('Footer Menu', 'waterless'),
+    ]);
+}
+add_action('after_setup_theme', 'waterless_register_menus');
+
+// Add customizer settings for footer
+function waterless_customize_register($wp_customize)
+{
+    // Footer tagline
+    $wp_customize->add_section('footer_section', [
+        'title'    => __('Footer Settings', 'waterless'),
+        'priority' => 120,
+    ]);
+
+    $wp_customize->add_setting('footer_tagline', [
+        'default'           => 'Upgrade til bæredygtighed — spar vand, skær omkostningerne, og vær på forkant!',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+
+    $wp_customize->add_control('footer_tagline_control', [
+        'label'    => __('Footer Tagline', 'waterless'),
+        'section'  => 'footer_section',
+        'settings' => 'footer_tagline',
+        'type'     => 'textarea',
+    ]);
+
+    // Footer contact info
+    $wp_customize->add_setting('footer_contact', [
+        'default'           => "Waterless Scandinavia ApS\nMøllegade 23\n6310 Broager\nDenmark\nTel: +45 74 44 11 81\nEmail: info@waterless.dk",
+        'sanitize_callback' => 'wp_kses_post',
+    ]);
+
+    $wp_customize->add_control('footer_contact_control', [
+        'label'    => __('Footer Contact Info', 'waterless'),
+        'section'  => 'footer_section',
+        'settings' => 'footer_contact',
+        'type'     => 'textarea',
+    ]);
+}
+add_action('customize_register', 'waterless_customize_register');
+
+
+function waterless_register_block_patterns()
+{
+    // Register a custom category for your patterns
+    register_block_pattern_category(
+        'waterless',
+        ['label' => __('Waterless Blocks', 'waterless')]
+    );
+}
+add_action('init', 'waterless_register_block_patterns');

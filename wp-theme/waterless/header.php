@@ -25,9 +25,14 @@ $pageUrl =  $protocol . $host . $_SERVER['REQUEST_URI'];
 <body>
     <header class="main-header">
         <section class="header-content">
-            <a href="<?php echo $baseUrl; ?>" class="logo-container">
-                <img class="logo" src="assets/logos/waterless-logo-2.jpg" alt="Waterless Logo">
-            </a>
+            <?php
+            if (has_custom_logo()) {
+                the_custom_logo(); // Displays the uploaded logo
+            } else {
+                // Fallback: show site title if no logo is set
+                echo '<h1>' . get_bloginfo('name') . '</h1>';
+            }
+            ?>
             <?php wp_nav_menu(['theme_location' => 'primary']); ?>
         </section>
     </header>
