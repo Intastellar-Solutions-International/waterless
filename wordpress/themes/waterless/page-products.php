@@ -1,55 +1,41 @@
-<?php
-$pageTitle = "Our Products";
-include_once 'components/head.php';
-?>
+<?php get_header(); ?>
+
 <main class="main-content ppad">
-    <!-- Main content goes here -->
     <section class="content">
         <h1>Our Products</h1>
     </section>
+
     <section class="content grid cols-5">
-        <article class="product-item">
-            <h2 class="product-title">Waterless urinal Eco 100% recycled plastic</h2>
-            <img src="assets/products/urinal-eco-12.png" alt="Waterless urinal Eco 100% recycled plastic">
-            <a href="product?id=eco" class="cta">Læs mere</a>
-        </article>
-        <article>
+        <?php
+        if (have_posts()) :
+            $counter = 0; // Counter for spacing
+            while (have_posts()) : the_post();
+        ?>
+                <article class="product-item">
+                    <!-- Product title -->
+                    <h2 class="product-title"><?php the_title(); ?></h2>
 
-        </article>
-        <article class="product-item">
-            <h2 class="product-title">Porcelain urinal</h2>
-            <img src="assets/products/porcelain-urinal.png" alt="Porcelain urinal">
-            <a href="product?id=porcelain" class="cta">Læs mere</a>
-        </article>
-        <article>
+                    <!-- Product thumbnail -->
+                    <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail('medium', ['alt' => get_the_title()]); ?>
+                    <?php else : ?>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/products/default-product.png" alt="<?php the_title(); ?>">
+                    <?php endif; ?>
 
-        </article>
-        <article class="product-item">
-            <h2 class="product-title">Housing H1</h2>
-            <img src="assets/products/housing-h1.png" alt="Housing H1">
-            <a href="product?id=housing-h1" class="cta">Læs mere</a>
-        </article>
-        <article>
+                    <!-- CTA link -->
+                    <a href="<?php the_permalink(); ?>" class="cta">Læs mere</a>
+                </article>
 
-        </article>
-        <article class="product-item">
-            <h2 class="product-title">Housing H3</h2>
-            <img src="assets/products/housing-h3.png" alt="Housing H3">
-            <a href="product?id=housing-h3" class="cta">Læs mere</a>
-        </article>
-        <article>
-
-        </article>
-        <article class="product-item">
-            <h2 class="product-title">Siphon Velocity</h2>
-            <img src="assets/products/siphon.png" alt="Siphon Velocity">
-            <a href="product?id=siphon" class="cta">Læs mere</a>
-        </article>
-        <article>
-
-        </article>
+        <?php
+                $counter++;
+                // Insert empty <article> for spacing after every product
+                echo '<article></article>';
+            endwhile;
+        else :
+            echo '<p>No products found.</p>';
+        endif;
+        ?>
     </section>
 </main>
-<?php
-include_once 'components/footer.php';
-?>
+
+<?php get_footer(); ?>
