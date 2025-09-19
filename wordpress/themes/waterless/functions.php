@@ -1,21 +1,21 @@
 <?php
-function mytheme_enqueue_scripts()
+function waterless_enqueue_scripts()
 {
-    wp_enqueue_style('mytheme-style', get_stylesheet_uri());
-    wp_enqueue_style('custom-style', get_template_directory_uri() . '/css/reset.css');
-    wp_enqueue_style('custom-style', get_template_directory_uri() . '/css/style.css');
-    wp_enqueue_style('custom-style', get_template_directory_uri() . '/css/responsive.css');
-    wp_enqueue_script('custom-js', get_template_directory_uri() . '/js/map.js', [], false, true);
-    wp_enqueue_script('custom-js', get_template_directory_uri() . '/js/nav.js', [], false, true);
+    wp_enqueue_style('waterless-style', get_stylesheet_uri());
+    wp_enqueue_style('waterless-style', get_template_directory_uri() . '/css/reset.css');
+    wp_enqueue_style('waterless-style', get_template_directory_uri() . '/css/style.css');
+    wp_enqueue_style('waterless-style', get_template_directory_uri() . '/css/responsive.css');
+    wp_enqueue_script('waterless-js', get_template_directory_uri() . '/js/map.js', [], false, true);
+    wp_enqueue_script('waterless-js', get_template_directory_uri() . '/js/nav.js', [], false, true);
 }
-add_action('wp_enqueue_scripts', 'mytheme_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'waterless_enqueue_scripts');
 
 register_nav_menus([
     'primary' => 'Main Menu',
 ]);
 
 
-function mytheme_register_products() {
+function waterless_register_products() {
     register_post_type('product', [
         'labels' => [
             'name'          => 'Products',
@@ -27,10 +27,10 @@ function mytheme_register_products() {
         'menu_icon'   => 'dashicons-cart',
     ]);
 }
-add_action('init', 'mytheme_register_products');
+add_action('init', 'waterless_register_products');
 
-// Register custom product meta fields
-function mytheme_register_product_meta()
+// Register waterless product meta fields
+function waterless_register_product_meta()
 {
     $fields = [
         'dimension_height' => 'number',
@@ -54,26 +54,26 @@ function mytheme_register_product_meta()
         ]);
     }
 }
-add_action('init', 'mytheme_register_product_meta');
+add_action('init', 'waterless_register_product_meta');
 
 
 // 2. Add meta box
-function mytheme_add_product_meta_boxes()
+function waterless_add_product_meta_boxes()
 {
     add_meta_box(
         'product_specs',
         'Product Specifications',
-        'mytheme_render_product_meta_box',
+        'waterless_render_product_meta_box',
         'product',
         'normal',
         'high'
     );
 }
-add_action('add_meta_boxes', 'mytheme_add_product_meta_boxes');
+add_action('add_meta_boxes', 'waterless_add_product_meta_boxes');
 
 
 // 3. Render meta box
-function mytheme_render_product_meta_box($post)
+function waterless_render_product_meta_box($post)
 {
     $fields = [
         'dimension_height' => 'Height (mm)',
@@ -95,7 +95,7 @@ function mytheme_render_product_meta_box($post)
 
 
 // 4. Save meta box values
-function mytheme_save_product_meta($post_id)
+function waterless_save_product_meta($post_id)
 {
     $fields = [
         'dimension_height',
@@ -115,4 +115,4 @@ function mytheme_save_product_meta($post_id)
         }
     }
 }
-add_action('save_post_product', 'mytheme_save_product_meta');
+add_action('save_post_product', 'waterless_save_product_meta');
