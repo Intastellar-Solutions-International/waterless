@@ -1,4 +1,9 @@
 <?php
+// Load custom nav walker
+require_once get_template_directory() . '/inc/class-waterless-walker.php';
+// Load helper functions
+require_once get_template_directory() . '/inc/helpers.php';
+
 
 function waterless_enqueue_scripts()
 {
@@ -43,10 +48,6 @@ function waterless_enqueue_scripts()
 }
 add_action('wp_enqueue_scripts', 'waterless_enqueue_scripts');
 
-
-register_nav_menus([
-    'primary' => 'Main Menu',
-]);
 
 function waterless_register_products()
 {
@@ -404,18 +405,89 @@ add_action('save_post_page', 'waterless_save_homepage_meta');
 
 // Register Vimeo URL meta field
 // Register native meta field to store multiple instruction videos
-function waterless_register_instruction_videos_meta()
+// Add meta box
+function waterless_add_instruction_meta_box()
 {
-    register_post_meta('page', 'instruction_videos', [
-        'show_in_rest' => true,
-        'single' => true,
-        'type' => 'string', // Will store JSON array
-        'auth_callback' => function () {
-            return current_user_can('edit_posts');
-        }
-    ]);
+    add_meta_box(
+        'instruction_videos_box',
+        __('Instruction Videos', 'waterless'),
+        'waterless_render_instruction_meta_box',
+        'page',
+        'normal',
+        'default'
+    );
 }
-add_action('init', 'waterless_register_instruction_videos_meta');
+add_action('add_meta_boxes', 'waterless_add_instruction_meta_box');
+
+// Render fields
+function waterless_render_instruction_meta_box($post)
+{
+    $instructions_json = get_post_meta($post->ID, 'instruction_videos', true);
+    $instructions = $instructions_json ? json_decode($instructions_json, true) : [];
+?>
+    <div id="instruction-videos-wrapper">
+        <?php foreach ($instructions as $index => $instruction) : ?>
+            <div class="instruction-item" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                <p><label>Title:<br>
+                        <input type="text" name="instructions[<?php echo $index; ?>][title]" value="<?php echo esc_attr($instruction['title']); ?>" style="width:100%;">
+                    </label></p>
+                <p><label>Video URL:<br>
+                        <input type="text" name="instructions[<?php echo $index; ?>][url]" value="<?php echo esc_url($instruction['url']); ?>" style="width:100%;">
+                    </label></p>
+                <p><label>Image URL:<br>
+                        <input type="text" name="instructions[<?php echo $index; ?>][image]" value="<?php echo esc_url($instruction['image']); ?>" style="width:100%;">
+                    </label></p>
+                <p><label>Description:<br>
+                        <textarea name="instructions[<?php echo $index; ?>][description]" style="width:100%; height:80px;"><?php echo esc_textarea($instruction['description'] ?? ''); ?></textarea>
+                    </label></p>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+    <p><button type="button" class="button" id="add-instruction">Add Instruction</button></p>
+
+    <script>
+        document.getElementById('add-instruction').addEventListener('click', function() {
+            const wrapper = document.getElementById('instruction-videos-wrapper');
+            const index = wrapper.children.length;
+            const html = `
+            <div class="instruction-item" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                <p><label>Title:<br>
+                    <input type="text" name="instructions[${index}][title]" style="width:100%;">
+                </label></p>
+                <p><label>Video URL:<br>
+                    <input type="text" name="instructions[${index}][url]" style="width:100%;">
+                </label></p>
+                <p><label>Image URL:<br>
+                    <input type="text" name="instructions[${index}][image]" style="width:100%;">
+                </label></p>
+                <p><label>Description:<br>
+                    <textarea name="instructions[${index}][description]" style="width:100%; height:80px;"></textarea>
+                </label></p>
+            </div>`;
+            wrapper.insertAdjacentHTML('beforeend', html);
+        });
+    </script>
+<?php
+}
+
+// Save meta
+function waterless_save_instruction_meta($post_id)
+{
+    if (isset($_POST['instructions'])) {
+        $instructions = array_map(function ($item) {
+            return [
+                'title' => sanitize_text_field($item['title']),
+                'url' => esc_url_raw($item['url']),
+                'image' => esc_url_raw($item['image']),
+                'description' => sanitize_textarea_field($item['description']),
+            ];
+        }, $_POST['instructions']);
+        update_post_meta($post_id, 'instruction_videos', wp_json_encode($instructions));
+    }
+}
+add_action('save_post', 'waterless_save_instruction_meta');
+
 
 // Add meta box for multiple instruction videos
 function waterless_add_instruction_videos_meta_box()
@@ -532,14 +604,60 @@ add_action('after_setup_theme', 'waterless_editor_styles');
 function waterless_register_menus()
 {
     register_nav_menus([
+        'main_menu' => __('Main Menu', 'waterless'),
         'footer_menu' => __('Footer Menu', 'waterless'),
     ]);
 }
 add_action('after_setup_theme', 'waterless_register_menus');
 
-// Add customizer settings for footer
+
 function waterless_customize_register($wp_customize)
 {
+    // Panel for Language Selector
+    $wp_customize->add_section('waterless_language_selector', [
+        'title'    => __('Language Selector', 'waterless'),
+        'priority' => 40,
+    ]);
+
+    // Danish (default)
+    $wp_customize->add_setting('waterless_lang_da_link', ['default' => '/']);
+    $wp_customize->add_control('waterless_lang_da_link', [
+        'label'   => __('Danish Link', 'waterless'),
+        'section' => 'waterless_language_selector',
+        'type'    => 'url',
+    ]);
+    $wp_customize->add_setting('waterless_lang_da_flag', ['default' => get_template_directory_uri() . '/assets/icons/flag-denmark.jpg']);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'waterless_lang_da_flag', [
+        'label'   => __('Danish Flag', 'waterless'),
+        'section' => 'waterless_language_selector',
+    ]));
+
+    // English
+    $wp_customize->add_setting('waterless_lang_en_link', ['default' => '/en']);
+    $wp_customize->add_control('waterless_lang_en_link', [
+        'label'   => __('English Link', 'waterless'),
+        'section' => 'waterless_language_selector',
+        'type'    => 'url',
+    ]);
+    $wp_customize->add_setting('waterless_lang_en_flag', ['default' => get_template_directory_uri() . '/assets/icons/uk.webp']);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'waterless_lang_en_flag', [
+        'label'   => __('English Flag', 'waterless'),
+        'section' => 'waterless_language_selector',
+    ]));
+
+    // German
+    $wp_customize->add_setting('waterless_lang_de_link', ['default' => '/de']);
+    $wp_customize->add_control('waterless_lang_de_link', [
+        'label'   => __('German Link', 'waterless'),
+        'section' => 'waterless_language_selector',
+        'type'    => 'url',
+    ]);
+    $wp_customize->add_setting('waterless_lang_de_flag', ['default' => get_template_directory_uri() . '/assets/icons/flag-germany.jpg']);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'waterless_lang_de_flag', [
+        'label'   => __('German Flag', 'waterless'),
+        'section' => 'waterless_language_selector',
+    ]));
+
     // Footer tagline
     $wp_customize->add_section('footer_section', [
         'title'    => __('Footer Settings', 'waterless'),
@@ -573,13 +691,161 @@ function waterless_customize_register($wp_customize)
 }
 add_action('customize_register', 'waterless_customize_register');
 
-
-function waterless_register_block_patterns()
+// Register Instructions Custom Post Type
+function waterless_register_instructions_cpt()
 {
-    // Register a custom category for your patterns
-    register_block_pattern_category(
-        'waterless',
-        ['label' => __('Waterless Blocks', 'waterless')]
+    $labels = array(
+        'name'                  => _x('Instructions', 'Post type general name', 'waterless'),
+        'singular_name'         => _x('Instruction', 'Post type singular name', 'waterless'),
+        'menu_name'             => _x('Instructions', 'Admin Menu text', 'waterless'),
+        'name_admin_bar'        => _x('Instruction', 'Add New on Toolbar', 'waterless'),
+        'add_new'               => __('Add New', 'waterless'),
+        'add_new_item'          => __('Add New Instruction', 'waterless'),
+        'new_item'              => __('New Instruction', 'waterless'),
+        'edit_item'             => __('Edit Instruction', 'waterless'),
+        'view_item'             => __('View Instruction', 'waterless'),
+        'all_items'             => __('All Instructions', 'waterless'),
+        'search_items'          => __('Search Instructions', 'waterless'),
+        'not_found'             => __('No instructions found.', 'waterless'),
+        'not_found_in_trash'    => __('No instructions found in Trash.', 'waterless'),
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'menu_icon'          => 'dashicons-welcome-learn-more',
+        'rewrite'            => array('slug' => 'instructions'),
+        'supports'           => array('title', 'editor', 'thumbnail'), // WP editor for description
+        'has_archive'        => true,
+    );
+
+    register_post_type('instruction', $args);
+}
+add_action('init', 'waterless_register_instructions_cpt');
+
+// Add video URL meta box
+function waterless_add_instruction_video_metabox()
+{
+    add_meta_box(
+        'instruction_video_url',
+        __('Instruction Video', 'waterless'),
+        'waterless_render_instruction_video_metabox',
+        'instruction',
+        'normal',
+        'high'
     );
 }
-add_action('init', 'waterless_register_block_patterns');
+add_action('add_meta_boxes', 'waterless_add_instruction_video_metabox');
+
+function waterless_render_instruction_video_metabox($post)
+{
+    $video_url = get_post_meta($post->ID, '_instruction_video_url', true);
+?>
+    <p><label for="instruction_video_url"><?php _e('Video URL (Vimeo/YouTube)', 'waterless'); ?></label></p>
+    <input type="text" id="instruction_video_url" name="instruction_video_url"
+        value="<?php echo esc_attr($video_url); ?>" style="width:100%;">
+<?php
+}
+
+function waterless_save_instruction_video_url($post_id)
+{
+    if (isset($_POST['instruction_video_url'])) {
+        update_post_meta($post_id, '_instruction_video_url', esc_url_raw($_POST['instruction_video_url']));
+    }
+}
+add_action('save_post_instruction', 'waterless_save_instruction_video_url');
+
+/**
+ * Extracts a YouTube or Vimeo video ID and returns the correct embed URL
+ */
+// Register meta box for Instruction video URL
+function waterless_add_instruction_metabox() {
+    add_meta_box(
+        'waterless_instruction_video',
+        'Instruction Video',
+        'waterless_instruction_video_callback',
+        'instruction',   // <- post type
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'waterless_add_instruction_metabox');
+
+// Meta box content
+function waterless_instruction_video_callback($post) {
+    wp_nonce_field('waterless_save_instruction_video', 'waterless_instruction_video_nonce');
+
+    $value = get_post_meta($post->ID, 'instruction_video_url', true);
+
+    echo '<label for="instruction_video_url">Video URL (YouTube or Vimeo):</label><br>';
+    echo '<input type="url" id="instruction_video_url" name="instruction_video_url" ';
+    echo 'value="' . esc_attr($value) . '" style="width:100%;max-width:600px;">';
+}
+
+function waterless_save_instruction_video($post_id)
+{
+    // Check nonce
+    if (
+        !isset($_POST['waterless_instruction_video_nonce']) ||
+        !wp_verify_nonce($_POST['waterless_instruction_video_nonce'], 'waterless_save_instruction_video')
+    ) {
+        return;
+    }
+
+    // Check autosave
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // Check user permissions
+    if (isset($_POST['post_type']) && $_POST['post_type'] === 'instruction') {
+        if (!current_user_can('edit_post', $post_id)) {
+            return;
+        }
+    }
+
+    // Save
+    if (isset($_POST['instruction_video_url'])) {
+        update_post_meta($post_id, 'instruction_video_url', esc_url_raw($_POST['instruction_video_url']));
+    }
+}
+
+function waterless_get_video_thumbnail($url)
+{
+    // YouTube
+    if (preg_match('/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([^\?&]+)/', $url, $matches)) {
+        return 'https://img.youtube.com/vi/' . esc_attr($matches[1]) . '/hqdefault.jpg';
+    }
+
+    // Vimeo → requires API call
+    if (preg_match('/vimeo\.com\/(?:video\/)?([0-9]+)/', $url, $matches)) {
+        $video_id = $matches[1];
+        $response = wp_remote_get("https://vimeo.com/api/v2/video/$video_id.json");
+
+        if (is_array($response) && !is_wp_error($response)) {
+            $body = json_decode(wp_remote_retrieve_body($response), true);
+            if (!empty($body[0]['thumbnail_large'])) {
+                return esc_url($body[0]['thumbnail_large']);
+            }
+        }
+    }
+
+    return ''; // fallback empty
+}
+
+add_action('save_post', 'waterless_save_instruction_video');
+
+/**
+ * Register custom block patterns for Waterless
+ */
+// Register custom block pattern category for Waterless
+add_action( 'init', function() {
+    if ( function_exists( 'register_block_pattern_category' ) ) {
+        register_block_pattern_category(
+            'waterless',
+            [ 'label' => __( 'Waterless Patterns', 'waterless' ) ]
+        );
+    }
+});
