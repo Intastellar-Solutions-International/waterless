@@ -18,7 +18,7 @@ $pageUrl =  $protocol . $host . $_SERVER['REQUEST_URI'];
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
-    <title><?php wp_title('|', true, 'right'); ?></title>
+    <title><?php wp_title('|', true, 'right'); ?> <?php bloginfo('name'); ?></title>
     <?php wp_head(); ?>
 </head>
 
