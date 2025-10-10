@@ -30,13 +30,49 @@ function waterless_enqueue_scripts()
     );
 
     // Scripts
+    // Allow an optional third-party map script (configured in Customizer). If present, register and enqueue it
+    $thirdparty_map = get_theme_mod('waterless_map_thirdparty_url');
+    $map_deps = [];
+    if ( ! empty( $thirdparty_map ) ) {
+        // Register third-party script from external URL. Do not version it (null) so caching is controlled externally.
+        wp_register_script('waterless-map-thirdparty', esc_url_raw( $thirdparty_map ), [], null, true );
+        wp_enqueue_script('waterless-map-thirdparty');
+        $map_deps[] = 'waterless-map-thirdparty';
+    }
+
     wp_enqueue_script(
         'waterless-map',
         get_template_directory_uri() . '/js/map.js',
-        [],
+        $map_deps,
         filemtime(get_template_directory() . '/js/map.js'),
         true
     );
+
+    // Localize map data (marker icon URL and any other map config)
+    $map_icon = get_theme_mod('waterless_map_icon', get_template_directory_uri() . '/assets/map/icon.png');
+    wp_localize_script('waterless-map', 'waterlessMap', [
+        'markerIcon' => esc_url( $map_icon ),
+    ]);
+
+    // Lenis (smooth scrolling) and Leaflet (maps) via CDN
+    // Load these only on pages where the front-page or map is present to avoid loading site-wide.
+    $should_load_map_assets = is_front_page() || is_page('about') || is_page('why-sustainable');
+    if ( $should_load_map_assets ) {
+        // Lenis
+        wp_register_script('lenis-cdn', 'https://cdn.jsdelivr.net/npm/lenis@1.3.1/dist/lenis.min.js', [], '1.3.1', true);
+        wp_enqueue_script('lenis-cdn');
+
+        // Leaflet CSS (CDN)
+        wp_enqueue_style('leaflet-cdn-css', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', [], '1.9.4');
+
+        // Leaflet JS (CDN)
+        wp_register_script('leaflet-cdn', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', [], '1.9.4', true);
+        wp_enqueue_script('leaflet-cdn');
+        // Add crossorigin attribute (empty string as in upstream examples)
+        if ( function_exists( 'wp_script_add_data' ) ) {
+            wp_script_add_data( 'leaflet-cdn', 'crossorigin', '' );
+        }
+    }
 
     wp_enqueue_script(
         'waterless-nav',
@@ -839,6 +875,18 @@ function waterless_customize_register($wp_customize)
         'settings' => 'waterless_map_badge',
     ]));
 
+    // Map marker icon (uploadable via Customizer)
+    $wp_customize->add_setting('waterless_map_icon', [
+        'default'           => get_template_directory_uri() . '/assets/map/icon.png',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'waterless_map_icon_control', [
+        'label'    => __('Map - Marker Icon', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_map_icon',
+    ]));
+
     // Full width section
     $wp_customize->add_setting('waterless_full_pre', [
         'default'           => 'Tilpasset løsning til dig',
@@ -1003,26 +1051,182 @@ function waterless_customize_register($wp_customize)
             'render_callback' => function() { echo '<img src="' . esc_url( get_theme_mod('waterless_testimonial_image') ) . '" alt="">'; }
         ]);
     }
+
+    // === About & Why-Sustainable Customizer controls ===
+    $wp_customize->add_section('waterless_about', [
+        'title'    => __('About Page', 'waterless'),
+        'priority' => 40,
+    ]);
+
+    $wp_customize->add_setting('waterless_about_intro', [
+        'default'           => "Vi var det første firma i Danmark til at introducere vandløse urinaler, og i dag forbliver vi en af de globale ledere på området.",
+        'sanitize_callback' => 'sanitize_textarea_field',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control('waterless_about_intro_control', [
+        'label'    => __('About - Intro Text', 'waterless'),
+        'section'  => 'waterless_about',
+        'settings' => 'waterless_about_intro',
+        'type'     => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('waterless_about_image', [
+        'default'           => get_template_directory_uri() . '/assets/founders/jim.jpg',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'waterless_about_image_control', [
+        'label'    => __('About - Image', 'waterless'),
+        'section'  => 'waterless_about',
+        'settings' => 'waterless_about_image',
+    ]));
+
+    $wp_customize->add_section('waterless_sustainable', [
+        'title'    => __('Why Sustainable', 'waterless'),
+        'priority' => 41,
+    ]);
+
+    $wp_customize->add_setting('waterless_sustainable_heading', [
+        'default'           => 'Waterless Scandinavia – Leading the Way in Sustainable Restroom Solutions',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control('waterless_sustainable_heading_control', [
+        'label'    => __('Why - Heading', 'waterless'),
+        'section'  => 'waterless_sustainable',
+        'settings' => 'waterless_sustainable_heading',
+        'type'     => 'text',
+    ]);
+
+    $wp_customize->add_setting('waterless_sustainable_text', [
+        'default'           => 'At Waterless Scandinavia, we believe that sustainability starts with smarter choices.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control('waterless_sustainable_text_control', [
+        'label'    => __('Why - Text', 'waterless'),
+        'section'  => 'waterless_sustainable',
+        'settings' => 'waterless_sustainable_text',
+        'type'     => 'textarea',
+    ]);
+
+    // Map third-party script URL
+    $wp_customize->add_section('waterless_map_scripts', [
+        'title'    => __('Map Scripts', 'waterless'),
+        'priority' => 42,
+    ]);
+    $wp_customize->add_setting('waterless_map_thirdparty_url', [
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control('waterless_map_thirdparty_url_control', [
+        'label'    => __('Third-party Map Script URL (e.g. CDN)', 'waterless'),
+        'section'  => 'waterless_map_scripts',
+        'settings' => 'waterless_map_thirdparty_url',
+        'type'     => 'url',
+    ]);
+
+    // Selective refresh partials for About & Why pages
+    if ( isset( $wp_customize->selective_refresh ) ) {
+        $sr->add_partial('waterless_about_intro', [
+            'selector' => '.content article.content section.grid.cols-2 div p',
+            'settings' => ['waterless_about_intro'],
+            'render_callback' => function() { echo nl2br( esc_html( get_theme_mod('waterless_about_intro') ) ); }
+        ]);
+
+        $sr->add_partial('waterless_about_image', [
+            'selector' => 'section.grid.cols-2 img',
+            'settings' => ['waterless_about_image'],
+            'render_callback' => function() { echo '<img src="' . esc_url( get_theme_mod('waterless_about_image') ) . '" alt="">'; }
+        ]);
+
+        $sr->add_partial('waterless_sustainable_heading', [
+            'selector' => '.paint-bg.info-container h1',
+            'settings' => ['waterless_sustainable_heading'],
+            'render_callback' => function() { echo esc_html( get_theme_mod('waterless_sustainable_heading') ); }
+        ]);
+        $sr->add_partial('waterless_sustainable_text', [
+            'selector' => '.paint-bg.info-container p',
+            'settings' => ['waterless_sustainable_text'],
+            'render_callback' => function() { echo nl2br( esc_html( get_theme_mod('waterless_sustainable_text') ) ); }
+        ]);
+    }
 }
 add_action('customize_register', 'waterless_customize_register');
+
+/**
+ * When Customizer is saved, persist the front-page theme_mod values into the front page post meta.
+ * This keeps the page editable in the Page editor and prevents values from appearing to 'disappear'
+ * when other parts of the site read post meta instead of theme_mods.
+ */
+function waterless_sync_customizer_to_page_meta() {
+    // Only run in admin on customize save
+    if ( ! is_admin() ) return;
+
+    // Require capability
+    if ( ! current_user_can( 'edit_pages' ) ) return;
+
+    $front_id = (int) get_option( 'page_on_front' );
+    if ( $front_id <= 0 ) return;
+
+    // Map of theme_mod => post_meta_key
+    $map = [
+        'waterless_hero_title' => 'hero_title',
+        'waterless_hero_sub' => 'hero_subtitle',
+        'waterless_hero_cta_text' => 'hero_cta_text',
+        'waterless_hero_cta_link' => 'hero_cta_link',
+        'waterless_hero_image' => 'hero_image',
+
+        'waterless_sec1_pre' => 'sec1_pre',
+        'waterless_sec1_heading' => 'sec1_heading',
+        'waterless_sec1_image' => 'sec1_image',
+
+        'waterless_map_heading' => 'map_heading',
+        'waterless_map_sub' => 'map_sub',
+        'waterless_map_text' => 'map_text',
+        'waterless_map_badge' => 'map_badge',
+
+        'waterless_full_pre' => 'full_pre',
+        'waterless_full_heading' => 'full_heading',
+        'waterless_full_text' => 'full_text',
+        'waterless_full_image' => 'full_image',
+
+        'waterless_install_heading' => 'install_heading',
+        'waterless_install_image' => 'install_image',
+
+        'waterless_testimonial_heading' => 'testimonial_heading',
+        'waterless_testimonial_image' => 'testimonial_image',
+    ];
+
+    foreach ( $map as $tm => $meta_key ) {
+        $val = get_theme_mod( $tm );
+        if ( $val !== null ) {
+            // Save string values as-is; image URLs are URLs
+            update_post_meta( $front_id, $meta_key, $val );
+        }
+    }
+
+    // Note: We intentionally do not sync the third-party map script URL into page meta.
+}
+add_action( 'customize_save_after', 'waterless_sync_customizer_to_page_meta' );
 
 // Register Instructions Custom Post Type
 function waterless_register_instructions_cpt()
 {
     $labels = array(
-        'name'                  => _x('Instructions', 'Post type general name', 'waterless'),
+        'name'                  => _x('Instruction Video', 'Post type general name', 'waterless'),
         'singular_name'         => _x('Instruction', 'Post type singular name', 'waterless'),
-        'menu_name'             => _x('Instructions', 'Admin Menu text', 'waterless'),
+        'menu_name'             => _x('Instruction Video', 'Admin Menu text', 'waterless'),
         'name_admin_bar'        => _x('Instruction', 'Add New on Toolbar', 'waterless'),
         'add_new'               => __('Add New', 'waterless'),
-        'add_new_item'          => __('Add New Instruction', 'waterless'),
-        'new_item'              => __('New Instruction', 'waterless'),
-        'edit_item'             => __('Edit Instruction', 'waterless'),
-        'view_item'             => __('View Instruction', 'waterless'),
-        'all_items'             => __('All Instructions', 'waterless'),
-        'search_items'          => __('Search Instructions', 'waterless'),
-        'not_found'             => __('No instructions found.', 'waterless'),
-        'not_found_in_trash'    => __('No instructions found in Trash.', 'waterless'),
+        'add_new_item'          => __('Add New Video', 'waterless'),
+        'new_item'              => __('New Instruction Video', 'waterless'),
+        'edit_item'             => __('Edit Instruction Video', 'waterless'),
+        'view_item'             => __('View Instruction Video', 'waterless'),
+        'all_items'             => __('All Instruction Video', 'waterless'),
+        'search_items'          => __('Search Instruction Video', 'waterless'),
+        'not_found'             => __('No instruction videos found.', 'waterless'),
+        'not_found_in_trash'    => __('No instruction videos found in Trash.', 'waterless'),
     );
 
     $args = array(
@@ -1075,21 +1279,9 @@ add_action('save_post_instruction', 'waterless_save_instruction_video_url');
 /**
  * Extracts a YouTube or Vimeo video ID and returns the correct embed URL
  */
-// Register meta box for Instruction video URL
-function waterless_add_instruction_metabox() {
-    add_meta_box(
-        'waterless_instruction_video',
-        'Instruction Video',
-        'waterless_instruction_video_callback',
-        'instruction',   // <- post type
-        'normal',
-        'high'
-    );
-}
-add_action('add_meta_boxes', 'waterless_add_instruction_metabox');
 
 // Meta box content
-function waterless_instruction_video_callback($post) {
+/* function waterless_instruction_video_callback($post) {
     wp_nonce_field('waterless_save_instruction_video', 'waterless_instruction_video_nonce');
 
     $value = get_post_meta($post->ID, 'instruction_video_url', true);
@@ -1097,7 +1289,7 @@ function waterless_instruction_video_callback($post) {
     echo '<label for="instruction_video_url">Video URL (YouTube or Vimeo):</label><br>';
     echo '<input type="url" id="instruction_video_url" name="instruction_video_url" ';
     echo 'value="' . esc_attr($value) . '" style="width:100%;max-width:600px;">';
-}
+} */
 
 function waterless_save_instruction_video($post_id)
 {
