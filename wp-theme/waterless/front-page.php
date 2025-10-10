@@ -52,34 +52,35 @@ function wl_get_image_setting( $page_id, $meta_key, $theme_mod_key, $fallback ) 
     return wl_get_image_url( $page_id, $meta_key, $fallback );
 }
 
-$hero_title = wl_get_setting( $page_id, 'hero_title', 'waterless_hero_title', get_the_title( $page_id ) ?: 'Ændring af vandforbrugsindustrien' );
-$hero_sub = wl_get_setting( $page_id, 'hero_subtitle', 'waterless_hero_sub', 'Bæredygtige urinal-løsninger til dine bygninger og faciliteter.' );
-$hero_cta_text = wl_get_setting( $page_id, 'hero_cta_text', 'waterless_hero_cta_text', 'Udforsk produkter' );
-$hero_cta_link = wl_get_setting( $page_id, 'hero_cta_link', 'waterless_hero_cta_link', home_url( '/products' ) );
-$hero_image = wl_get_image_setting( $page_id, 'hero_image', 'waterless_hero_image', get_template_directory_uri() . '/assets/hero/Urinals1.png' );
+$hero_title = get_theme_mod( 'waterless_hero_title', get_the_title( $page_id ) ?: 'Ændring af vandforbrugsindustrien' );
+$hero_sub = get_theme_mod( 'waterless_hero_sub', 'Bæredygtige urinal-løsninger til dine bygninger og faciliteter.' );
+$hero_cta_text = get_theme_mod( 'waterless_hero_cta_text', 'Udforsk produkter' );
+$hero_cta_link = get_theme_mod( 'waterless_hero_cta_link', home_url( '/products' ) );
+$hero_image = get_theme_mod( 'waterless_hero_image', get_template_directory_uri() . '/assets/hero/Urinals1.png' );
 
 // Section content fields (with sensible defaults)
-$sec1_image = wl_get_image_setting( $page_id, 'sec1_image', 'waterless_sec1_image', get_template_directory_uri() . '/assets/products/urinal-eco-12.png' );
-$sec1_pre = wl_get_setting( $page_id, 'sec1_pre', 'waterless_sec1_pre', 'Hvad vi laver' );
-$sec1_heading = wl_get_setting( $page_id, 'sec1_heading', 'waterless_sec1_heading', 'Vandfri urinaler og bæredygtige løsninger' );
+$sec1_image = get_theme_mod( 'waterless_sec1_image', get_template_directory_uri() . '/assets/products/urinal-eco-12.png' );
+$sec1_pre = get_theme_mod( 'waterless_sec1_pre', 'Hvad vi laver' );
+$sec1_heading = get_theme_mod( 'waterless_sec1_heading', 'Vandfri urinaler og bæredygtige løsninger' );
 
-$map_badge = wl_get_image_setting( $page_id, 'map_badge', 'waterless_map_badge', get_template_directory_uri() . '/assets/smvgrøn.png' );
-$map_heading = wl_get_setting( $page_id, 'map_heading', 'waterless_map_heading', 'Verden rundt siden 1997 - 72 lande og tæller' );
-$map_sub = wl_get_setting( $page_id, 'map_sub', 'waterless_map_sub', 'Virksomhed med stabil position på markedet' );
-$map_text = wl_get_setting( $page_id, 'map_text', 'waterless_map_text', 'Vi er til stede på markedet siden 1997, og vi har 80% af det danske marked inden for vandfri urinaler.' );
-$map_link = wl_get_setting( $page_id, 'map_link', 'waterless_map_link', home_url( '/about.php' ) );
+$map_badge = get_theme_mod( 'waterless_map_badge', get_template_directory_uri() . '/assets/smvgrøn.png' );
+$map_heading = get_theme_mod( 'waterless_map_heading', 'Verden rundt siden 1997 - 72 lande og tæller' );
+$map_sub = get_theme_mod( 'waterless_map_sub', 'Virksomhed med stabil position på markedet' );
+$map_text = get_theme_mod( 'waterless_map_text', 'Vi er til stede på markedet siden 1997, og vi har 80% af det danske marked inden for vandfri urinaler.' );
+$map_link = get_theme_mod( 'waterless_map_link', home_url( '/about.php' ) );
 
-$full_image = wl_get_image_setting( $page_id, 'full_image', 'waterless_full_image', get_template_directory_uri() . '/assets/hero/63f76bfa9ee8a4f89044ef031c41fa4c50977249.png' );
-$full_pre = wl_get_setting( $page_id, 'full_pre', 'waterless_full_pre', 'Tilpasset løsning til dig' );
-$full_heading = wl_get_setting( $page_id, 'full_heading', 'waterless_full_heading', 'Vandbesparelser' );
-$full_text = wl_get_setting( $page_id, 'full_text', 'waterless_full_text', 'Vil du vide, hvor meget du kan spare?\nIndtast blot dine oplysninger i vores beregner og se besparelserne vokse!' );
+$full_image = get_theme_mod( 'waterless_full_image', get_template_directory_uri() . '/assets/hero/63f76bfa9ee8a4f89044ef031c41fa4c50977249.png' );
+$full_pre = get_theme_mod( 'waterless_full_pre', 'Tilpasset løsning til dig' );
+$full_heading = get_theme_mod( 'waterless_full_heading', 'Vandbesparelser' );
+$full_text = get_theme_mod( 'waterless_full_text', "Vil du vide, hvor meget du kan spare?
+Indtast blot dine oplysninger i vores beregner og se besparelserne vokse!" );
 
-$install_heading = wl_get_setting( $page_id, 'install_heading', 'waterless_install_heading', 'Installation af vandfri urinaler' );
-$install_link = wl_get_setting( $page_id, 'install_link', 'waterless_install_link', home_url( '/' ) );
-$install_image = wl_get_image_setting( $page_id, 'install_image', 'waterless_install_image', get_template_directory_uri() . '/assets/Projekt bez nazwy (25) 1.jpg' );
+$install_heading = get_theme_mod( 'waterless_install_heading', 'Installation af vandfri urinaler' );
+$install_link = get_theme_mod( 'waterless_install_link', home_url( '/' ) );
+$install_image = get_theme_mod( 'waterless_install_image', get_template_directory_uri() . '/assets/Projekt bez nazwy (25) 1.jpg' );
 
-$testimonial_image = wl_get_image_setting( $page_id, 'testimonial_image', 'waterless_testimonial_image', 'https://waterless.dk/userfiles/image/Nytlayout/Outside_urinal.png' );
-$testimonial_heading = wl_get_setting( $page_id, 'testimonial_heading', 'waterless_testimonial_heading', 'Vi har med succes installeret utallige urinaler på forskellige steder - og leverer en 100% lugtfri oplevelse, garanteret!' );
+$testimonial_image = get_theme_mod( 'waterless_testimonial_image', 'https://waterless.dk/userfiles/image/Nytlayout/Outside_urinal.png' );
+$testimonial_heading = get_theme_mod( 'waterless_testimonial_heading', 'Vi har med succes installeret utallige urinaler på forskellige steder - og leverer en 100% lugtfri oplevelse, garanteret!' );
 
 ?>
 
