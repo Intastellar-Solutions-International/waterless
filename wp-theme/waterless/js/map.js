@@ -132,11 +132,12 @@ const markersData = [
 
 if (document.querySelector("#map") != null) {
     let mapStyle = 'light_all'; // Default map style
-    let marker = 'assets/map/icon.png';
+    // Use localized marker icon from PHP (waterlessMap.markerIcon) if available, otherwise fall back to theme asset
+    let marker = (typeof window.waterlessMap !== 'undefined' && window.waterlessMap.markerIcon) ? window.waterlessMap.markerIcon : 'assets/map/icon.png';
     // Check if the user has a preference for dark mode
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         mapStyle = 'dark_all'; // Set to dark mode if preferred
-        marker = 'assets/map/icon.png';
+    marker = (typeof window.waterlessMap !== 'undefined' && window.waterlessMap.markerIcon) ? window.waterlessMap.markerIcon : 'assets/map/icon.png';
     }
     // Check if the user has a preference for light mode
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
@@ -155,7 +156,7 @@ if (document.querySelector("#map") != null) {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
         if (event.matches) {
             mapStyle = 'dark_all'; // Set to dark mode if preferred
-            marker = 'assets/map/icon.png';
+            marker = (typeof window.waterlessMap !== 'undefined' && window.waterlessMap.markerIcon) ? window.waterlessMap.markerIcon : 'assets/map/icon.png';
         } else {
             mapStyle = 'light_all'; // Set to light mode if preferred
             marker = 'assets/map/icon.png';
