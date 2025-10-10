@@ -18,7 +18,9 @@ get_header();
         </section>
         <section class="grid cols-2">
             <article class="--stretched">
-                <h1>Waterless urinal Eco 100% recycled plastic</h1>
+                <h1>
+                    <?php echo esc_html(get_the_title())?>
+                </h1>
                 <a class="cta" href="#">How to use?</a>
             </article>
             <article>
@@ -31,17 +33,17 @@ get_header();
             </article>
             <article>
                 <h3>Material</h3>
-                <p>100% recycled plastic</p>
+                <p><?php echo esc_html(get_post_meta(get_the_ID(), 'material', true))?></p>
             </article>
             <article class="--stretched">
                 <h3>Color</h3>
-                <p><?php echo esc_html(get_post_meta(get_the_ID(), 'product_color', true)); ?></p>
+                <p><?php echo esc_html(get_post_meta(get_the_ID(), 'color', true)); ?></p>
                 <section>
                     <p>Plumbing no.: <?php echo esc_html(get_post_meta(get_the_ID(), 'plumbing_no', true)); ?></p>
                     <p>Waterless no.: <?php echo esc_html(get_post_meta(get_the_ID(), 'waterless_no', true)); ?></p>
                 </section>
                 <section>
-                    <p>The drain pipe is freely accessible. Used for floor drains or wall drains or where several urinals need to be connected in series, e.g. to replace urinal troughs.</p>
+                    <p><?php echo apply_filters('the_content', get_post_field('post_content', get_the_ID()))?></p>
                 </section>
             </article>
             <article class="--stretched">

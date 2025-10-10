@@ -165,6 +165,8 @@ function waterless_register_product_meta()
         'dimension_height' => 'number',
         'dimension_width'  => 'number',
         'dimension_depth'  => 'number',
+        'product_color'    => 'string',
+        'material'         => 'string',
         'plumbing_no'      => 'string',
         'waterless_no'     => 'string',
         'cad_file'         => 'string',
@@ -208,6 +210,8 @@ function waterless_render_product_meta_box($post)
         'dimension_height' => 'Height (mm)',
         'dimension_width'  => 'Width (mm)',
         'dimension_depth'  => 'Depth (mm)',
+        'color'            => 'Color',
+        'material'         => 'Material',
         'plumbing_no'      => 'Plumbing no.',
         'waterless_no'     => 'Waterless no.',
         'cad_file'         => 'CAD File URL',
@@ -232,6 +236,8 @@ function waterless_save_product_meta($post_id)
         'dimension_depth',
         'plumbing_no',
         'waterless_no',
+        'color',
+        'material',
         'cad_file',
         'zip_file',
         'drawing_file'
@@ -688,6 +694,315 @@ function waterless_customize_register($wp_customize)
         'settings' => 'footer_contact',
         'type'     => 'textarea',
     ]);
+
+    // Front Page - Hero section controls
+    $wp_customize->add_section('waterless_frontpage', [
+        'title'    => __('Front Page - Hero', 'waterless'),
+        'priority' => 30,
+    ]);
+
+    $wp_customize->add_setting('waterless_hero_title', [
+        'default'           => 'Ændring af vandforbrugsindustrien',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('waterless_hero_title_control', [
+        'label'    => __('Hero Title', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_hero_title',
+        'type'     => 'text',
+    ]);
+
+    $wp_customize->add_setting('waterless_hero_sub', [
+        'default'           => 'Bæredygtige urinal-løsninger til dine bygninger og faciliteter.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ]);
+    $wp_customize->add_control('waterless_hero_sub_control', [
+        'label'    => __('Hero Subtitle', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_hero_sub',
+        'type'     => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('waterless_hero_cta_text', [
+        'default'           => 'Udforsk produkter',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('waterless_hero_cta_text_control', [
+        'label'    => __('Hero CTA Text', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_hero_cta_text',
+        'type'     => 'text',
+    ]);
+
+    $wp_customize->add_setting('waterless_hero_cta_link', [
+        'default'           => home_url('/products'),
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control('waterless_hero_cta_link_control', [
+        'label'    => __('Hero CTA Link', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_hero_cta_link',
+        'type'     => 'url',
+    ]);
+
+    $wp_customize->add_setting('waterless_hero_image', [
+        'default'           => get_template_directory_uri() . '/assets/hero/Urinals1.png',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'waterless_hero_image_control', [
+        'label'    => __('Hero Image', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_hero_image',
+    ]));
+
+    // Additional front page sections: Section 1 (intro block)
+    $wp_customize->add_setting('waterless_sec1_pre', [
+        'default'           => 'Hvad vi laver',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control('waterless_sec1_pre_control', [
+        'label'    => __('Section 1 - Pre heading', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_sec1_pre',
+        'type'     => 'text',
+    ]);
+
+    $wp_customize->add_setting('waterless_sec1_heading', [
+        'default'           => 'Vandfri urinaler og bæredygtige løsninger',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control('waterless_sec1_heading_control', [
+        'label'    => __('Section 1 - Heading', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_sec1_heading',
+        'type'     => 'text',
+    ]);
+
+    $wp_customize->add_setting('waterless_sec1_image', [
+        'default'           => get_template_directory_uri() . '/assets/products/urinal-eco-12.png',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'waterless_sec1_image_control', [
+        'label'    => __('Section 1 Image', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_sec1_image',
+    ]));
+
+    // Map section
+    $wp_customize->add_setting('waterless_map_heading', [
+        'default'           => 'Verden rundt siden 1997 - 72 lande og tæller',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control('waterless_map_heading_control', [
+        'label'    => __('Map - Heading', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_map_heading',
+        'type'     => 'text',
+    ]);
+
+    $wp_customize->add_setting('waterless_map_sub', [
+        'default'           => 'Virksomhed med stabil position på markedet',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control('waterless_map_sub_control', [
+        'label'    => __('Map - Subheading', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_map_sub',
+        'type'     => 'text',
+    ]);
+
+    $wp_customize->add_setting('waterless_map_text', [
+        'default'           => "Vi er til stede på markedet siden 1997, og vi har 80% af det danske marked inden for vandfri urinaler.",
+        'sanitize_callback' => 'sanitize_textarea_field',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control('waterless_map_text_control', [
+        'label'    => __('Map - Text', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_map_text',
+        'type'     => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('waterless_map_badge', [
+        'default'           => get_template_directory_uri() . '/assets/smvgrøn.png',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'waterless_map_badge_control', [
+        'label'    => __('Map - Badge Image', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_map_badge',
+    ]));
+
+    // Full width section
+    $wp_customize->add_setting('waterless_full_pre', [
+        'default'           => 'Tilpasset løsning til dig',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control('waterless_full_pre_control', [
+        'label'    => __('Full - Pre heading', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_full_pre',
+        'type'     => 'text',
+    ]);
+
+    $wp_customize->add_setting('waterless_full_heading', [
+        'default'           => 'Vandbesparelser',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control('waterless_full_heading_control', [
+        'label'    => __('Full - Heading', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_full_heading',
+        'type'     => 'text',
+    ]);
+
+    $wp_customize->add_setting('waterless_full_text', [
+        'default'           => 'Vil du vide, hvor meget du kan spare?\nIndtast blot dine oplysninger i vores beregner og se besparelserne vokse!',
+        'sanitize_callback' => 'sanitize_textarea_field',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control('waterless_full_text_control', [
+        'label'    => __('Full - Text', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_full_text',
+        'type'     => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('waterless_full_image', [
+        'default'           => get_template_directory_uri() . '/assets/hero/63f76bfa9ee8a4f89044ef031c41fa4c50977249.png',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'waterless_full_image_control', [
+        'label'    => __('Full - Background Image', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_full_image',
+    ]));
+
+    // Install section
+    $wp_customize->add_setting('waterless_install_heading', [
+        'default'           => 'Installation af vandfri urinaler',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control('waterless_install_heading_control', [
+        'label'    => __('Install - Heading', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_install_heading',
+        'type'     => 'text',
+    ]);
+
+    $wp_customize->add_setting('waterless_install_image', [
+        'default'           => get_template_directory_uri() . '/assets/Projekt bez nazwy (25) 1.jpg',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'waterless_install_image_control', [
+        'label'    => __('Install - Image', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_install_image',
+    ]));
+
+    // Testimonial / final block
+    $wp_customize->add_setting('waterless_testimonial_heading', [
+        'default'           => 'Vi har med succes installeret utallige urinaler på forskellige steder - og leverer en 100% lugtfri oplevelse, garanteret!',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control('waterless_testimonial_heading_control', [
+        'label'    => __('Testimonial - Heading', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_testimonial_heading',
+        'type'     => 'text',
+    ]);
+
+    $wp_customize->add_setting('waterless_testimonial_image', [
+        'default'           => 'https://waterless.dk/userfiles/image/Nytlayout/Outside_urinal.png',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'postMessage',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'waterless_testimonial_image_control', [
+        'label'    => __('Testimonial - Image', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_testimonial_image',
+    ]));
+
+    // Register selective refresh partials where available to enable live-preview without full refresh
+    if ( isset( $wp_customize->selective_refresh ) ) {
+        $sr = $wp_customize->selective_refresh;
+        $sr->add_partial( 'waterless_hero_title', [
+            'selector' => '.hero-title',
+            'settings' => ['waterless_hero_title'],
+            'render_callback' => function() { echo esc_html( get_theme_mod('waterless_hero_title') ); }
+        ]);
+        $sr->add_partial( 'waterless_hero_sub', [
+            'selector' => '.hero-text p',
+            'settings' => ['waterless_hero_sub'],
+            'render_callback' => function() { echo esc_html( get_theme_mod('waterless_hero_sub') ); }
+        ]);
+        // Image partial for hero
+        $sr->add_partial( 'waterless_hero_image', [
+            'selector' => '.hero-image',
+            'settings' => ['waterless_hero_image'],
+            'render_callback' => function() { echo '<img class="hero-image" src="' . esc_url( get_theme_mod('waterless_hero_image') ) . '" alt="">'; }
+        ]);
+
+        $sr->add_partial( 'waterless_sec1_heading', [
+            'selector' => '.ppad.content.grid.cols-2.content-center section h2',
+            'settings' => ['waterless_sec1_heading'],
+            'render_callback' => function() { echo esc_html( get_theme_mod('waterless_sec1_heading') ); }
+        ]);
+        $sr->add_partial( 'waterless_sec1_image', [
+            'selector' => '.ppad .product-image',
+            'settings' => ['waterless_sec1_image'],
+            'render_callback' => function() { echo '<img class="product-image" src="' . esc_url( get_theme_mod('waterless_sec1_image') ) . '" alt="">'; }
+        ]);
+
+        $sr->add_partial( 'waterless_map_text', [
+            'selector' => '.map-container section p',
+            'settings' => ['waterless_map_text'],
+            'render_callback' => function() { echo nl2br( esc_html( get_theme_mod('waterless_map_text') ) ); }
+        ]);
+        $sr->add_partial( 'waterless_map_badge', [
+            'selector' => '.map-container .sigal',
+            'settings' => ['waterless_map_badge'],
+            'render_callback' => function() { echo '<img class="sigal" src="' . esc_url( get_theme_mod('waterless_map_badge') ) . '" alt="">'; }
+        ]);
+
+        $sr->add_partial( 'waterless_full_text', [
+            'selector' => '.full-width-article',
+            'settings' => ['waterless_full_text','waterless_full_heading','waterless_full_pre'],
+            'render_callback' => function() {
+                echo '<p>' . esc_html( get_theme_mod('waterless_full_pre') ) . '</p>';
+                echo '<h2>' . esc_html( get_theme_mod('waterless_full_heading') ) . '</h2>';
+                echo '<p>' . nl2br( esc_html( get_theme_mod('waterless_full_text') ) ) . '</p>';
+            }
+        ]);
+        $sr->add_partial( 'waterless_full_image', [
+            'selector' => '.full-width-image',
+            'settings' => ['waterless_full_image'],
+            'render_callback' => function() { echo '<img class="full-width-image" src="' . esc_url( get_theme_mod('waterless_full_image') ) . '" alt="">'; }
+        ]);
+
+        $sr->add_partial( 'waterless_testimonial_heading', [
+            'selector' => '.content.grid.cols-2.ppad.content-center:last-of-type h2',
+            'settings' => ['waterless_testimonial_heading'],
+            'render_callback' => function() { echo esc_html( get_theme_mod('waterless_testimonial_heading') ); }
+        ]);
+        $sr->add_partial( 'waterless_testimonial_image', [
+            'selector' => '.content.grid.cols-2.ppad.content-center:last-of-type img',
+            'settings' => ['waterless_testimonial_image'],
+            'render_callback' => function() { echo '<img src="' . esc_url( get_theme_mod('waterless_testimonial_image') ) . '" alt="">'; }
+        ]);
+    }
 }
 add_action('customize_register', 'waterless_customize_register');
 
