@@ -1,15 +1,42 @@
 <?php
 /* Template Name: Product Page */
 get_header();
+
+$compatible_housings = get_post_meta(get_the_ID(), '_compatible_housings', true);
+$compatible_urinals  = get_post_meta(get_the_ID(), '_compatible_urinals', true);
 ?>
 <main class="main-content product-page">
     <section class="content ppad grid cols-3 --left-small">
-        <!-- Compatible housing -->
-        <section>
-            <h2>Compatible housing</h2>
-            <img class="compatible-items" src="<?php echo get_template_directory_uri(); ?>/assets/products/housing-h1.png" alt="Housing H1">
-            <img class="compatible-items" src="<?php echo get_template_directory_uri(); ?>/assets/products/housing-h3.png" alt="Housing H3">
-        </section>
+        <?php if (!empty($compatible_housings)) : ?>
+            <div class="compatibility-section">
+                <h3><?php _e('Compatible Housings', 'waterless'); ?></h3>
+                <?php
+                foreach ($compatible_housings as $housing_id) :
+                    $housing = get_post($housing_id);
+                    if ($housing && $housing->post_status === 'publish') :
+                        echo '<a class="compatible-items" href="' . get_permalink($housing_id) . '">
+                        <img src="' . get_the_post_thumbnail_url($housing_id, 'thumbnail') . '" alt="' . esc_attr($housing->post_title) . '">
+                        </a>';
+                    endif;
+                endforeach;
+                ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($compatible_urinals)) : ?>
+            <div class="compatibility-section">
+                <h3><?php _e('Compatible Urinals', 'waterless'); ?></h3>
+                <?php
+                foreach ($compatible_urinals as $urinal_id) :
+                    $urinal = get_post($urinal_id);
+                    if ($urinal && $urinal->post_status === 'publish') :
+                        echo '<a class="compatible-items" href="' . get_permalink($urinal_id) . '">
+                        <img src="' . get_the_post_thumbnail_url($urinal_id, 'thumbnail') . '" alt="' . esc_attr($urinal->post_title) . '"></a>';
+                    endif;
+                endforeach;
+                ?>
+            </div>
+        <?php endif; ?>
         <!-- Product image with magnifier -->
         <section class="img-magnifier-container">
             <?php if (has_post_thumbnail()) : ?>
@@ -19,7 +46,7 @@ get_header();
         <section class="grid cols-2">
             <article class="--stretched">
                 <h1>
-                    <?php echo esc_html(get_the_title())?>
+                    <?php echo esc_html(get_the_title()) ?>
                 </h1>
                 <a class="cta" href="#">How to use?</a>
             </article>
@@ -33,7 +60,7 @@ get_header();
             </article>
             <article>
                 <h3>Material</h3>
-                <p><?php echo esc_html(get_post_meta(get_the_ID(), 'material', true))?></p>
+                <p><?php echo esc_html(get_post_meta(get_the_ID(), 'material', true)) ?></p>
             </article>
             <article class="--stretched">
                 <h3>Color</h3>
@@ -43,7 +70,7 @@ get_header();
                     <p>Waterless no.: <?php echo esc_html(get_post_meta(get_the_ID(), 'waterless_no', true)); ?></p>
                 </section>
                 <section>
-                    <p><?php echo apply_filters('the_content', get_post_field('post_content', get_the_ID()))?></p>
+                    <p><?php echo apply_filters('the_content', get_post_field('post_content', get_the_ID())) ?></p>
                 </section>
             </article>
             <article class="--stretched">

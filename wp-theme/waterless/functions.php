@@ -262,7 +262,6 @@ function waterless_render_product_meta_box($post)
     }
 }
 
-
 // 4. Save meta box values
 function waterless_save_product_meta($post_id)
 {
@@ -288,6 +287,154 @@ function waterless_save_product_meta($post_id)
 }
 add_action('save_post_product', 'waterless_save_product_meta');
 
+function waterless_customize_register_products_page($wp_customize)
+{
+    $wp_customize->add_section('products_page_section', array(
+        'title'       => __('Products Page', 'waterless'),
+        'priority'    => 30,
+        'description' => __('Customize the Products Page content and layout.', 'waterless'),
+    ));
+
+    // Headline field
+    $wp_customize->add_setting('products_page_headline', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('products_page_headline', array(
+        'label'       => __('Custom Headline', 'waterless'),
+        'section'     => 'products_page_section',
+        'type'        => 'text',
+        'description' => __('Override the default page title.', 'waterless'),
+    ));
+
+    // CTA Button Text
+    $wp_customize->add_setting('products_page_cta_text', array(
+        'default'           => __('Læs mere', 'waterless'),
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('products_page_cta_text', array(
+        'label'       => __('CTA Button Text', 'waterless'),
+        'section'     => 'products_page_section',
+        'type'        => 'text',
+    ));
+
+    // Grid Columns
+    $wp_customize->add_setting('products_page_grid_columns', array(
+        'default'           => 5,
+        'sanitize_callback' => 'absint',
+    ));
+
+    $wp_customize->add_control('products_page_grid_columns', array(
+        'label'       => __('Number of Columns', 'waterless'),
+        'section'     => 'products_page_section',
+        'type'        => 'number',
+        'input_attrs' => array('min' => 1, 'max' => 6),
+    ));
+
+    // Default Image Upload
+    $wp_customize->add_setting('products_page_default_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Image_Control(
+        $wp_customize,
+        'products_page_default_image',
+        array(
+            'label'       => __('Default Product Image', 'waterless'),
+            'section'     => 'products_page_section',
+            'settings'    => 'products_page_default_image',
+            'description' => __('Used when a product has no featured image.', 'waterless'),
+        )
+    ));
+}
+add_action('customize_register', 'waterless_customize_register_products_page');
+
+
+// ============================
+// Helper Function for Defaults
+// ============================
+
+function waterless_get_default_product_image()
+{
+    $default_image = get_theme_mod('products_page_default_image');
+    if ($default_image) {
+        return esc_url($default_image);
+    }
+    return get_template_directory_uri() . '/assets/products/default-product.png';
+}
+
+
+// ============================
+// Product Compatibility Fields
+// ============================
+
+function waterless_add_product_compatibility_meta_boxes()
+{
+    add_meta_box(
+        'product_compatibility_meta',
+        __('Product Compatibility', 'waterless'),
+        'waterless_render_product_compatibility_meta_box',
+        'product',
+        'side',
+        'default'
+    );
+}
+add_action('add_meta_boxes', 'waterless_add_product_compatibility_meta_boxes');
+
+function waterless_render_product_compatibility_meta_box($post)
+{
+    wp_nonce_field('save_product_compatibility_meta', 'product_compatibility_nonce');
+
+    $selected_housings = get_post_meta($post->ID, '_compatible_housings', true);
+    $selected_urinals  = get_post_meta($post->ID, '_compatible_urinals', true);
+
+    $products = get_posts(array(
+        'post_type'      => 'product',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'exclude'        => array($post->ID),
+        'orderby'        => 'title',
+        'order'          => 'ASC',
+    ));
+
+    echo '<p><strong>' . __('Compatible Housings', 'waterless') . '</strong></p>';
+    echo '<select name="compatible_housings[]" multiple style="width:100%;height:100px;">';
+    foreach ($products as $product) {
+        $selected = (!empty($selected_housings) && in_array($product->ID, $selected_housings)) ? 'selected' : '';
+        echo '<option value="' . esc_attr($product->ID) . '" ' . $selected . '>' . esc_html($product->post_title) . '</option>';
+    }
+    echo '</select>';
+
+    echo '<p><strong>' . __('Compatible Urinals', 'waterless') . '</strong></p>';
+    echo '<select name="compatible_urinals[]" multiple style="width:100%;height:100px;">';
+    foreach ($products as $product) {
+        $selected = (!empty($selected_urinals) && in_array($product->ID, $selected_urinals)) ? 'selected' : '';
+        echo '<option value="' . esc_attr($product->ID) . '" ' . $selected . '>' . esc_html($product->post_title) . '</option>';
+    }
+    echo '</select>';
+}
+
+function waterless_save_product_compatibility_meta($post_id)
+{
+    if (!isset($_POST['product_compatibility_nonce']) || !wp_verify_nonce($_POST['product_compatibility_nonce'], 'save_product_compatibility_meta')) {
+        return;
+    }
+
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    $housings = isset($_POST['compatible_housings']) ? array_map('intval', $_POST['compatible_housings']) : array();
+    $urinals  = isset($_POST['compatible_urinals']) ? array_map('intval', $_POST['compatible_urinals']) : array();
+
+    update_post_meta($post_id, '_compatible_housings', $housings);
+    update_post_meta($post_id, '_compatible_urinals', $urinals);
+}
+add_action('save_post_product', 'waterless_save_product_compatibility_meta');
+
+ 
 // Home page
 // Register native meta fields for the homepage
 function waterless_register_homepage_fields()
