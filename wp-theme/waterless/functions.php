@@ -1356,3 +1356,89 @@ add_action( 'init', function() {
         );
     }
 });
+
+// ============================
+// Products Page Customizer
+// ============================
+
+function theme_customize_register_products_page($wp_customize)
+{
+
+    // Add a new section for the Products Page
+    $wp_customize->add_section('products_page_section', array(
+        'title'       => __('Products Page', 'waterless'),
+        'priority'    => 30,
+        'description' => __('Customize the Products Page content and layout.', 'waterless'),
+    ));
+
+    // Headline field
+    $wp_customize->add_setting('products_page_headline', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('products_page_headline', array(
+        'label'       => __('Custom Headline', 'waterless'),
+        'section'     => 'products_page_section',
+        'type'        => 'text',
+        'description' => __('Override the default page title.', 'waterless'),
+    ));
+
+    // CTA Button Text
+    $wp_customize->add_setting('products_page_cta_text', array(
+        'default'           => __('Læs mere', 'waterless'),
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('products_page_cta_text', array(
+        'label'       => __('CTA Button Text', 'waterless'),
+        'section'     => 'products_page_section',
+        'type'        => 'text',
+    ));
+
+    // Grid Columns
+    $wp_customize->add_setting('products_page_grid_columns', array(
+        'default'           => 5,
+        'sanitize_callback' => 'absint',
+    ));
+
+    $wp_customize->add_control('products_page_grid_columns', array(
+        'label'       => __('Number of Columns', 'waterless'),
+        'section'     => 'products_page_section',
+        'type'        => 'number',
+        'input_attrs' => array('min' => 1, 'max' => 6),
+    ));
+
+    // Default Image Upload
+    $wp_customize->add_setting('products_page_default_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Image_Control(
+        $wp_customize,
+        'products_page_default_image',
+        array(
+            'label'       => __('Default Product Image', 'waterless'),
+            'section'     => 'products_page_section',
+            'settings'    => 'products_page_default_image',
+            'description' => __('Used when a product has no featured image.', 'waterless'),
+        )
+    ));
+}
+
+add_action('customize_register', 'theme_customize_register_products_page');
+
+
+// ============================
+// Helper Function for Defaults
+// ============================
+
+function theme_get_default_product_image()
+{
+    $default_image = get_theme_mod('products_page_default_image');
+    if ($default_image) {
+        return esc_url($default_image);
+    }
+    return get_template_directory_uri() . '/assets/products/default-product.png';
+}
