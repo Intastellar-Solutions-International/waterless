@@ -8,7 +8,10 @@
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/logos/waterless-logo-2.jpg" alt="Waterless Scandinavia Logo" class="footer-logo">
             <?php } ?>
 
-            <p><?php echo esc_html(get_theme_mod('footer_tagline')); ?></p>
+            <?php
+            $default_tagline = 'Upgrade til bæredygtighed — spar vand, skær omkostningerne, og vær på forkant!';
+            ?>
+            <p><?php echo esc_html( get_theme_mod('footer_tagline', $default_tagline) ); ?></p>
         </article>
 
         <section class="grid cols-2">
@@ -17,7 +20,13 @@
                 <address>
                     <?php
                     // Output contact info, preserving line breaks
-                    echo nl2br(esc_html(get_theme_mod('footer_contact')));
+                    $default_contact = "Waterless Scandinavia ApS
+Møllegade 23
+6310 Broager
+Denmark
+Tel: +45 74 44 11 81
+Email: info@waterless.dk";
+                    echo nl2br( esc_html( get_theme_mod('footer_contact', $default_contact) ) );
                     ?>
                 </address>
             </article>
@@ -26,15 +35,25 @@
                 <h2>Business</h2>
                 <nav class="footer-nav">
                     <?php
-                    if (has_nav_menu('footer_menu')) {
-                        wp_nav_menu([
-                            'theme_location' => 'footer_menu',
-                            'container' => false,
-                            'menu_class' => '',
-                            'items_wrap' => '%3$s', // output only <li> items
-                        ]);
+                    if ( has_nav_menu( 'footer_menu' ) ) {
+                        // Get the menu assigned to the "footer_menu" location and output links without <li> wrappers
+                        $locations = get_nav_menu_locations();
+                        $menu_items = [];
+                        if ( isset( $locations['footer_menu'] ) ) {
+                            $menu_items = wp_get_nav_menu_items( $locations['footer_menu'] );
+                        }
+
+                        if ( $menu_items && ! empty( $menu_items ) ) {
+                            foreach ( $menu_items as $menu_item ) {
+                                printf(
+                                    '<a href="%s">%s</a>',
+                                    esc_url( $menu_item->url ),
+                                    esc_html( $menu_item->title )
+                                );
+                            }
+                        }
                     } else { ?>
-                        <a href="<?php echo esc_url(home_url('/about')); ?>">Om os</a>
+                        <a href="<?php echo esc_url( home_url( '/about' ) ); ?>">Om os</a>
                         <a href="#">Karriere</a>
                         <a href="#">Partnere</a>
                         <a href="#">Privatlivspolitik</a>
