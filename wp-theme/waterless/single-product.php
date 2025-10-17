@@ -53,9 +53,9 @@ $compatible_urinals  = get_post_meta(get_the_ID(), '_compatible_urinals', true);
             <article>
                 <h3>Dimensions</h3>
                 <ul>
-                    <li>Height: <?php echo esc_html(get_post_meta(get_the_ID(), 'dimension_height', true)); ?> mm</li>
-                    <li>Width: <?php echo esc_html(get_post_meta(get_the_ID(), 'dimension_width', true)); ?> mm</li>
-                    <li>Depth: <?php echo esc_html(get_post_meta(get_the_ID(), 'dimension_depth', true)); ?> mm</li>
+                    <li>Højde: <?php echo esc_html(get_post_meta(get_the_ID(), 'dimension_height', true)); ?> mm</li>
+                    <li>Bredde: <?php echo esc_html(get_post_meta(get_the_ID(), 'dimension_width', true)); ?> mm</li>
+                    <li>Dybdde: <?php echo esc_html(get_post_meta(get_the_ID(), 'dimension_depth', true)); ?> mm</li>
                 </ul>
             </article>
             <article>
@@ -63,18 +63,18 @@ $compatible_urinals  = get_post_meta(get_the_ID(), '_compatible_urinals', true);
                 <p><?php echo esc_html(get_post_meta(get_the_ID(), 'material', true)) ?></p>
             </article>
             <article class="--stretched">
-                <h3>Color</h3>
+                <h3>Farve</h3>
                 <p><?php echo esc_html(get_post_meta(get_the_ID(), 'color', true)); ?></p>
                 <section>
-                    <p>Plumbing no.: <?php echo esc_html(get_post_meta(get_the_ID(), 'plumbing_no', true)); ?></p>
-                    <p>Waterless no.: <?php echo esc_html(get_post_meta(get_the_ID(), 'waterless_no', true)); ?></p>
+                    <p>VVS nr.: <?php echo esc_html(get_post_meta(get_the_ID(), 'plumbing_no', true)); ?></p>
+                    <p>Waterless nr.: <?php echo esc_html(get_post_meta(get_the_ID(), 'waterless_no', true)); ?></p>
                 </section>
                 <section>
                     <p><?php echo apply_filters('the_content', get_post_field('post_content', get_the_ID())) ?></p>
                 </section>
             </article>
             <article class="--stretched">
-                <h3>Technical data</h3>
+                <h3>Teknisk data</h3>
                 <?php if ($cad = get_post_meta(get_the_ID(), 'cad_file', true)) : ?>
                     <a class="tech-links" href="<?php echo esc_url($cad); ?>" download>CAD file download</a>
                 <?php endif; ?>
@@ -84,7 +84,7 @@ $compatible_urinals  = get_post_meta(get_the_ID(), '_compatible_urinals', true);
                 <?php endif; ?>
 
                 <?php if ($drawing = get_post_meta(get_the_ID(), 'drawing_file', true)) : ?>
-                    <a class="tech-links" href="<?php echo esc_url($drawing); ?>" download>Technical drawing download</a>
+                    <a class="tech-links" href="<?php echo esc_url($drawing); ?>" download>Teknisk tegning download</a>
                 <?php endif; ?>
             </article>
         </section>

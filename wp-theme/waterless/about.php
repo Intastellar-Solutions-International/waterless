@@ -9,7 +9,7 @@ include_once 'components/head.php';
                 <h1>Waterless Scandinavia – Pionerer inden for vandfri innovation</h1>
                 <p>Vi var det første firma i Danmark til at introducere vandløse urinaler, og i dag forbliver vi en af de globale ledere på området.</p>
                 <p>Vores rejse begyndte tilbage i 1991 med de første forsøg og pilotinstallationer. Siden da har idéen om vandløse urinaler vist sig at være en yderst bæredygtig løsning.</p>
-                <p>Since 1997, Waterless Scandinavia has been firmly established in the Danish market with our own sales and service team, based in Sønderborg.</p>
+                <!-- <p>Since 1997, Waterless Scandinavia has been firmly established in the Danish market with our own sales and service team, based in Sønderborg.</p> -->
                 <p>Vores dedikation til kvalitet og innovation har gjort os til en betroet partner for både private og offentlige kunder.</p>
                 <h2>Kundetilfredshed er altafgørende for Waterless Scandinavia</h2>
                 <p>Udforsk vores hjemmeside eller giv os et opkald - vi er glade for at give et uforpligtende tilbud på dit projekt.</p>

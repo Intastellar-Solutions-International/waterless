@@ -297,7 +297,7 @@ function waterless_customize_register_products_page($wp_customize)
 
     // Headline field
     $wp_customize->add_setting('products_page_headline', array(
-        'default'           => '',
+        'default'           => __('Vores Produkter', 'waterless'),
         'sanitize_callback' => 'sanitize_text_field',
     ));
 
@@ -1200,33 +1200,6 @@ function waterless_customize_register($wp_customize)
     }
 
     // === About & Why-Sustainable Customizer controls ===
-    $wp_customize->add_section('waterless_about', [
-        'title'    => __('About Page', 'waterless'),
-        'priority' => 40,
-    ]);
-
-    $wp_customize->add_setting('waterless_about_intro', [
-        'default'           => "Vi var det første firma i Danmark til at introducere vandløse urinaler, og i dag forbliver vi en af de globale ledere på området.",
-        'sanitize_callback' => 'sanitize_textarea_field',
-        'transport'         => 'postMessage',
-    ]);
-    $wp_customize->add_control('waterless_about_intro_control', [
-        'label'    => __('About - Intro Text', 'waterless'),
-        'section'  => 'waterless_about',
-        'settings' => 'waterless_about_intro',
-        'type'     => 'textarea',
-    ]);
-
-    $wp_customize->add_setting('waterless_about_image', [
-        'default'           => get_template_directory_uri() . '/assets/founders/jim.jpg',
-        'sanitize_callback' => 'esc_url_raw',
-        'transport'         => 'postMessage',
-    ]);
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'waterless_about_image_control', [
-        'label'    => __('About - Image', 'waterless'),
-        'section'  => 'waterless_about',
-        'settings' => 'waterless_about_image',
-    ]));
 
     $wp_customize->add_section('waterless_sustainable', [
         'title'    => __('Why Sustainable', 'waterless'),
@@ -1576,83 +1549,210 @@ function theme_customize_register_products_page($wp_customize)
 
 add_action('customize_register', 'theme_customize_register_products_page');
 
-
-function waterless_customize_register($wp_customize)
+/**
+ * Use the About template for translated About pages.
+ */
+function waterless_customize_about_page($wp_customize)
 {
-
-    // Create section
+    // Panel
     $wp_customize->add_section('about_page_section', [
-        'title'       => __('About Page', 'waterless'),
-        'priority'    => 30,
-        'description' => __('Edit content for the About page', 'waterless'),
+        'title' => __('About Page Content', 'waterless'),
+        'priority' => 30,
     ]);
 
-    // --- Title ---
-    $wp_customize->add_setting('about_page_title', [
-        'default' => 'Waterless Scandinavia – Pionerer inden for vandfri innovation',
-        'transport' => 'refresh',
-    ]);
+    // Headline + intro
+    $wp_customize->add_setting('about_page_title', ['default' => 'Waterless Scandinavia – Pionerer inden for vandfri innovation']);
     $wp_customize->add_control('about_page_title', [
         'label' => __('Main Title', 'waterless'),
         'section' => 'about_page_section',
         'type' => 'text',
     ]);
 
-    // --- Intro Paragraph ---
-    $wp_customize->add_setting('about_page_intro', [
-        'default' => 'Vi var det første firma i Danmark til at introducere vandløse urinaler...',
-        'transport' => 'refresh',
-    ]);
+    $wp_customize->add_setting('about_page_intro');
     $wp_customize->add_control('about_page_intro', [
         'label' => __('Intro Text', 'waterless'),
         'section' => 'about_page_section',
         'type' => 'textarea',
     ]);
 
-    // --- First Image ---
-    $wp_customize->add_setting('about_page_image_1', [
-        'default' => get_template_directory_uri() . '/assets/founders/jim.jpg',
-        'transport' => 'refresh',
-    ]);
+    // Images
+    $wp_customize->add_setting('about_page_image_1');
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'about_page_image_1', [
-        'label' => __('First Section Image', 'waterless'),
+        'label' => __('First Image', 'waterless'),
         'section' => 'about_page_section',
-        'settings' => 'about_page_image_1',
     ]));
 
-    // --- Second Section Text ---
-    $wp_customize->add_setting('about_page_second_title', [
-        'default' => 'Tillid: Nøglen til Waterless og det danske samfund',
-        'transport' => 'refresh',
-    ]);
+    $wp_customize->add_setting('about_page_image_2');
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'about_page_image_2', [
+        'label' => __('Second Image', 'waterless'),
+        'section' => 'about_page_section',
+    ]));
+
+    // Second section
+    $wp_customize->add_setting('about_page_second_title');
     $wp_customize->add_control('about_page_second_title', [
         'label' => __('Second Section Title', 'waterless'),
         'section' => 'about_page_section',
         'type' => 'text',
     ]);
 
-    $wp_customize->add_setting('about_page_second_text', [
-        'default' => 'Hos Waterless er tillid fundamentet for vores succes...',
-        'transport' => 'refresh',
-    ]);
+    $wp_customize->add_setting('about_page_second_text');
     $wp_customize->add_control('about_page_second_text', [
         'label' => __('Second Section Text', 'waterless'),
         'section' => 'about_page_section',
         'type' => 'textarea',
     ]);
 
-    // --- Second Image ---
-    $wp_customize->add_setting('about_page_image_2', [
-        'default' => get_template_directory_uri() . '/assets/founders/team.jpg',
-        'transport' => 'refresh',
-    ]);
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'about_page_image_2', [
-        'label' => __('Second Section Image', 'waterless'),
+    // --- TEAM SECTION ---
+    $wp_customize->add_setting('about_page_team_title', ['default' => 'Meet our team members!']);
+    $wp_customize->add_control('about_page_team_title', [
+        'label' => __('Team Section Title', 'waterless'),
         'section' => 'about_page_section',
-        'settings' => 'about_page_image_2',
-    ]));
+        'type' => 'text',
+    ]);
+
+    for ($i = 1; $i <= 2; $i++) {
+        $wp_customize->add_setting("about_page_team{$i}_name");
+        $wp_customize->add_control("about_page_team{$i}_name", [
+            'label' => __("Team Member {$i} Name", 'waterless'),
+            'section' => 'about_page_section',
+            'type' => 'text',
+        ]);
+
+        $wp_customize->add_setting("about_page_team{$i}_region");
+        $wp_customize->add_control("about_page_team{$i}_region", [
+            'label' => __("Team Member {$i} Region", 'waterless'),
+            'section' => 'about_page_section',
+            'type' => 'text',
+        ]);
+
+        $wp_customize->add_setting("about_page_team{$i}_email");
+        $wp_customize->add_control("about_page_team{$i}_email", [
+            'label' => __("Team Member {$i} Email", 'waterless'),
+            'section' => 'about_page_section',
+            'type' => 'email',
+        ]);
+
+        $wp_customize->add_setting("about_page_team{$i}_phone");
+        $wp_customize->add_control("about_page_team{$i}_phone", [
+            'label' => __("Team Member {$i} Phone", 'waterless'),
+            'section' => 'about_page_section',
+            'type' => 'text',
+        ]);
+
+        $wp_customize->add_setting("about_page_team{$i}_link");
+        $wp_customize->add_control("about_page_team{$i}_link", [
+            'label' => __("Team Member {$i} Meeting Link", 'waterless'),
+            'section' => 'about_page_section',
+            'type' => 'url',
+        ]);
+
+        $wp_customize->add_setting("about_page_team{$i}_image");
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "about_page_team{$i}_image", [
+            'label' => __("Team Member {$i} Image", 'waterless'),
+            'section' => 'about_page_section',
+        ]));
+    }
 }
-add_action('customize_register', 'waterless_customize_register');
+add_action('customize_register', 'waterless_customize_about_page');
+
+
+add_filter('template_include', function ($template) {
+    if (is_page()) {
+        global $post;
+        $slug = get_post_field('post_name', $post);
+        $title = strtolower(trim(get_the_title($post)));
+
+        // All localized About slugs/titles you want to match
+        $about_variants = ['about', 'om-os', 'om', 'a-propos', 'uber-uns'];
+
+        if (in_array($slug, $about_variants) || in_array($title, $about_variants)) {
+            // Check if a custom page-about template exists
+            $custom_template = locate_template('templates/page-about.html');
+            if ($custom_template) {
+                return $custom_template;
+            }
+
+            // Fallback to PHP template if not block-based
+            $php_template = locate_template('page-about.php');
+            if ($php_template) {
+                return $php_template;
+            }
+        }
+
+        // All localized About slugs/titles you want to match
+        $about_variants = ['til-din-virksomhed', 'business'];
+
+        if (in_array($slug, $about_variants) || in_array($title, $about_variants)) {
+            // Check if a custom page-about template exists
+            // Fallback to PHP template if not block-based
+            $php_template = locate_template('page-business.php');
+            if ($php_template) {
+                return $php_template;
+            }
+        }
+    }
+    return $template;
+});
+
+function waterless_customize_business_page($wp_customize)
+{
+    // Section
+    $wp_customize->add_section('business_page_section', [
+        'title' => __('Business Page Content', 'waterless'),
+        'priority' => 31,
+    ]);
+
+    // Page title
+    $wp_customize->add_setting('business_page_title', ['default' => 'Til din virksomhed']);
+    $wp_customize->add_control('business_page_title', [
+        'label' => __('Page Title', 'waterless'),
+        'section' => 'business_page_section',
+        'type' => 'text',
+    ]);
+
+    // Page intro
+    $wp_customize->add_setting('business_page_intro', [
+        'default' => 'Her kan du finde informationer om vores produkter og hvordan de kan hjælpe din virksomhed med at spare vand og penge.',
+    ]);
+    $wp_customize->add_control('business_page_intro', [
+        'label' => __('Intro Text', 'waterless'),
+        'section' => 'business_page_section',
+        'type' => 'textarea',
+    ]);
+
+    // Product items (loop)
+    for ($i = 1; $i <= 8; $i++) {
+        $wp_customize->add_setting("business_page_item{$i}_title", [
+            'default' => "Business item {$i}",
+            'transport' => 'refresh',
+        ]);
+        $wp_customize->add_control("business_page_item{$i}_title", [
+            'label' => __("Product {$i} Title", 'waterless'),
+            'section' => 'business_page_section',
+            'type' => 'text',
+            'transport' => 'refresh',
+        ]);
+
+        $wp_customize->add_setting("business_page_item{$i}_image");
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "business_page_item{$i}_image", [
+            'label' => __("Product {$i} Image", 'waterless'),
+            'section' => 'business_page_section',
+            'transport' => 'refresh',
+        ]));
+
+        $wp_customize->add_setting("business_page_item{$i}_link", [
+            'default' => '#',
+        ]);
+        $wp_customize->add_control("business_page_item{$i}_link", [
+            'label' => __("Product {$i} Link", 'waterless'),
+            'section' => 'business_page_section',
+            'type' => 'url',
+            'transport' => 'refresh',
+        ]);
+    }
+}
+add_action('customize_register', 'waterless_customize_business_page');
 
 
 // ============================
