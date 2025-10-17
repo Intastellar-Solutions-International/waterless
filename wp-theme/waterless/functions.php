@@ -1577,6 +1577,84 @@ function theme_customize_register_products_page($wp_customize)
 add_action('customize_register', 'theme_customize_register_products_page');
 
 
+function waterless_customize_register($wp_customize)
+{
+
+    // Create section
+    $wp_customize->add_section('about_page_section', [
+        'title'       => __('About Page', 'waterless'),
+        'priority'    => 30,
+        'description' => __('Edit content for the About page', 'waterless'),
+    ]);
+
+    // --- Title ---
+    $wp_customize->add_setting('about_page_title', [
+        'default' => 'Waterless Scandinavia – Pionerer inden for vandfri innovation',
+        'transport' => 'refresh',
+    ]);
+    $wp_customize->add_control('about_page_title', [
+        'label' => __('Main Title', 'waterless'),
+        'section' => 'about_page_section',
+        'type' => 'text',
+    ]);
+
+    // --- Intro Paragraph ---
+    $wp_customize->add_setting('about_page_intro', [
+        'default' => 'Vi var det første firma i Danmark til at introducere vandløse urinaler...',
+        'transport' => 'refresh',
+    ]);
+    $wp_customize->add_control('about_page_intro', [
+        'label' => __('Intro Text', 'waterless'),
+        'section' => 'about_page_section',
+        'type' => 'textarea',
+    ]);
+
+    // --- First Image ---
+    $wp_customize->add_setting('about_page_image_1', [
+        'default' => get_template_directory_uri() . '/assets/founders/jim.jpg',
+        'transport' => 'refresh',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'about_page_image_1', [
+        'label' => __('First Section Image', 'waterless'),
+        'section' => 'about_page_section',
+        'settings' => 'about_page_image_1',
+    ]));
+
+    // --- Second Section Text ---
+    $wp_customize->add_setting('about_page_second_title', [
+        'default' => 'Tillid: Nøglen til Waterless og det danske samfund',
+        'transport' => 'refresh',
+    ]);
+    $wp_customize->add_control('about_page_second_title', [
+        'label' => __('Second Section Title', 'waterless'),
+        'section' => 'about_page_section',
+        'type' => 'text',
+    ]);
+
+    $wp_customize->add_setting('about_page_second_text', [
+        'default' => 'Hos Waterless er tillid fundamentet for vores succes...',
+        'transport' => 'refresh',
+    ]);
+    $wp_customize->add_control('about_page_second_text', [
+        'label' => __('Second Section Text', 'waterless'),
+        'section' => 'about_page_section',
+        'type' => 'textarea',
+    ]);
+
+    // --- Second Image ---
+    $wp_customize->add_setting('about_page_image_2', [
+        'default' => get_template_directory_uri() . '/assets/founders/team.jpg',
+        'transport' => 'refresh',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'about_page_image_2', [
+        'label' => __('Second Section Image', 'waterless'),
+        'section' => 'about_page_section',
+        'settings' => 'about_page_image_2',
+    ]));
+}
+add_action('customize_register', 'waterless_customize_register');
+
+
 // ============================
 // Helper Function for Defaults
 // ============================
