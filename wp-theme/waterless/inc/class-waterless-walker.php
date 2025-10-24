@@ -5,7 +5,7 @@ class Waterless_Walker_Nav_Menu extends Walker_Nav_Menu
     function start_lvl(&$output, $depth = 0, $args = null)
     {
         if ($depth === 0) {
-            $output .= '<section class="dropdown-menu"><article class="dropdown-content grid cols-2">';
+            $output .= '<section class="dropdown-menu"><article class="dropdown-content grid cols-auto">';
         }
     }
 

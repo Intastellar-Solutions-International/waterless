@@ -138,6 +138,10 @@ img{
     grid-template-columns: repeat(5, 1fr);
 }
 
+.cols-auto {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
 .content-center{
     place-items: center;
 }

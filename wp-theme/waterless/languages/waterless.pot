@@ -1,0 +1,636 @@
+# Copyright (C) 2025 Intastellar Solutions, International
+# This file is distributed under the same license as the Waterless theme.
+msgid ""
+msgstr ""
+"Project-Id-Version: Waterless 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/waterless\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-10-24T09:27:00+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: waterless\n"
+
+#. Theme Name of the theme
+#: css
+msgid "Waterless"
+msgstr ""
+
+#. Theme URI of the theme
+#: css
+msgid "https://www.intastellarsolutions.com"
+msgstr ""
+
+#. Description of the theme
+#: css
+msgid "Converted a Custom theme to WordPress"
+msgstr ""
+
+#. Author of the theme
+#: css
+msgid "Intastellar Solutions, International"
+msgstr ""
+
+#: archive-instruction.php:4
+msgid "Instruktioner"
+msgstr ""
+
+#: archive-instruction.php:13
+#: functions.php:313
+#: functions.php:1598
+#: page-instructions.php:81
+msgid "Læs mere"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Front Page"
+msgstr ""
+
+#: functions.php:91
+msgctxt "Post type general name"
+msgid "Products"
+msgstr ""
+
+#: functions.php:92
+msgctxt "Post type singular name"
+msgid "Product"
+msgstr ""
+
+#: functions.php:93
+msgctxt "Admin Menu text"
+msgid "Products"
+msgstr ""
+
+#: functions.php:94
+msgctxt "Add New on Toolbar"
+msgid "Product"
+msgstr ""
+
+#: functions.php:95
+msgid "Add Product"
+msgstr ""
+
+#: functions.php:96
+msgid "Add New Product"
+msgstr ""
+
+#: functions.php:97
+msgid "New Product"
+msgstr ""
+
+#: functions.php:98
+msgid "Edit Product"
+msgstr ""
+
+#: functions.php:99
+msgid "View Product"
+msgstr ""
+
+#: functions.php:100
+msgid "All Products"
+msgstr ""
+
+#: functions.php:101
+msgid "Search Products"
+msgstr ""
+
+#: functions.php:102
+msgid "Parent Products:"
+msgstr ""
+
+#: functions.php:103
+msgid "No products found."
+msgstr ""
+
+#: functions.php:104
+msgid "No products found in Trash."
+msgstr ""
+
+#: functions.php:105
+msgctxt "Overrides the “Featured Image” phrase"
+msgid "Product Image"
+msgstr ""
+
+#: functions.php:138
+msgctxt "taxonomy general name"
+msgid "Product Categories"
+msgstr ""
+
+#: functions.php:139
+msgctxt "taxonomy singular name"
+msgid "Product Category"
+msgstr ""
+
+#: functions.php:140
+msgid "Search Product Categories"
+msgstr ""
+
+#: functions.php:141
+msgid "All Product Categories"
+msgstr ""
+
+#: functions.php:142
+msgid "Parent Category"
+msgstr ""
+
+#: functions.php:143
+msgid "Parent Category:"
+msgstr ""
+
+#: functions.php:144
+msgid "Edit Category"
+msgstr ""
+
+#: functions.php:145
+msgid "Update Category"
+msgstr ""
+
+#: functions.php:146
+msgid "Add New Category"
+msgstr ""
+
+#: functions.php:147
+msgid "New Category Name"
+msgstr ""
+
+#: functions.php:148
+msgid "Categories"
+msgstr ""
+
+#: functions.php:165
+msgctxt "taxonomy general name"
+msgid "Product Tags"
+msgstr ""
+
+#: functions.php:166
+msgctxt "taxonomy singular name"
+msgid "Product Tag"
+msgstr ""
+
+#: functions.php:167
+msgid "Search Product Tags"
+msgstr ""
+
+#: functions.php:168
+msgid "Popular Tags"
+msgstr ""
+
+#: functions.php:169
+msgid "All Product Tags"
+msgstr ""
+
+#: functions.php:170
+msgid "Edit Tag"
+msgstr ""
+
+#: functions.php:171
+msgid "Update Tag"
+msgstr ""
+
+#: functions.php:172
+msgid "Add New Tag"
+msgstr ""
+
+#: functions.php:173
+msgid "New Tag Name"
+msgstr ""
+
+#: functions.php:174
+msgid "Separate tags with commas"
+msgstr ""
+
+#: functions.php:175
+msgid "Add or remove tags"
+msgstr ""
+
+#: functions.php:176
+msgid "Choose from the most used tags"
+msgstr ""
+
+#: functions.php:177
+msgid "No tags found."
+msgstr ""
+
+#: functions.php:178
+msgid "Tags"
+msgstr ""
+
+#: functions.php:293
+#: functions.php:1578
+msgid "Products Page"
+msgstr ""
+
+#: functions.php:295
+#: functions.php:1580
+msgid "Customize the Products Page content and layout."
+msgstr ""
+
+#: functions.php:300
+msgid "Vores Produkter"
+msgstr ""
+
+#: functions.php:305
+#: functions.php:1590
+msgid "Custom Headline"
+msgstr ""
+
+#: functions.php:308
+#: functions.php:1593
+msgid "Override the default page title."
+msgstr ""
+
+#: functions.php:318
+#: functions.php:1603
+msgid "CTA Button Text"
+msgstr ""
+
+#: functions.php:330
+#: functions.php:1615
+msgid "Number of Columns"
+msgstr ""
+
+#: functions.php:346
+#: functions.php:1631
+msgid "Default Product Image"
+msgstr ""
+
+#: functions.php:349
+#: functions.php:1634
+msgid "Used when a product has no featured image."
+msgstr ""
+
+#: functions.php:378
+msgid "Product Compatibility"
+msgstr ""
+
+#: functions.php:403
+#: single-product.php:12
+msgid "Compatible Housings"
+msgstr ""
+
+#: functions.php:411
+#: single-product.php:28
+msgid "Compatible Urinals"
+msgstr ""
+
+#: functions.php:602
+msgid "Instruction Videos"
+msgstr ""
+
+#: functions.php:796
+msgid "Main Menu"
+msgstr ""
+
+#: functions.php:797
+msgid "Footer Menu"
+msgstr ""
+
+#: functions.php:867
+msgid "Language Selector"
+msgstr ""
+
+#: functions.php:874
+msgid "Danish Link"
+msgstr ""
+
+#: functions.php:880
+msgid "Danish Flag"
+msgstr ""
+
+#: functions.php:887
+msgid "English Link"
+msgstr ""
+
+#: functions.php:893
+msgid "English Flag"
+msgstr ""
+
+#: functions.php:900
+msgid "German Link"
+msgstr ""
+
+#: functions.php:906
+msgid "German Flag"
+msgstr ""
+
+#: functions.php:912
+msgid "Footer Settings"
+msgstr ""
+
+#: functions.php:922
+msgid "Footer Tagline"
+msgstr ""
+
+#: functions.php:935
+msgid "Footer Contact Info"
+msgstr ""
+
+#: functions.php:943
+msgid "Front Page - Hero"
+msgstr ""
+
+#: functions.php:952
+msgid "Hero Title"
+msgstr ""
+
+#: functions.php:963
+msgid "Hero Subtitle"
+msgstr ""
+
+#: functions.php:974
+msgid "Hero CTA Text"
+msgstr ""
+
+#: functions.php:985
+msgid "Hero CTA Link"
+msgstr ""
+
+#: functions.php:996
+msgid "Hero Image"
+msgstr ""
+
+#: functions.php:1008
+msgid "Section 1 - Pre heading"
+msgstr ""
+
+#: functions.php:1020
+msgid "Section 1 - Heading"
+msgstr ""
+
+#: functions.php:1032
+msgid "Section 1 Image"
+msgstr ""
+
+#: functions.php:1044
+msgid "Map - Heading"
+msgstr ""
+
+#: functions.php:1056
+msgid "Map - Subheading"
+msgstr ""
+
+#: functions.php:1068
+msgid "Map - Text"
+msgstr ""
+
+#: functions.php:1080
+msgid "Map - Badge Image"
+msgstr ""
+
+#: functions.php:1092
+msgid "Map - Marker Icon"
+msgstr ""
+
+#: functions.php:1104
+msgid "Full - Pre heading"
+msgstr ""
+
+#: functions.php:1116
+msgid "Full - Heading"
+msgstr ""
+
+#: functions.php:1128
+msgid "Full - Text"
+msgstr ""
+
+#: functions.php:1140
+msgid "Full - Background Image"
+msgstr ""
+
+#: functions.php:1152
+msgid "Install - Heading"
+msgstr ""
+
+#: functions.php:1164
+msgid "Install - Image"
+msgstr ""
+
+#: functions.php:1176
+msgid "Testimonial - Heading"
+msgstr ""
+
+#: functions.php:1188
+msgid "Testimonial - Image"
+msgstr ""
+
+#: functions.php:1285
+msgid "Why Sustainable"
+msgstr ""
+
+#: functions.php:1295
+msgid "Why - Heading"
+msgstr ""
+
+#: functions.php:1307
+msgid "Why - Text"
+msgstr ""
+
+#: functions.php:1315
+msgid "Map Scripts"
+msgstr ""
+
+#: functions.php:1323
+msgid "Third-party Map Script URL (e.g. CDN)"
+msgstr ""
+
+#: functions.php:1426
+msgctxt "Post type general name"
+msgid "Instruction Video"
+msgstr ""
+
+#: functions.php:1427
+msgctxt "Post type singular name"
+msgid "Instruction"
+msgstr ""
+
+#: functions.php:1428
+msgctxt "Admin Menu text"
+msgid "Instruction Video"
+msgstr ""
+
+#: functions.php:1429
+msgctxt "Add New on Toolbar"
+msgid "Instruction"
+msgstr ""
+
+#: functions.php:1430
+msgid "Add New"
+msgstr ""
+
+#: functions.php:1431
+msgid "Add New Video"
+msgstr ""
+
+#: functions.php:1432
+msgid "New Instruction Video"
+msgstr ""
+
+#: functions.php:1433
+msgid "Edit Instruction Video"
+msgstr ""
+
+#: functions.php:1434
+msgid "View Instruction Video"
+msgstr ""
+
+#: functions.php:1435
+msgid "All Instruction Video"
+msgstr ""
+
+#: functions.php:1436
+msgid "Search Instruction Video"
+msgstr ""
+
+#: functions.php:1437
+msgid "No instruction videos found."
+msgstr ""
+
+#: functions.php:1438
+msgid "No instruction videos found in Trash."
+msgstr ""
+
+#: functions.php:1461
+msgid "Instruction Video"
+msgstr ""
+
+#: functions.php:1474
+msgid "Video URL (Vimeo/YouTube)"
+msgstr ""
+
+#: functions.php:1564
+msgid "Waterless Patterns"
+msgstr ""
+
+#: functions.php:1648
+msgid "About Page Content"
+msgstr ""
+
+#: functions.php:1655
+msgid "Main Title"
+msgstr ""
+
+#: functions.php:1662
+#: functions.php:1808
+#: functions.php:1864
+msgid "Intro Text"
+msgstr ""
+
+#: functions.php:1670
+msgid "First Image"
+msgstr ""
+
+#: functions.php:1676
+msgid "Second Image"
+msgstr ""
+
+#: functions.php:1683
+msgid "Second Section Title"
+msgstr ""
+
+#: functions.php:1690
+msgid "Second Section Text"
+msgstr ""
+
+#: functions.php:1698
+msgid "Team Section Title"
+msgstr ""
+
+#: functions.php:1791
+msgid "Business Page Content"
+msgstr ""
+
+#: functions.php:1798
+#: functions.php:1857
+msgid "Page Title"
+msgstr ""
+
+#. Template Name of the theme
+#: functions.php:1849
+msgid "Contact Page"
+msgstr ""
+
+#: functions.php:1851
+msgid "Edit the content of the Contact page"
+msgstr ""
+
+#: functions.php:1872
+msgid "Info Section Title"
+msgstr ""
+
+#: functions.php:1879
+msgid "Address"
+msgstr ""
+
+#: functions.php:1886
+msgid "Phone"
+msgstr ""
+
+#: functions.php:1893
+msgid "Email"
+msgstr ""
+
+#: functions.php:1901
+msgid "Form Title"
+msgstr ""
+
+#: functions.php:1908
+msgid "Form Shortcode"
+msgstr ""
+
+#: functions.php:1916
+msgid "Google Maps Embed URL"
+msgstr ""
+
+#. Template Name of the theme
+msgid "About Page"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Business Page"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Instruction Page"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Instructions Page"
+msgstr ""
+
+#: page-instructions.php:44
+msgid "Instruction not found."
+msgstr ""
+
+#: page-instructions.php:87
+msgid "No instructions have been added yet."
+msgstr ""
+
+#. Template Name of the theme
+msgid "Products"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Subpage Pattern"
+msgstr ""
+
+#: patterns/about.php
+msgctxt "Pattern title"
+msgid "About Page Layout"
+msgstr ""
+
+#: patterns/front-page.php
+msgctxt "Pattern title"
+msgid "Front Page Layout"
+msgstr ""
+
+#: patterns/sustainable.php
+msgctxt "Pattern title"
+msgid "Sustainable Layout"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Product Page"
+msgstr ""

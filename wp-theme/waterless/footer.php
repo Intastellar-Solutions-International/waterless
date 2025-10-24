@@ -65,7 +65,7 @@ Email: info@waterless.dk";
 
     <div class="copy">
         <p>&copy; <?php echo date("Y"); ?> <?php bloginfo('name'); ?>. All rights reserved.</p>
-        <p>Udviklet af <a href="https://www.intastellarsolutions.com" target="_blank" rel="noopener">Intastellar Solutions, International</a></p>
+        <p>Developed by <a href="https://www.intastellarsolutions.com" target="_blank" rel="noopener">Intastellar Solutions, International</a></p>
     </div>
 </footer>
 

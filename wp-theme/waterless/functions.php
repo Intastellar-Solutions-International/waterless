@@ -33,9 +33,9 @@ function waterless_enqueue_scripts()
     // Allow an optional third-party map script (configured in Customizer). If present, register and enqueue it
     $thirdparty_map = get_theme_mod('waterless_map_thirdparty_url');
     $map_deps = [];
-    if ( ! empty( $thirdparty_map ) ) {
+    if (! empty($thirdparty_map)) {
         // Register third-party script from external URL. Do not version it (null) so caching is controlled externally.
-        wp_register_script('waterless-map-thirdparty', esc_url_raw( $thirdparty_map ), [], null, true );
+        wp_register_script('waterless-map-thirdparty', esc_url_raw($thirdparty_map), [], null, true);
         wp_enqueue_script('waterless-map-thirdparty');
         $map_deps[] = 'waterless-map-thirdparty';
     }
@@ -51,13 +51,13 @@ function waterless_enqueue_scripts()
     // Localize map data (marker icon URL and any other map config)
     $map_icon = get_theme_mod('waterless_map_icon', get_template_directory_uri() . '/assets/map/icon.png');
     wp_localize_script('waterless-map', 'waterlessMap', [
-        'markerIcon' => esc_url( $map_icon ),
+        'markerIcon' => esc_url($map_icon),
     ]);
 
     // Lenis (smooth scrolling) and Leaflet (maps) via CDN
     // Load these only on pages where the front-page or map is present to avoid loading site-wide.
     $should_load_map_assets = is_front_page() || is_page('about') || is_page('why-sustainable');
-    if ( $should_load_map_assets ) {
+    if ($should_load_map_assets) {
         // Lenis
         wp_register_script('lenis-cdn', 'https://cdn.jsdelivr.net/npm/lenis@1.3.1/dist/lenis.min.js', [], '1.3.1', true);
         wp_enqueue_script('lenis-cdn');
@@ -69,8 +69,8 @@ function waterless_enqueue_scripts()
         wp_register_script('leaflet-cdn', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', [], '1.9.4', true);
         wp_enqueue_script('leaflet-cdn');
         // Add crossorigin attribute (empty string as in upstream examples)
-        if ( function_exists( 'wp_script_add_data' ) ) {
-            wp_script_add_data( 'leaflet-cdn', 'crossorigin', '' );
+        if (function_exists('wp_script_add_data')) {
+            wp_script_add_data('leaflet-cdn', 'crossorigin', '');
         }
     }
 
@@ -434,7 +434,7 @@ function waterless_save_product_compatibility_meta($post_id)
 }
 add_action('save_post_product', 'waterless_save_product_compatibility_meta');
 
- 
+
 // Home page
 // Register native meta fields for the homepage
 function waterless_register_homepage_fields()
@@ -799,6 +799,66 @@ function waterless_register_menus()
 }
 add_action('after_setup_theme', 'waterless_register_menus');
 
+// Add custom image field to menu items
+add_filter('wp_setup_nav_menu_item', function ($menu_item) {
+    $menu_item->thumbnail_id = get_post_meta($menu_item->ID, '_menu_item_thumbnail_id', true);
+    return $menu_item;
+});
+
+add_action('wp_update_nav_menu_item', function ($menu_id, $menu_item_db_id) {
+    if (isset($_POST['menu-item-thumbnail-id'][$menu_item_db_id])) {
+        update_post_meta($menu_item_db_id, '_menu_item_thumbnail_id', sanitize_text_field($_POST['menu-item-thumbnail-id'][$menu_item_db_id]));
+    }
+}, 10, 2);
+
+add_action('wp_nav_menu_item_custom_fields', function ($item_id, $item) {
+    $thumbnail_id = get_post_meta($item_id, '_menu_item_thumbnail_id', true);
+    $image_url = $thumbnail_id ? wp_get_attachment_thumb_url($thumbnail_id) : '';
+?>
+    <p class="field-thumbnail description description-wide">
+        <label for="edit-menu-item-thumbnail-<?php echo esc_attr($item_id); ?>">
+            <?php _e('Thumbnail Image'); ?><br>
+            <input type="hidden" class="menu-item-thumbnail-id" name="menu-item-thumbnail-id[<?php echo esc_attr($item_id); ?>]" value="<?php echo esc_attr($thumbnail_id); ?>">
+            <img class="menu-item-thumbnail-preview" src="<?php echo esc_url($image_url); ?>" style="max-width:60px;<?php echo empty($image_url) ? 'display:none;' : ''; ?>">
+            <button class="button upload-menu-thumbnail"><?php _e('Select image'); ?></button>
+            <button class="button remove-menu-thumbnail" style="<?php echo empty($image_url) ? 'display:none;' : ''; ?>"><?php _e('Remove'); ?></button>
+        </label>
+    </p>
+<?php
+}, 10, 2);
+
+// Enqueue admin script for image upload
+add_action('admin_enqueue_scripts', function ($hook) {
+    if ($hook === 'nav-menus.php') {
+        wp_enqueue_media();
+        wp_add_inline_script('jquery-core', "
+            jQuery(document).ready(function($){
+                $('.upload-menu-thumbnail').on('click', function(e){
+                    e.preventDefault();
+                    var button = $(this);
+                    var input = button.closest('p').find('.menu-item-thumbnail-id');
+                    var preview = button.closest('p').find('.menu-item-thumbnail-preview');
+                    var removeBtn = button.closest('p').find('.remove-menu-thumbnail');
+                    var frame = wp.media({title:'Select or Upload Image', button:{text:'Use this image'}, multiple:false});
+                    frame.on('select', function(){
+                        var attachment = frame.state().get('selection').first().toJSON();
+                        input.val(attachment.id);
+                        preview.attr('src', attachment.url).show();
+                        removeBtn.show();
+                    });
+                    frame.open();
+                });
+                $('.remove-menu-thumbnail').on('click', function(e){
+                    e.preventDefault();
+                    var container = $(this).closest('p');
+                    container.find('.menu-item-thumbnail-id').val('');
+                    container.find('.menu-item-thumbnail-preview').hide();
+                    $(this).hide();
+                });
+            });
+        ");
+    }
+});
 
 function waterless_customize_register($wp_customize)
 {
@@ -1131,71 +1191,91 @@ function waterless_customize_register($wp_customize)
     ]));
 
     // Register selective refresh partials where available to enable live-preview without full refresh
-    if ( isset( $wp_customize->selective_refresh ) ) {
+    if (isset($wp_customize->selective_refresh)) {
         $sr = $wp_customize->selective_refresh;
-        $sr->add_partial( 'waterless_hero_title', [
+        $sr->add_partial('waterless_hero_title', [
             'selector' => '.hero-title',
             'settings' => ['waterless_hero_title'],
-            'render_callback' => function() { echo esc_html( get_theme_mod('waterless_hero_title') ); }
-        ]);
-        $sr->add_partial( 'waterless_hero_sub', [
-            'selector' => '.hero-text p',
-            'settings' => ['waterless_hero_sub'],
-            'render_callback' => function() { echo esc_html( get_theme_mod('waterless_hero_sub') ); }
-        ]);
-        // Image partial for hero
-        $sr->add_partial( 'waterless_hero_image', [
-            'selector' => '.hero-image',
-            'settings' => ['waterless_hero_image'],
-            'render_callback' => function() { echo '<img class="hero-image" src="' . esc_url( get_theme_mod('waterless_hero_image') ) . '" alt="">'; }
-        ]);
-
-        $sr->add_partial( 'waterless_sec1_heading', [
-            'selector' => '.ppad.content.grid.cols-2.content-center section h2',
-            'settings' => ['waterless_sec1_heading'],
-            'render_callback' => function() { echo esc_html( get_theme_mod('waterless_sec1_heading') ); }
-        ]);
-        $sr->add_partial( 'waterless_sec1_image', [
-            'selector' => '.ppad .product-image',
-            'settings' => ['waterless_sec1_image'],
-            'render_callback' => function() { echo '<img class="product-image" src="' . esc_url( get_theme_mod('waterless_sec1_image') ) . '" alt="">'; }
-        ]);
-
-        $sr->add_partial( 'waterless_map_text', [
-            'selector' => '.map-container section p',
-            'settings' => ['waterless_map_text'],
-            'render_callback' => function() { echo nl2br( esc_html( get_theme_mod('waterless_map_text') ) ); }
-        ]);
-        $sr->add_partial( 'waterless_map_badge', [
-            'selector' => '.map-container .sigal',
-            'settings' => ['waterless_map_badge'],
-            'render_callback' => function() { echo '<img class="sigal" src="' . esc_url( get_theme_mod('waterless_map_badge') ) . '" alt="">'; }
-        ]);
-
-        $sr->add_partial( 'waterless_full_text', [
-            'selector' => '.full-width-article',
-            'settings' => ['waterless_full_text','waterless_full_heading','waterless_full_pre'],
-            'render_callback' => function() {
-                echo '<p>' . esc_html( get_theme_mod('waterless_full_pre') ) . '</p>';
-                echo '<h2>' . esc_html( get_theme_mod('waterless_full_heading') ) . '</h2>';
-                echo '<p>' . nl2br( esc_html( get_theme_mod('waterless_full_text') ) ) . '</p>';
+            'render_callback' => function () {
+                echo esc_html(get_theme_mod('waterless_hero_title'));
             }
         ]);
-        $sr->add_partial( 'waterless_full_image', [
-            'selector' => '.full-width-image',
-            'settings' => ['waterless_full_image'],
-            'render_callback' => function() { echo '<img class="full-width-image" src="' . esc_url( get_theme_mod('waterless_full_image') ) . '" alt="">'; }
+        $sr->add_partial('waterless_hero_sub', [
+            'selector' => '.hero-text p',
+            'settings' => ['waterless_hero_sub'],
+            'render_callback' => function () {
+                echo esc_html(get_theme_mod('waterless_hero_sub'));
+            }
+        ]);
+        // Image partial for hero
+        $sr->add_partial('waterless_hero_image', [
+            'selector' => '.hero-image',
+            'settings' => ['waterless_hero_image'],
+            'render_callback' => function () {
+                echo '<img class="hero-image" src="' . esc_url(get_theme_mod('waterless_hero_image')) . '" alt="">';
+            }
         ]);
 
-        $sr->add_partial( 'waterless_testimonial_heading', [
+        $sr->add_partial('waterless_sec1_heading', [
+            'selector' => '.ppad.content.grid.cols-2.content-center section h2',
+            'settings' => ['waterless_sec1_heading'],
+            'render_callback' => function () {
+                echo esc_html(get_theme_mod('waterless_sec1_heading'));
+            }
+        ]);
+        $sr->add_partial('waterless_sec1_image', [
+            'selector' => '.ppad .product-image',
+            'settings' => ['waterless_sec1_image'],
+            'render_callback' => function () {
+                echo '<img class="product-image" src="' . esc_url(get_theme_mod('waterless_sec1_image')) . '" alt="">';
+            }
+        ]);
+
+        $sr->add_partial('waterless_map_text', [
+            'selector' => '.map-container section p',
+            'settings' => ['waterless_map_text'],
+            'render_callback' => function () {
+                echo nl2br(esc_html(get_theme_mod('waterless_map_text')));
+            }
+        ]);
+        $sr->add_partial('waterless_map_badge', [
+            'selector' => '.map-container .sigal',
+            'settings' => ['waterless_map_badge'],
+            'render_callback' => function () {
+                echo '<img class="sigal" src="' . esc_url(get_theme_mod('waterless_map_badge')) . '" alt="">';
+            }
+        ]);
+
+        $sr->add_partial('waterless_full_text', [
+            'selector' => '.full-width-article',
+            'settings' => ['waterless_full_text', 'waterless_full_heading', 'waterless_full_pre'],
+            'render_callback' => function () {
+                echo '<p>' . esc_html(get_theme_mod('waterless_full_pre')) . '</p>';
+                echo '<h2>' . esc_html(get_theme_mod('waterless_full_heading')) . '</h2>';
+                echo '<p>' . nl2br(esc_html(get_theme_mod('waterless_full_text'))) . '</p>';
+            }
+        ]);
+        $sr->add_partial('waterless_full_image', [
+            'selector' => '.full-width-image',
+            'settings' => ['waterless_full_image'],
+            'render_callback' => function () {
+                echo '<img class="full-width-image" src="' . esc_url(get_theme_mod('waterless_full_image')) . '" alt="">';
+            }
+        ]);
+
+        $sr->add_partial('waterless_testimonial_heading', [
             'selector' => '.content.grid.cols-2.ppad.content-center:last-of-type h2',
             'settings' => ['waterless_testimonial_heading'],
-            'render_callback' => function() { echo esc_html( get_theme_mod('waterless_testimonial_heading') ); }
+            'render_callback' => function () {
+                echo esc_html(get_theme_mod('waterless_testimonial_heading'));
+            }
         ]);
-        $sr->add_partial( 'waterless_testimonial_image', [
+        $sr->add_partial('waterless_testimonial_image', [
             'selector' => '.content.grid.cols-2.ppad.content-center:last-of-type img',
             'settings' => ['waterless_testimonial_image'],
-            'render_callback' => function() { echo '<img src="' . esc_url( get_theme_mod('waterless_testimonial_image') ) . '" alt="">'; }
+            'render_callback' => function () {
+                echo '<img src="' . esc_url(get_theme_mod('waterless_testimonial_image')) . '" alt="">';
+            }
         ]);
     }
 
@@ -1247,28 +1327,36 @@ function waterless_customize_register($wp_customize)
     ]);
 
     // Selective refresh partials for About & Why pages
-    if ( isset( $wp_customize->selective_refresh ) ) {
+    if (isset($wp_customize->selective_refresh)) {
         $sr->add_partial('waterless_about_intro', [
             'selector' => '.content article.content section.grid.cols-2 div p',
             'settings' => ['waterless_about_intro'],
-            'render_callback' => function() { echo nl2br( esc_html( get_theme_mod('waterless_about_intro') ) ); }
+            'render_callback' => function () {
+                echo nl2br(esc_html(get_theme_mod('waterless_about_intro')));
+            }
         ]);
 
         $sr->add_partial('waterless_about_image', [
             'selector' => 'section.grid.cols-2 img',
             'settings' => ['waterless_about_image'],
-            'render_callback' => function() { echo '<img src="' . esc_url( get_theme_mod('waterless_about_image') ) . '" alt="">'; }
+            'render_callback' => function () {
+                echo '<img src="' . esc_url(get_theme_mod('waterless_about_image')) . '" alt="">';
+            }
         ]);
 
         $sr->add_partial('waterless_sustainable_heading', [
             'selector' => '.paint-bg.info-container h1',
             'settings' => ['waterless_sustainable_heading'],
-            'render_callback' => function() { echo esc_html( get_theme_mod('waterless_sustainable_heading') ); }
+            'render_callback' => function () {
+                echo esc_html(get_theme_mod('waterless_sustainable_heading'));
+            }
         ]);
         $sr->add_partial('waterless_sustainable_text', [
             'selector' => '.paint-bg.info-container p',
             'settings' => ['waterless_sustainable_text'],
-            'render_callback' => function() { echo nl2br( esc_html( get_theme_mod('waterless_sustainable_text') ) ); }
+            'render_callback' => function () {
+                echo nl2br(esc_html(get_theme_mod('waterless_sustainable_text')));
+            }
         ]);
     }
 }
@@ -1279,15 +1367,16 @@ add_action('customize_register', 'waterless_customize_register');
  * This keeps the page editable in the Page editor and prevents values from appearing to 'disappear'
  * when other parts of the site read post meta instead of theme_mods.
  */
-function waterless_sync_customizer_to_page_meta() {
+function waterless_sync_customizer_to_page_meta()
+{
     // Only run in admin on customize save
-    if ( ! is_admin() ) return;
+    if (! is_admin()) return;
 
     // Require capability
-    if ( ! current_user_can( 'edit_pages' ) ) return;
+    if (! current_user_can('edit_pages')) return;
 
-    $front_id = (int) get_option( 'page_on_front' );
-    if ( $front_id <= 0 ) return;
+    $front_id = (int) get_option('page_on_front');
+    if ($front_id <= 0) return;
 
     // Map of theme_mod => post_meta_key
     $map = [
@@ -1318,17 +1407,17 @@ function waterless_sync_customizer_to_page_meta() {
         'waterless_testimonial_image' => 'testimonial_image',
     ];
 
-    foreach ( $map as $tm => $meta_key ) {
-        $val = get_theme_mod( $tm );
-        if ( $val !== null ) {
+    foreach ($map as $tm => $meta_key) {
+        $val = get_theme_mod($tm);
+        if ($val !== null) {
             // Save string values as-is; image URLs are URLs
-            update_post_meta( $front_id, $meta_key, $val );
+            update_post_meta($front_id, $meta_key, $val);
         }
     }
 
     // Note: We intentionally do not sync the third-party map script URL into page meta.
 }
-add_action( 'customize_save_after', 'waterless_sync_customizer_to_page_meta' );
+add_action('customize_save_after', 'waterless_sync_customizer_to_page_meta');
 
 // Register Instructions Custom Post Type
 function waterless_register_instructions_cpt()
@@ -1468,11 +1557,11 @@ add_action('save_post', 'waterless_save_instruction_video');
  * Register custom block patterns for Waterless
  */
 // Register custom block pattern category for Waterless
-add_action( 'init', function() {
-    if ( function_exists( 'register_block_pattern_category' ) ) {
+add_action('init', function () {
+    if (function_exists('register_block_pattern_category')) {
         register_block_pattern_category(
             'waterless',
-            [ 'label' => __( 'Waterless Patterns', 'waterless' ) ]
+            ['label' => __('Waterless Patterns', 'waterless')]
         );
     }
 });
@@ -1754,6 +1843,82 @@ function waterless_customize_business_page($wp_customize)
 }
 add_action('customize_register', 'waterless_customize_business_page');
 
+function waterless_customize_contact_page($wp_customize)
+{
+    $wp_customize->add_section('contact_page_section', [
+        'title'       => __('Contact Page', 'waterless'),
+        'priority'    => 35,
+        'description' => __('Edit the content of the Contact page', 'waterless'),
+    ]);
+
+    // Title & Intro
+    $wp_customize->add_setting('contact_page_title', ['default' => 'Kontakt os']);
+    $wp_customize->add_control('contact_page_title', [
+        'label' => __('Page Title', 'waterless'),
+        'section' => 'contact_page_section',
+        'type' => 'text',
+    ]);
+
+    $wp_customize->add_setting('contact_page_intro', ['default' => 'Har du spørgsmål eller ønsker du et tilbud? Kontakt os her.']);
+    $wp_customize->add_control('contact_page_intro', [
+        'label' => __('Intro Text', 'waterless'),
+        'section' => 'contact_page_section',
+        'type' => 'textarea',
+    ]);
+
+    // Contact Info
+    $wp_customize->add_setting('contact_page_info_title', ['default' => 'Kontaktinformation']);
+    $wp_customize->add_control('contact_page_info_title', [
+        'label' => __('Info Section Title', 'waterless'),
+        'section' => 'contact_page_section',
+        'type' => 'text',
+    ]);
+
+    $wp_customize->add_setting('contact_page_address', ['default' => 'Eksempelvej 12, 6400 Sønderborg']);
+    $wp_customize->add_control('contact_page_address', [
+        'label' => __('Address', 'waterless'),
+        'section' => 'contact_page_section',
+        'type' => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('contact_page_phone', ['default' => '+45 12 34 56 78']);
+    $wp_customize->add_control('contact_page_phone', [
+        'label' => __('Phone', 'waterless'),
+        'section' => 'contact_page_section',
+        'type' => 'text',
+    ]);
+
+    $wp_customize->add_setting('contact_page_email', ['default' => 'info@waterless.dk']);
+    $wp_customize->add_control('contact_page_email', [
+        'label' => __('Email', 'waterless'),
+        'section' => 'contact_page_section',
+        'type' => 'text',
+    ]);
+
+    // Contact Form
+    $wp_customize->add_setting('contact_page_form_title', ['default' => 'Send os en besked']);
+    $wp_customize->add_control('contact_page_form_title', [
+        'label' => __('Form Title', 'waterless'),
+        'section' => 'contact_page_section',
+        'type' => 'text',
+    ]);
+
+    $wp_customize->add_setting('contact_page_form_shortcode', ['default' => '[contact-form-7 id="123" title="Contact form"]']);
+    $wp_customize->add_control('contact_page_form_shortcode', [
+        'label' => __('Form Shortcode', 'waterless'),
+        'section' => 'contact_page_section',
+        'type' => 'text',
+    ]);
+
+    // Map Embed
+    $wp_customize->add_setting('contact_page_map_embed', ['default' => '']);
+    $wp_customize->add_control('contact_page_map_embed', [
+        'label' => __('Google Maps Embed URL', 'waterless'),
+        'section' => 'contact_page_section',
+        'type' => 'url',
+    ]);
+}
+add_action('customize_register', 'waterless_customize_contact_page');
 
 // ============================
 // Helper Function for Defaults
