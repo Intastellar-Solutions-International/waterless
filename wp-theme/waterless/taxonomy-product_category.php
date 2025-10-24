@@ -2,7 +2,7 @@
 
 <main class="main-content ppad">
     <section class="content">
-        <h1>Our Products</h1>
+        <h1><?php single_cat_title(); ?></h1>
     </section>
 
     <section class="content grid cols-5">
