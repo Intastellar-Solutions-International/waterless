@@ -48,6 +48,14 @@ function waterless_enqueue_scripts()
         true
     );
 
+    wp_enqueue_script(
+        'waterless-contact',
+        get_template_directory_uri() . '/js/contact.js',
+        [],
+        filemtime(get_template_directory() . '/js/contact.js'),
+        true
+    );
+
     // Localize map data (marker icon URL and any other map config)
     $map_icon = get_theme_mod('waterless_map_icon', get_template_directory_uri() . '/assets/map/icon.png');
     wp_localize_script('waterless-map', 'waterlessMap', [
@@ -1919,6 +1927,37 @@ function waterless_customize_contact_page($wp_customize)
     ]);
 }
 add_action('customize_register', 'waterless_customize_contact_page');
+
+
+add_action('wp_ajax_waterless_send_contact_form', 'waterless_send_contact_form');
+add_action('wp_ajax_nopriv_waterless_send_contact_form', 'waterless_send_contact_form');
+
+function waterless_send_contact_form()
+{
+    // Sanitize form fields
+    $name = sanitize_text_field($_POST['name'] ?? '');
+    $email = sanitize_email($_POST['email'] ?? '');
+    $message = sanitize_textarea_field($_POST['message'] ?? '');
+
+    if (empty($name) || empty($email) || empty($message)) {
+        wp_send_json(['success' => false, 'message' => 'Udfyld venligst alle felter.']);
+    }
+
+    // Compose email
+    $to = get_option('admin_email');
+    $subject = "Ny kontaktformular fra $name";
+    $body = "Navn: $name\nEmail: $email\n\nBesked:\n$message";
+    $headers = ["From: $name <$email>", "Reply-To: $email"];
+
+    // Send mail
+    $sent = wp_mail($to, $subject, $body, $headers);
+
+    if ($sent) {
+        wp_send_json(['success' => true, 'message' => 'Tak for din besked! Vi vender tilbage hurtigst muligt.']);
+    } else {
+        wp_send_json(['success' => false, 'message' => 'Der opstod en fejl ved afsendelse. Prøv igen senere.']);
+    }
+}
 
 // ============================
 // Helper Function for Defaults

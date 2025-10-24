@@ -25,8 +25,9 @@ get_header();
             <!-- Contact Form -->
             <div>
                 <h2><?php echo esc_html(get_theme_mod('contact_page_form_title', 'Send os en besked')); ?></h2>
-                <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="contact-form">
+                <form method="post" action="<?php echo esc_url(admin_url('admin-ajax.php')); ?>" class="contact-form">
                     <div class="form-groups">
+                        <output class="form-messages"></output>
                         <fieldset class="form-group">
                             <label for="name">Name:</label>
                             <input type="text" id="name" name="name" required>
@@ -43,6 +44,7 @@ get_header();
                             <label for="message">Message:</label>
                             <textarea id="message" name="message" rows="8" required></textarea>
                         </fieldset>
+                        <input type="hidden" name="action" value="waterless_send_contact_form">
                     </div>
                     <button type="submit" class="form-btn">Let's talk</button>
                 </form>
