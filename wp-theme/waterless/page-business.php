@@ -3,7 +3,6 @@
 Template Name: Business Page
 */
 get_header();
-echo get_theme_mod("business_page_item1_title");
 ?>
 
 <main class="main-content ppad">
