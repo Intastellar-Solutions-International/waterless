@@ -50,6 +50,12 @@ $compatible_urinals  = get_post_meta(get_the_ID(), '_compatible_urinals', true);
                 </h1>
                 <a class="cta" href="#">How to use?</a>
             </article>
+            <?php
+                if(get_post_meta(get_the_ID(), 'dimension_height', true) != ""
+                    && get_post_meta(get_the_ID(), 'dimension_width', true) != ""
+                        && get_post_meta(get_the_ID(), 'dimension_depth', true) != ""
+                    ):
+            ?>
             <article>
                 <h3>Dimensions</h3>
                 <ul>
@@ -58,15 +64,28 @@ $compatible_urinals  = get_post_meta(get_the_ID(), '_compatible_urinals', true);
                     <li>Dybdde: <?php echo esc_html(get_post_meta(get_the_ID(), 'dimension_depth', true)); ?> mm</li>
                 </ul>
             </article>
+            <?php 
+                endif;
+            ?>
+            <?php
+                if(get_post_meta(get_the_ID(), 'material', true) != ""):
+            ?>
             <article>
                 <h3>Material</h3>
                 <p><?php echo esc_html(get_post_meta(get_the_ID(), 'material', true)) ?></p>
             </article>
+            <?php
+                endif;
+            ?>
             <article class="--stretched">
                 <h3>Farve</h3>
                 <p><?php echo esc_html(get_post_meta(get_the_ID(), 'color', true)); ?></p>
                 <section>
+                    <?php
+                        if(get_post_meta(get_the_ID(), 'plumbing_no', true) != ""):
+                    ?>
                     <p>VVS nr.: <?php echo esc_html(get_post_meta(get_the_ID(), 'plumbing_no', true)); ?></p>
+                    <?php endif;?>
                     <p>Waterless nr.: <?php echo esc_html(get_post_meta(get_the_ID(), 'waterless_no', true)); ?></p>
                 </section>
                 <section>
