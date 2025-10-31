@@ -796,6 +796,25 @@ function waterless_editor_styles()
 }
 add_action('after_setup_theme', 'waterless_editor_styles');
 
+function modify_footer_custom_logo($html)
+{
+    // Only run in footer.php
+    if (did_action('get_footer')) {
+        // Add to anchor class (if not already present)
+        $html = preg_replace('/class=(["\'])([^"\']*custom-logo-link[^"\']*)\1/', 'class=$1$2 footer-logo$1', $html);
+
+        // Add to img class (if present)
+        if (preg_match('/<img[^>]+class=(["\'])([^"\']*)\1/i', $html)) {
+            $html = preg_replace('/<img([^>]+)class=(["\'])([^"\']*)\2/i', '<img$1class=$2$3 footer-logo-img$2', $html, 1);
+        } else {
+            // If img exists but no class, add one
+            $html = preg_replace('/<img([^>]*)(\/?)>/i', '<img$1 class="footer-logo-img"$2>', $html, 1);
+        }
+    }
+    return $html;
+}
+add_filter('get_custom_logo', 'modify_footer_custom_logo');
+
 
 // Register footer menu
 function waterless_register_menus()
