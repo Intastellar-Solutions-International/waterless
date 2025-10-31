@@ -41,26 +41,12 @@ function waterless_enqueue_scripts()
     }
 
     wp_enqueue_script(
-        'waterless-map',
-        get_template_directory_uri() . '/js/map.js',
-        $map_deps,
-        filemtime(get_template_directory() . '/js/map.js'),
-        true
-    );
-
-    wp_enqueue_script(
         'waterless-contact',
         get_template_directory_uri() . '/js/contact.js',
         [],
         filemtime(get_template_directory() . '/js/contact.js'),
         true
     );
-
-    // Localize map data (marker icon URL and any other map config)
-    $map_icon = get_theme_mod('waterless_map_icon', get_template_directory_uri() . '/assets/map/icon.png');
-    wp_localize_script('waterless-map', 'waterlessMap', [
-        'markerIcon' => esc_url($map_icon),
-    ]);
 
     // Lenis (smooth scrolling) and Leaflet (maps) via CDN
     // Load these only on pages where the front-page or map is present to avoid loading site-wide.
@@ -81,6 +67,20 @@ function waterless_enqueue_scripts()
             wp_script_add_data('leaflet-cdn', 'crossorigin', '');
         }
     }
+
+    wp_enqueue_script(
+        'waterless-map',
+        get_template_directory_uri() . '/js/map.js',
+        $map_deps,
+        filemtime(get_template_directory() . '/js/map.js'),
+        true
+    );
+
+    // Localize map data (marker icon URL and any other map config)
+    $map_icon = get_theme_mod('waterless_map_icon', get_template_directory_uri() . '/assets/map/icon.png');
+    wp_localize_script('waterless-map', 'waterlessMap', [
+        'markerIcon' => esc_url($map_icon),
+    ]);
 
     wp_enqueue_script(
         'waterless-nav',
