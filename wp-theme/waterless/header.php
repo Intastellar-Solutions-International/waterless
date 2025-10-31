@@ -18,7 +18,8 @@ $pageUrl =  $protocol . $host . $_SERVER['REQUEST_URI'];
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
-    <title><?php wp_title('|', true, 'right'); ?> <?php bloginfo('name'); ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="developer" content="Intastellar Solutions, International">
     <?php wp_head(); ?>
 </head>
 
