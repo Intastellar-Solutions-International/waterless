@@ -1019,6 +1019,19 @@ function waterless_customize_register($wp_customize)
         'type'     => 'text',
     ]);
 
+    $wp_customize->add_setting('waterless_sec1_description', [
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_textarea_field',
+        'transport'         => 'postMessage',
+    ]);
+
+    $wp_customize->add_control('waterless_sec1_description', [
+        'label'    => __('Section 1 - Description', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_sec1_description',
+        'type'     => 'textarea',
+    ]);
+
     $wp_customize->add_setting('waterless_sec1_heading', [
         'default'           => 'Vandfri urinaler og bæredygtige løsninger',
         'sanitize_callback' => 'sanitize_text_field',
@@ -1161,6 +1174,19 @@ function waterless_customize_register($wp_customize)
         'section'  => 'waterless_frontpage',
         'settings' => 'waterless_install_heading',
         'type'     => 'text',
+    ]);
+
+    $wp_customize->add_setting('waterless_install_heading_description', [
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_textarea_field',
+        'transport'         => 'postMessage',
+    ]);
+
+    $wp_customize->add_control('waterless_install_heading_description_control', [
+        'label'    => __('Install - Description', 'waterless'),
+        'section'  => 'waterless_frontpage',
+        'settings' => 'waterless_install_heading_description',
+        'type'     => 'textarea',
     ]);
 
     $wp_customize->add_setting('waterless_install_image', [

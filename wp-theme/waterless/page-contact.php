@@ -46,7 +46,9 @@ get_header();
                         </fieldset>
                         <input type="hidden" name="action" value="waterless_send_contact_form">
                     </div>
-                    <button type="submit" class="form-btn">Let's talk</button>
+                    <button type="submit" class="form-btn">
+                        
+                    </button>
                 </form>
             </div>
         </section>

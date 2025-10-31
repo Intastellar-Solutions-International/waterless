@@ -14,11 +14,15 @@ get_header();
     <section class="content grid cols-5">
         <?php
         $counter = 1;
-        while (get_theme_mod("business_page_item{$counter}_title")) : the_post();
+
+        while (get_theme_mod("business_page_item{$counter}_title")) :
         ?>
             <article class="product-item">
-                <h2 class="product-title"><?php echo esc_html(get_theme_mod("business_page_item{$counter}_title")); ?></h2>
-                <img src="<?php echo esc_url(get_theme_mod("business_page_item{$counter}_image", theme_get_default_product_image())); ?>" alt="<?php echo esc_html(get_theme_mod("business_page_item{$counter}_title")); ?>">
+                <h2 class="product-title">
+                    <?php echo esc_html(get_theme_mod("business_page_item{$counter}_title")); ?>
+                </h2>
+                <img src="<?php echo esc_url(get_theme_mod("business_page_item{$counter}_image", theme_get_default_product_image())); ?>"
+                    alt="<?php echo esc_html(get_theme_mod("business_page_item{$counter}_title")); ?>">
 
                 <a href="<?php echo esc_url(get_theme_mod("business_page_item{$counter}_link")); ?>" class="cta">
                     <?php echo esc_html(get_theme_mod('products_page_cta_text', 'Læs mere')); ?>
@@ -26,9 +30,9 @@ get_header();
             </article>
         <?php
             $counter++;
-            echo '<article></article>';
         endwhile;
         ?>
+
     </section>
 </main>
 

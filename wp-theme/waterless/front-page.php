@@ -67,6 +67,7 @@ $hero_image = get_theme_mod('waterless_hero_image', get_template_directory_uri()
 $sec1_image = get_theme_mod('waterless_sec1_image', get_template_directory_uri() . '/assets/products/urinal-eco-12.png');
 $sec1_pre = get_theme_mod('waterless_sec1_pre', 'Hvad vi laver');
 $sec1_heading = get_theme_mod('waterless_sec1_heading', 'Vandfri urinaler og bæredygtige løsninger');
+$sec1_description = get_theme_mod('waterless_sec1_description', '');
 
 $map_badge = get_theme_mod('waterless_map_badge', get_template_directory_uri() . '/assets/smvgrøn.png');
 $map_heading = get_theme_mod('waterless_map_heading', 'Verden rundt siden 1997 - 72 lande og tæller');
@@ -83,6 +84,8 @@ Indtast blot dine oplysninger i vores beregner og se besparelserne vokse!");
 $install_heading = get_theme_mod('waterless_install_heading', 'Installation af vandfri urinaler');
 $install_link = get_theme_mod('waterless_install_link', home_url('/'));
 $install_image = get_theme_mod('waterless_install_image', get_template_directory_uri() . '/assets/Projekt bez nazwy (25) 1.jpg');
+
+$install_description = get_theme_mod('waterless_install_heading_description', "");
 
 $testimonial_image = get_theme_mod('waterless_testimonial_image', 'https://waterless.dk/userfiles/image/Nytlayout/Outside_urinal.png');
 $testimonial_heading = get_theme_mod('waterless_testimonial_heading', 'Vi har med succes installeret utallige urinaler på forskellige steder - og leverer en 100% lugtfri oplevelse, garanteret!');
@@ -107,6 +110,13 @@ $testimonial_heading = get_theme_mod('waterless_testimonial_heading', 'Vi har me
         <section>
             <p><?php echo esc_html($sec1_pre); ?></p>
             <h2><?php echo esc_html($sec1_heading); ?></h2>
+            <?php
+            if (!empty($sec1_description) || $sec1_description != ""):
+            ?>
+                <p><?php echo esc_html($sec1_description); ?></p>
+            <?php
+            endif;
+            ?>
         </section>
     </section>
 
@@ -134,6 +144,20 @@ $testimonial_heading = get_theme_mod('waterless_testimonial_heading', 'Vi har me
         <section>
             <h2><?php echo esc_html($install_heading); ?></h2>
             <a href="<?php echo esc_url($install_link); ?>">Hvordan installeres?</a>
+            <?php
+            if ($install_description):
+                $items = explode("-", $install_description);
+                foreach ($items as $item):
+                    $feature = explode(":", $item);
+            ?>
+                <h3><?php echo esc_html($feature[0]); ?></h3>
+                <?php if(isset($feature[1])): ?>
+                    <p><?php echo esc_html($feature[1]); ?></p>
+                <?php endif; ?>
+            <?php
+                endforeach;
+            endif;
+            ?>
         </section>
         <img src="<?php echo esc_url($install_image); ?>" alt="">
     </section>
