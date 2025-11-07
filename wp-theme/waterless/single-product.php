@@ -51,47 +51,70 @@ $compatible_urinals  = get_post_meta(get_the_ID(), '_compatible_urinals', true);
                 <a class="cta" href="#">How to use?</a>
             </article>
             <?php
-                if(get_post_meta(get_the_ID(), 'dimension_height', true) != ""
-                    && get_post_meta(get_the_ID(), 'dimension_width', true) != ""
-                        && get_post_meta(get_the_ID(), 'dimension_depth', true) != ""
-                    ):
+            if (
+                get_post_meta(get_the_ID(), 'dimension_height', true) != ""
+                && get_post_meta(get_the_ID(), 'dimension_width', true) != ""
+                && get_post_meta(get_the_ID(), 'dimension_depth', true) != ""
+            ):
             ?>
-            <article>
-                <h3>Dimensions</h3>
-                <ul>
-                    <li>Højde: <?php echo esc_html(get_post_meta(get_the_ID(), 'dimension_height', true)); ?> mm</li>
-                    <li>Bredde: <?php echo esc_html(get_post_meta(get_the_ID(), 'dimension_width', true)); ?> mm</li>
-                    <li>Dybdde: <?php echo esc_html(get_post_meta(get_the_ID(), 'dimension_depth', true)); ?> mm</li>
-                </ul>
-            </article>
-            <?php 
-                endif;
+                <article>
+                    <h3>Dimensions</h3>
+                    <ul>
+                        <li>Højde: <?php echo esc_html(get_post_meta(get_the_ID(), 'dimension_height', true)); ?> mm</li>
+                        <li>Bredde: <?php echo esc_html(get_post_meta(get_the_ID(), 'dimension_width', true)); ?> mm</li>
+                        <li>Dybdde: <?php echo esc_html(get_post_meta(get_the_ID(), 'dimension_depth', true)); ?> mm</li>
+                    </ul>
+                </article>
+            <?php
+            endif;
             ?>
             <?php
-                if(get_post_meta(get_the_ID(), 'material', true) != ""):
+            if (get_post_meta(get_the_ID(), 'material', true) != ""):
             ?>
-            <article>
-                <h3>Material</h3>
-                <p><?php echo esc_html(get_post_meta(get_the_ID(), 'material', true)) ?></p>
-            </article>
+                <article>
+                    <h3>Material</h3>
+                    <p><?php echo esc_html(get_post_meta(get_the_ID(), 'material', true)) ?></p>
+                </article>
             <?php
-                endif;
+            endif;
             ?>
             <article class="--stretched">
                 <h3>Farve</h3>
                 <p><?php echo esc_html(get_post_meta(get_the_ID(), 'color', true)); ?></p>
                 <section>
                     <?php
-                        if(get_post_meta(get_the_ID(), 'plumbing_no', true) != ""):
+                    if (get_post_meta(get_the_ID(), 'plumbing_no', true) != ""):
                     ?>
-                    <p>VVS nr.: <?php echo esc_html(get_post_meta(get_the_ID(), 'plumbing_no', true)); ?></p>
-                    <?php endif;?>
+                        <p>VVS nr.: <?php echo esc_html(get_post_meta(get_the_ID(), 'plumbing_no', true)); ?></p>
+                    <?php endif; ?>
                     <p>Waterless nr.: <?php echo esc_html(get_post_meta(get_the_ID(), 'waterless_no', true)); ?></p>
                 </section>
                 <section>
                     <p><?php echo apply_filters('the_content', get_post_field('post_content', get_the_ID())) ?></p>
                 </section>
             </article>
+            <?php if (get_post_meta(get_the_ID(), "product_links", true)):
+            ?>
+                <article class="--stretched">
+                    <h3>Produktblade</h3>
+                    <?php
+                    $links = get_post_meta(get_the_ID(), 'product_links', true);
+
+                    if (!empty($links)) {
+                        foreach ($links as $link) {
+                            printf(
+                                '<a href="%s" target="_blank">%s</a><br>',
+                                esc_url($link['url']),
+                                esc_html($link['text'])
+                            );
+                        }
+                    }
+
+                    ?>
+                </article>
+            <?php
+            endif;
+            ?>
             <article class="--stretched">
                 <h3>Teknisk data</h3>
                 <?php if ($cad = get_post_meta(get_the_ID(), 'cad_file', true)) : ?>
@@ -187,6 +210,4 @@ $compatible_urinals  = get_post_meta(get_the_ID(), '_compatible_urinals', true);
         }
     }
 </script>
-<?php
-include_once 'components/footer.php';
-?>
+<?php get_footer(); ?>

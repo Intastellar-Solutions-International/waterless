@@ -19,6 +19,14 @@
         transition: all 0.3s ease;
     }
 
+    .dropdown-content{
+        display:block;
+    }
+
+    .menu-icon{
+        width: 100%;
+    }
+
     .menu.show{
         left: 0;
     }

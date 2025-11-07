@@ -389,6 +389,7 @@ add_action('add_meta_boxes', 'waterless_add_product_meta_boxes');
 
 
 // 3. Render meta box
+// 3. Render Product Meta Box
 function waterless_render_product_meta_box($post)
 {
     $fields = [
@@ -401,14 +402,67 @@ function waterless_render_product_meta_box($post)
         'waterless_no'     => 'Waterless no.',
         'cad_file'         => 'CAD File URL',
         'zip_file'         => 'Zip File URL',
-        'drawing_file'     => 'Technical Drawing URL',
+        'drawing_file'     => 'Technical Drawing URL'
     ];
 
+    // Regular fields
     foreach ($fields as $key => $label) {
         $value = get_post_meta($post->ID, $key, true);
-        $type = strpos($key, '_file') !== false ? 'url' : 'text';
-        echo "<p><label>{$label}: <input type='{$type}' name='{$key}' value='" . esc_attr($value) . "'></label></p>";
+        $type  = strpos($key, '_file') !== false ? 'url' : 'text';
+        echo "<p><label>{$label}: <input type='{$type}' name='{$key}' value='" . esc_attr($value) . "' style='width:100%;'></label></p>";
     }
+
+    // Link section
+    $links = get_post_meta($post->ID, 'product_links', true);
+    $links = is_array($links) ? $links : [];
+
+    echo "<hr><h4>Product Links</h4>";
+    echo "<div id='product-links-wrapper'>";
+
+    if (!empty($links)) {
+        foreach ($links as $index => $link) {
+            $url = esc_url($link['url']);
+            $text = esc_html($link['text']);
+            echo "
+            <div class='product-link-row' style='margin-bottom:10px;'>
+                <input type='url' name='product_links[{$index}][url]' value='{$url}' placeholder='Link URL' style='width:48%; margin-right:2%;'>
+                <input type='text' name='product_links[{$index}][text]' value='{$text}' placeholder='Link text' style='width:48%;'>
+                <button type='button' class='button remove-product-link'>Remove</button>
+            </div>";
+        }
+    }
+
+    echo "</div>
+        <button type='button' class='button' id='add-product-link'>Add New Link</button>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wrapper = document.getElementById('product-links-wrapper');
+            const addBtn = document.getElementById('add-product-link');
+            let index = " . count($links) . ";
+
+            addBtn.addEventListener('click', function() {
+                const div = document.createElement('div');
+                div.classList.add('product-link-row');
+                div.style.marginBottom = '10px';
+                div.innerHTML = `
+                    <input type='url' name='product_links[\${index}][url]' placeholder='Link URL' style='width:48%; margin-right:2%;'>
+                    <input type='text' name='product_links[\${index}][text]' placeholder='Link text' style='width:48%;'>
+                    <button type='button' class='button remove-product-link'>Remove</button>
+                `;
+                wrapper.appendChild(div);
+                index++;
+            });
+
+            wrapper.addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-product-link')) {
+                    e.preventDefault();
+                    e.target.closest('.product-link-row').remove();
+                }
+            });
+        });
+        </script>
+    ";
 }
 
 // 4. Save meta box values
@@ -429,11 +483,29 @@ function waterless_save_product_meta($post_id)
 
     foreach ($fields as $field) {
         if (isset($_POST[$field])) {
-            $value = strpos($field, '_file') !== false ? esc_url_raw($_POST[$field]) : sanitize_text_field($_POST[$field]);
+            $value = strpos($field, '_file') !== false
+                ? esc_url_raw($_POST[$field])
+                : sanitize_text_field($_POST[$field]);
             update_post_meta($post_id, $field, $value);
         }
     }
+
+    // Handle links
+    if (isset($_POST['product_links']) && is_array($_POST['product_links'])) {
+        $clean_links = [];
+        foreach ($_POST['product_links'] as $link) {
+            if (empty($link['url']) || empty($link['text'])) continue;
+            $clean_links[] = [
+                'url'  => esc_url_raw($link['url']),
+                'text' => sanitize_text_field($link['text'])
+            ];
+        }
+        update_post_meta($post_id, 'product_links', $clean_links);
+    } else {
+        delete_post_meta($post_id, 'product_links');
+    }
 }
+
 add_action('save_post_product', 'waterless_save_product_meta');
 
 function waterless_customize_register_products_page($wp_customize)
