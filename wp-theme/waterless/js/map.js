@@ -130,6 +130,8 @@ const markersData = [
     }
 ];
 
+const allLocations = (typeof userDefinedLocations !== 'undefined' && userDefinedLocations) ? markersData.concat(userDefinedLocations) : markersData;
+
 if (document.querySelector("#map") != null) {
     let mapStyle = 'light_all'; // Default map style
     // Use localized marker icon from PHP (waterlessMap.markerIcon) if available, otherwise fall back to theme asset
@@ -183,7 +185,7 @@ if (document.querySelector("#map") != null) {
         Level 20 = Building
     */
 
-    const markerLatLngs = markersData.map(m => [m.lat, m.lng]);
+    const markerLatLngs = allLocations.map(m => [m.lat, m.lng]);
     const bounds = L.latLngBounds(markerLatLngs);
 
     const isMobile = window.innerWidth < 600;
@@ -219,7 +221,7 @@ if (document.querySelector("#map") != null) {
     map.scrollWheelZoom.disable();
 
     // Iterate over the markers array and add each marker to the map
-    markersData.forEach(marker => {
+    allLocations.forEach(marker => {
         const iconUsed = marker.iconUrl ? L.icon({
             iconUrl: marker.iconUrl,
             iconSize: [38, 50],

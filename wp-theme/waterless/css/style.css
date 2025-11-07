@@ -232,7 +232,8 @@ Version: 1.0
     grid-template-columns: 1fr 1fr;
     height: 100%;
     max-width: 1200px;
-        margin: 0 auto;
+    margin: 0 auto;
+    place-content: center;
 }
 
 .hero-text{
@@ -240,7 +241,9 @@ Version: 1.0
     flex-direction: column;
     justify-content: flex-end;
     padding: 20px;
-    margin-bottom: 100px;
+    border-radius: 10px;
+    background-color: #fff;
+    margin-top: 300px;
 }
 
 .hero-image{

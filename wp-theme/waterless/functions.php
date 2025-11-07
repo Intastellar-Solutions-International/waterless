@@ -76,6 +76,23 @@ function waterless_enqueue_scripts()
         true
     );
 
+    // Get your stored locations
+    $locations = get_option('waterless_locations', []);
+
+    $unique = [];
+    $result = [];
+
+    foreach ($locations as $loc) {
+        $key = $loc['lat'] . ',' . $loc['lng'];
+        if (!isset($unique[$key])) {
+            $unique[$key] = true;
+            $result[] = $loc;
+        }
+    }
+
+    // Localize (pass PHP data to JS)
+    wp_localize_script('waterless-map', 'userDefinedLocations', $result);
+
     // Localize map data (marker icon URL and any other map config)
     $map_icon = get_theme_mod('waterless_map_icon', get_template_directory_uri() . '/assets/map/icon.png');
     wp_localize_script('waterless-map', 'waterlessMap', [
@@ -886,6 +903,123 @@ add_action('admin_enqueue_scripts', function ($hook) {
         ");
     }
 });
+
+add_action('admin_menu', 'waterless_register_menu');
+
+function waterless_register_menu()
+{
+    add_menu_page(
+        'Locations',              // Page title
+        'Map Locations',          // Menu title
+        'manage_options',         // Capability
+        'map-locations',          // Menu slug
+        'waterless_add_new_mapLocations', // Callback function
+        'dashicons-location-alt', // Icon
+        6                         // Position
+    );
+}
+
+function waterless_add_new_mapLocations()
+{
+?>
+    <div class="wrap">
+        <h1>Manage Locations</h1>
+        <form method="post" action="">
+            <?php wp_nonce_field('save_location', 'location_nonce'); ?>
+            <table class="form-table">
+                <tr>
+                    <th><label for="location_name">Country Name</label></th>
+                    <td><input type="text" id="location_name" name="location_name" class="regular-text" required></td>
+                </tr>
+                <tr>
+                    <th><label for="location_lat">Latitude</label></th>
+                    <td><input type="text" id="location_lat" name="location_lat" class="regular-text" required></td>
+                </tr>
+                <tr>
+                    <th><label for="location_lng">Longitude</label></th>
+                    <td><input type="text" id="location_lng" name="location_lng" class="regular-text" required></td>
+                </tr>
+            </table>
+            <?php submit_button('Add Location'); ?>
+        </form>
+        <hr>
+
+        <h2>Existing Locations</h2>
+        <?php if (!empty(get_option('waterless_locations', []))) : ?>
+            <table class="widefat fixed striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach (get_option('waterless_locations', []) as $index => $loc) : ?>
+                        <tr>
+                            <td><?php echo esc_html($loc['name']); ?></td>
+                            <td><?php echo esc_html($loc['lat']); ?></td>
+                            <td><?php echo esc_html($loc['lng']); ?></td>
+                            <td>
+                                <form method="post" style="display:inline;">
+                                    <?php wp_nonce_field('delete_location', 'delete_nonce'); ?>
+                                    <input type="hidden" name="delete_index" value="<?php echo esc_attr($index); ?>">
+                                    <?php submit_button('Delete', 'delete', 'delete_location', false); ?>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <p>No locations yet.</p>
+        <?php endif; ?>
+    </div>
+<?php
+}
+
+add_action('admin_init', 'waterless_handle_form_submission');
+
+function waterless_handle_form_submission()
+{
+    // Handle adding
+    if (isset($_POST['location_nonce']) && wp_verify_nonce($_POST['location_nonce'], 'save_location')) {
+        if (isset($_POST['location_name'], $_POST['location_lat'], $_POST['location_lng'])) {
+            $location = [
+                'name' => sanitize_text_field($_POST['location_name']),
+                'lat'  => sanitize_text_field($_POST['location_lat']),
+                'lng'  => sanitize_text_field($_POST['location_lng']),
+                'popup' => "
+                    <h2>". sanitize_text_field($_POST['location_name']) ."</h2>
+                "
+            ];
+
+            $existing = get_option('waterless_locations', []);
+            $existing[] = $location;
+            update_option('waterless_locations', $existing);
+
+            add_action('admin_notices', function () {
+                echo '<div class="notice notice-success"><p>Location added successfully!</p></div>';
+            });
+        }
+    }
+
+    // Handle deletion
+    if (isset($_POST['delete_nonce']) && wp_verify_nonce($_POST['delete_nonce'], 'delete_location')) {
+        $index = intval($_POST['delete_index']);
+        $locations = get_option('waterless_locations', []);
+        if (isset($locations[$index])) {
+            unset($locations[$index]);
+            $locations = array_values($locations); // reindex
+            update_option('waterless_locations', $locations);
+
+            add_action('admin_notices', function () {
+                echo '<div class="notice notice-success"><p>Location deleted successfully!</p></div>';
+            });
+        }
+    }
+}
 
 function waterless_customize_register($wp_customize)
 {
