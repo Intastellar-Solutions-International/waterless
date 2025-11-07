@@ -967,17 +967,59 @@ function waterless_register_menus()
 }
 add_action('after_setup_theme', 'waterless_register_menus');
 
+
+
 // Add custom image field to menu items
-add_filter('wp_setup_nav_menu_item', function ($menu_item) {
-    $menu_item->thumbnail_id = get_post_meta($menu_item->ID, '_menu_item_thumbnail_id', true);
-    return $menu_item;
-});
+add_action('wp_nav_menu_item_custom_fields', function ($item_id, $item) {
+    $icon_id = get_post_meta($item_id, '_menu_item_icon_id', true);
+    $icon_url = $icon_id ? wp_get_attachment_url($icon_id) : '';
+    ?>
+    <p class="description description-wide">
+        <label>
+            <?php _e('Menu Icon', 'waterless'); ?><br>
+            <img src="<?php echo esc_url($icon_url ?: ''); ?>" 
+                 class="menu-item-icon-preview" 
+                 style="max-width:40px; max-height:40px; display:<?php echo $icon_url ? 'inline-block' : 'none'; ?>; margin-bottom:5px;">
+            <input type="hidden" class="menu-item-icon-id" 
+                   name="menu-item-icon-id[<?php echo esc_attr($item_id); ?>]" 
+                   value="<?php echo esc_attr($icon_id); ?>">
+            <button type="button" class="button upload-menu-icon"><?php _e('Upload Icon', 'waterless'); ?></button>
+            <button type="button" class="button remove-menu-icon" style="display:<?php echo $icon_url ? 'inline-block' : 'none'; ?>;"><?php _e('Remove', 'waterless'); ?></button>
+        </label>
+    </p>
+    <?php
+}, 10, 2);
 
 add_action('wp_update_nav_menu_item', function ($menu_id, $menu_item_db_id) {
-    if (isset($_POST['menu-item-thumbnail-id'][$menu_item_db_id])) {
-        update_post_meta($menu_item_db_id, '_menu_item_thumbnail_id', sanitize_text_field($_POST['menu-item-thumbnail-id'][$menu_item_db_id]));
+    if (isset($_POST['menu-item-icon-id'][$menu_item_db_id])) {
+        update_post_meta($menu_item_db_id, '_menu_item_icon_id', absint($_POST['menu-item-icon-id'][$menu_item_db_id]));
+    } else {
+        delete_post_meta($menu_item_db_id, '_menu_item_icon_id');
     }
 }, 10, 2);
+
+add_action('admin_enqueue_scripts', function ($hook) {
+    if (in_array($hook, ['nav-menus.php', 'customize.php'], true)) {
+        wp_enqueue_media();
+        wp_enqueue_script(
+            'menu-icon-uploader',
+            get_template_directory_uri() . '/js/menu-icon-uploader.js',
+            ['jquery'],
+            null,
+            true
+        );
+    }
+});
+
+add_filter('walker_nav_menu_start_el', function ($item_output, $item, $depth, $args) {
+    $icon_id = get_post_meta($item->ID, '_menu_item_icon_id', true);
+    if ($icon_id) {
+        $icon_url = wp_get_attachment_url($icon_id);
+        $icon_html = '<img src="' . esc_url($icon_url) . '" alt="" class="menu-icon" />';
+        $item_output = $icon_html . $item_output;
+    }
+    return $item_output;
+}, 10, 4);
 
 add_action('wp_nav_menu_item_custom_fields', function ($item_id, $item) {
     $thumbnail_id = get_post_meta($item_id, '_menu_item_thumbnail_id', true);

@@ -23,6 +23,8 @@ class Waterless_Walker_Nav_Menu extends Walker_Nav_Menu
         $url   = !empty($item->url) ? esc_url($item->url) : '#';
         $has_children = in_array('menu-item-has-children', (array) $item->classes);
 
+        $icon_id = get_post_meta($item->ID, '_menu_item_icon_id', true);
+
         if ($depth === 0 && $has_children) {
             // Parent with dropdown
             $output .= '<section class="dropdown">';
@@ -33,7 +35,16 @@ class Waterless_Walker_Nav_Menu extends Walker_Nav_Menu
         } else {
             // Child item inside dropdown
             $output .= '<section class="dropdown-content-item">';
-            $output .= '<a href="' . $url . '" class="dropdown-link">' . esc_html($title) . '</a>';
+            // Check if menu point has icon
+            $icon_url = wp_get_attachment_url($icon_id);
+            if($icon_url){
+                $output .= '
+                <a href="' . $url . '" class="dropdown-link">
+                <img src="' . esc_url($icon_url) . '" alt="" class="menu-icon" />'
+                . esc_html($title) . '</a>';
+            }else {
+                $output .= '<a href="' . $url . '" class="dropdown-link">' . esc_html($title) . '</a>';
+            }
         }
     }
 
