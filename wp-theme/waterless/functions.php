@@ -4,6 +4,130 @@ require_once get_template_directory() . '/inc/class-waterless-walker.php';
 // Load helper functions
 require_once get_template_directory() . '/inc/helpers.php';
 
+$locations = [
+    [
+        "lat" => 39.5038383085198,
+        "lng" => -3.489984938574852,
+        "countryName" => "Spain",
+        "popup" => '<h2>Spain</h2>
+                <ul>
+                    <li>Estadio San Mames, Bilbao</li>
+                    <li>Camp Nou, Barcelona</li>
+                </ul>
+                <a href="https://waterless.dk/urinal-installations-in-spain" target="_blank">Learn more</a>',
+    ],
+    [
+        "countryName" => "Heathrow - Airport",
+        "lat" => 51.49936794976044,
+        "lng" => -0.20351797866790156,
+        "popup" => '<h2>UK</h2>
+            <ul>
+                <li>Heathrow Airport</li>
+            </ul>',
+    ],
+    [
+        "countryName" => "Denmark",
+        "lat" => 56.427314407570236,
+        "lng" => 9.38850736840877,
+        "popup" => '<h2>Denmark</h2>
+            <ul>
+                <li>Aalborg Airport</li>
+                <li>Parken Copenhagen</li>
+                <li>MCH Arena</li>
+            </ul>',
+    ],
+    [
+        "countryName" => "Germany",
+        "lat" => 51.1657,
+        "lng" => 10.4515,
+        "popup" => '<h2>Germany</h2>
+            <ul>
+                <li>Stadion an der Alten - Berlin</li>
+            </ul>',
+    ],
+    [
+        "countryName" => "USA - Los Angeles",
+        "lat" => 34.082876011958774,
+        "lng" => -118.19188452853405,
+        "popup" => '<h2>California</h2>
+            <ul>
+                <li>Staples Center, Los Angeles</li>
+                <li>Hollywood Bowl</li>
+                <li>Rose Bowl Stadium</li>
+                <li>Los Angeles Coliseum</li>
+            </ul>',
+    ],
+    [
+        "countryName" => "USA - Virginia",
+        "lat" => 37.38575377951244,
+        "lng" => -79.04130069152093,
+        "popup" => '<h2>Virginia</h2>
+            <ul>
+                <li>Wolftrap Performing Arts Center</li>
+            </ul>',
+    ],
+    [
+        "countryName" => "Chile",
+        "lat" => -26.819013122846254,
+        "lng" => -69.6975493640295,
+        "popup" => '<h2>Chile</h2>
+            <ul>
+                <li>Estadio Nacional</li>
+            </ul>',
+    ],
+    [
+        "countryName" => "South Africa",
+        "lat" => -30.5595,
+        "lng" => 22.9375,
+        "popup" => '<h2>South Africa</h2>
+                <ul>
+                    <li>Durban</li>
+                    <li>Port Elizabeth</li>
+                    <li>Botswana</li>
+                    <li>Johannesburg</li>
+                </ul>',
+    ],
+    [
+        "countryName" => "Middle East",
+        "lat" => 24.86604585480851,
+        "lng" => 43.60335014151479,
+        "popup" => '<h2>Middle East</h2>
+                <p>We have installed urinals in the Middle East, providing a 100% odor-free experience.</p>
+                <a href="https://waterless.dk/urinal-installations-in-middle-east" target="_blank">Learn more</a>',
+    ],
+    [
+        "countryName" => "Australia",
+        "lat" => -23.95040972510461,
+        "lng" => 133.09108257620306,
+        "popup" => '<h2>Australia</h2>
+                <p>We have installed urinals in Australia, providing a 100% odor-free experience.</p>
+                <a href="https://waterless.dk/urinal-installations-in-australia" target="_blank">Learn more</a>',
+    ],
+    [
+        "countryName" => "New Zealand",
+        "lat" => -43.32697854040854,
+        "lng" => 171.55533475969162,
+        "popup" => '<h2>New Zealand</h2>
+                <p>We have installed urinals in New Zealand, providing a 100% odor-free experience.</p>
+                <a href="https://waterless.dk/urinal-installations-in-new-zealand" target="_blank">Learn more</a>',
+    ],
+    [
+        "countryName" => "Philippines",
+        "lat" => 12.8797,
+        "lng" => 121.7740,
+        "popup" => '<h2>Philippines</h2>
+                <p>We have installed urinals in the Philippines, providing a 100% odor-free experience.</p>
+                <a href="https://waterless.dk/urinal-installations-in-philippines" target="_blank">Learn more</a>',
+    ],
+    [
+        "countryName" => "India",
+        "lat" => 24.33158069129953,
+        "lng" => 78.00452253227078,
+        "popup" => '<h2>India</h2>
+                <p>We have installed urinals in India, providing a 100% odor-free experience.</p>
+                <a href="https://waterless.dk/urinal-installations-in-india" target="_blank">Learn more</a>',
+    ],
+];
 
 function waterless_enqueue_scripts()
 {
@@ -919,6 +1043,16 @@ function waterless_register_menu()
     );
 }
 
+if (!get_option('waterless_locations')) {
+    update_option('waterless_locations', $locations);
+}
+
+register_activation_hook(__FILE__, function () use ($locations) {
+    if (!get_option('waterless_locations')) {
+        update_option('waterless_locations', $locations);
+    }
+});
+
 function waterless_add_new_mapLocations()
 {
 ?>
@@ -958,7 +1092,7 @@ function waterless_add_new_mapLocations()
                 <tbody>
                     <?php foreach (get_option('waterless_locations', []) as $index => $loc) : ?>
                         <tr>
-                            <td><?php echo esc_html($loc['name']); ?></td>
+                            <td><?php echo esc_html($loc['countryName']); ?></td>
                             <td><?php echo esc_html($loc['lat']); ?></td>
                             <td><?php echo esc_html($loc['lng']); ?></td>
                             <td>
@@ -987,7 +1121,7 @@ function waterless_handle_form_submission()
     if (isset($_POST['location_nonce']) && wp_verify_nonce($_POST['location_nonce'], 'save_location')) {
         if (isset($_POST['location_name'], $_POST['location_lat'], $_POST['location_lng'])) {
             $location = [
-                'name' => sanitize_text_field($_POST['location_name']),
+                'countryName' => sanitize_text_field($_POST['location_name']),
                 'lat'  => sanitize_text_field($_POST['location_lat']),
                 'lng'  => sanitize_text_field($_POST['location_lng']),
                 'popup' => "
@@ -995,8 +1129,10 @@ function waterless_handle_form_submission()
                 "
             ];
 
+            
             $existing = get_option('waterless_locations', []);
             $existing[] = $location;
+            
             update_option('waterless_locations', $existing);
 
             add_action('admin_notices', function () {
