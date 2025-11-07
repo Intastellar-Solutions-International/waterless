@@ -1627,6 +1627,38 @@ function waterless_customize_register($wp_customize)
         'settings' => 'waterless_testimonial_image',
     ]));
 
+    // Add a section under "Site Identity"
+    $wp_customize->add_section('waterless_cta_section', [
+        'title'       => __('Header Call To Action', 'waterless'),
+        'priority'    => 35,
+        'description' => __('Customize the header button text and link.', 'waterless'),
+        'panel'       => '', // stays under Site Identity
+    ]);
+
+    // Button text
+    $wp_customize->add_setting('waterless_cta_text', [
+        'default'           => __('Få et tilbud', 'waterless'),
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+
+    $wp_customize->add_control('waterless_cta_text', [
+        'label'   => __('Button Text', 'waterless'),
+        'section' => 'waterless_cta_section',
+        'type'    => 'text',
+    ]);
+
+    // Button link
+    $wp_customize->add_setting('waterless_cta_link', [
+        'default'           => '/quote',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+
+    $wp_customize->add_control('waterless_cta_link', [
+        'label'   => __('Button Link', 'waterless'),
+        'section' => 'waterless_cta_section',
+        'type'    => 'url',
+    ]);
+
     // Register selective refresh partials where available to enable live-preview without full refresh
     if (isset($wp_customize->selective_refresh)) {
         $sr = $wp_customize->selective_refresh;

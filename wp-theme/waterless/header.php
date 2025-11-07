@@ -105,7 +105,15 @@ $pageUrl =  $protocol . $host . $_SERVER['REQUEST_URI'];
                 </section>
 
                 <!-- CTA -->
-                <a href="/quote" class="cta-button --header">Få et tilbud</a>
+                <?php
+                $cta_text = get_theme_mod('waterless_cta_text', 'Få et tilbud');
+                $cta_link = get_theme_mod('waterless_cta_link', '/quote');
+                ?>
+
+                <a href="<?php echo esc_url($cta_link); ?>" class="cta-button --header">
+                    <?php echo esc_html($cta_text); ?>
+                </a>
+
             </nav>
         </section>
     </header>

@@ -48,7 +48,7 @@ $compatible_urinals  = get_post_meta(get_the_ID(), '_compatible_urinals', true);
                 <h1>
                     <?php echo esc_html(get_the_title()) ?>
                 </h1>
-                <a class="cta" href="#">How to use?</a>
+                <a class="cta" href="#">Hvordan vedligeholdes det?</a>
             </article>
             <?php
             if (
